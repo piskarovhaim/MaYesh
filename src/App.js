@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Database from './Firebase/DataBase.js';
+import ManagePage from './ManagePage'
 
 
 class App extends Component {
@@ -7,17 +7,14 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    this.AddCategory = this.AddCategory.bind(this);
 
   }
 
-  AddCategory() {
-    const DB = new Database();
-
-    DB.AddCategory("fdfdsf");
-  }
+ 
   render() {
-    return <button onClick={this.AddCategory}>AddCategory</button>;
+    return (
+    <ManagePage/>
+      );
   }
 
 }
