@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ManagePage from './ManagePage'
+import ManagePage from './ManagePage/ManagePage'
+import NavBar from './NavBar/NavBar';
 
 
 class App extends Component {
@@ -11,7 +12,10 @@ class App extends Component {
   }
   render() {
     return (
+      <div>
+      <NavBar/>
     <ManagePage/>
+    </div>
       );
   }
 

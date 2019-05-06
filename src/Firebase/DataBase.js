@@ -16,16 +16,7 @@ AddCategory(cat){
     alert("saved");
 }
 
-AllCategorys(){
-  let arr=[];
-  let ref = firebase.database().ref('/CategoryList/');
-  ref.on('value', snapshot => {
-    snapshot.forEach(child => {
-        arr.push(child.val());
-      });
-  });
-  return arr;
-}
+
 
   render() {
     return (
