@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Database from '../Firebase/DataBase.js';
 import AddCategory from './AddCategory.js'
 import AllCategory from './AllCategory.js'
 
@@ -16,7 +15,6 @@ class ManagePage extends Component {
             img: "",
             desc: "",
             likesCounter: 0
-
         },
         CategorysList: ""
     };
@@ -30,7 +28,7 @@ class ManagePage extends Component {
         <div>
           <AddCategory/>
        <br/>
-        <AllCategory/>
+          <AllCategory/>
        </div>
       );
   }

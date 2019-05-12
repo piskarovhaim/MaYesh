@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Database from '../Firebase/DataBase.js';
+import firebase from '../Firebase/FireBase.js';
 
 
 class AddCategory extends Component {
@@ -20,8 +20,7 @@ class AddCategory extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     AddCategory() {
-        const DB = new Database();
-        DB.AddCategory(this.state.addCategory);
+        firebase.database().ref('/CategoryList/' + this.state.addCategory.name).set(this.state.addCategory);
     }
     handleChange(event) {
         let temp = this.state.addCategory;
@@ -29,10 +28,13 @@ class AddCategory extends Component {
         switch(name) {
             case 'name':
                 temp.name = event.target.value;
+                break;
             case 'img':
                 temp.img = event.target.value;
+                break;
             case 'desc':
                 temp.desc = event.target.value;
+                break;
             default:
           }
         this.setState({addCategory: temp});

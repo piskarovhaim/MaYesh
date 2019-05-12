@@ -5,22 +5,64 @@ import {
     Route,
     Switch,
   } from 'react-router-dom';
-
+import LogIn from '../Firebase/LogIn.js'
+import firebase from '../Firebase/FireBase.js'
+import '@ionic/core/css/core.css';
+import '@ionic/core/css/ionic.bundle.css';
+import { IonSearchbar, IonToolbar,IonTitle ,IonButton,IonIcon,IonButtons} from '@ionic/react';
+import './NavBar.css'
 
 class NavBar extends Component {
   
   
   constructor(props) {
     super(props);
+    this.state = { isSignedIn: false }
+  }
 
+  componentDidMount = () => {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ isSignedIn: !!user })
+    })
   }
   render() {
     return (
-        <Router>
+
+      
         <div>
-        <Link to="/login"  target="_blank">log in</Link>
+        <Route path="/login" exact="true" render={()=>{return(<LogIn/>)}} />
+
+        <Route path="/" exact="true" render={()=>{return(
+          <IonToolbar color="dark">
+            <IonButtons slot="secondary">
+
+        {this.state.isSignedIn ? (
+          <span>
+            <div>Signed In!</div>
+            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
+          </span>
+        ) : (
+            <Link to="/login" exact="true" target="_blank" onClick={() => window.open("/login", "Popup","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=300, height=400, top=30")}>
+              <IonButton>
+                <IonIcon slot="icon-only" name="contact" />
+              </IonButton>
+            </Link>
+       
+        )}
+
+        
+        <IonButton>
+            <IonIcon slot="icon-only" name="search" />
+        </IonButton>
+        <div>
+        <input type="text"/>  
+        <t/>?מה יש
         </div>
-        </Router>
+        </IonButtons>
+        
+        </IonToolbar>
+        )}} />
+         </div>
       );
   }
 
