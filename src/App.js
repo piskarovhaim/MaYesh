@@ -4,6 +4,7 @@ import NavBar from "./NavBar/NavBar";
 import NewClass from "./NewClass/NewClass";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import AllCaterogy from './HomePage/AllCategory.js'
+import Category from './Category/Category.js'
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class App extends Component {
   render() {
     return (
         <Router>
+          <Route path="/sport" exact component={Category}/>
           <Route path="/NewClass" exact component={NewClass} />
           <Route path="/" render={() => { return <NavBar />;}}/>
           <Route path="/" exact render={() => { return (
