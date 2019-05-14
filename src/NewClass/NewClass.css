@@ -1,0 +1,13 @@
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+  background-color: gray;
+}
+.details {
+  border: 2px solid gray;
+  padding: 1px;
+  width: 50%;
+}

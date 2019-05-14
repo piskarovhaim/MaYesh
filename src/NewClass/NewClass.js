@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "@ionic/core/css/core.css";
 import "@ionic/core/css/ionic.bundle.css";
 import firebase from "../Firebase/FireBase.js";
+import "./NewClass.css";
 import {
   IonInput,
   IonItem,
@@ -9,8 +10,44 @@ import {
   IonButton,
   IonSelect,
   IonSelectOption,
-  IonDatetime
+  IonDatetime,
+  IonContent,
+  IonApp,
+  IonTextarea
 } from "@ionic/react";
+
+function CategeorySelector(props) {
+  // get the real category json from the DB
+  let objectOptions = [
+    {
+      type: "Yuga"
+    },
+    {
+      type: "Sport"
+    },
+    {
+      type: "Cooking"
+    },
+    {
+      type: "Art"
+    },
+    {
+      type: "Lecture"
+    }
+  ];
+  return (
+    <IonItem>
+      <IonLabel>קטגוריה</IonLabel>
+      <IonSelect value={props.value} onIonChange={props.func} name="category">
+        {objectOptions.map((object, i) => {
+          return (
+            <IonSelectOption value={object.type}>{object.type}</IonSelectOption>
+          );
+        })}
+      </IonSelect>
+    </IonItem>
+  );
+}
 
 class NewClass extends React.Component {
   constructor() {
@@ -25,6 +62,7 @@ class NewClass extends React.Component {
       maxPartici: "",
       description: "",
       date: "",
+      hour: "",
       isConfirmed: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -44,17 +82,32 @@ class NewClass extends React.Component {
       location: "",
       minPartici: "",
       maxPartici: "",
+      description: "",
       date: "",
+      hour: "",
       isConfirmed: false
     };
     this.setState(initialState);
     console.log(this.state);
   }
-
+  isValidForm() {
+    let arr = Object.keys(this.state);
+    let i;
+    for (i = 0; i < arr.length; i++) {
+      if (this.state[arr[i]] == "" && arr[i] != "isConfirmed") {
+        return false;
+      }
+      return true;
+    }
+  }
   handleSubmit() {
+    if (!this.isValidForm()) {
+      alert("מלא את כל הטופס בבקשה");
+      return;
+    }
     const messageRef = firebase
       .database()
-      .ref("/CategoryList/" + "food" + "/classList");
+      .ref("/CategoryList/" + this.state.category + "/classList");
 
     let arr = [];
 
@@ -68,16 +121,19 @@ class NewClass extends React.Component {
     // newMessage.set(this.state);
 
     arr.push(this.state);
-    console.log(arr);
+    //console.log(arr);
     messageRef.set(arr);
   }
   render() {
     return (
-      <div className="content">
-        <h1>טופס הצעת קורס</h1>
-        <div className="details">
+      <IonApp>
+        <IonContent>
+          <h1 className="content">טופס הצעת קורס</h1>
+
           <IonItem>
-            <IonLabel position="floating">שם הקורס</IonLabel>
+            <IonLabel position="floating" required={true}>
+              שם הקורס
+            </IonLabel>
             <IonInput
               name="name"
               value={this.state.name}
@@ -85,19 +141,10 @@ class NewClass extends React.Component {
             />
           </IonItem>
 
-          <IonItem>
-            <IonLabel>קטגוריה</IonLabel>
-            <IonSelect
-              value={this.state.category}
-              onIonChange={this.handleChange}
-              name="category"
-            >
-              <IonSelectOption value="music">Music</IonSelectOption>
-              <IonSelectOption value="Yuga">Yuga</IonSelectOption>
-              <IonSelectOption value="cooking">Cooking</IonSelectOption>
-              <IonSelectOption value="Sport">Sport</IonSelectOption>
-            </IonSelect>
-          </IonItem>
+          <CategeorySelector
+            value={this.state.category}
+            func={this.handleChange}
+          />
 
           <IonItem>
             <IonLabel position="floating">שם המארגן</IonLabel>
@@ -142,47 +189,43 @@ class NewClass extends React.Component {
               onIonChange={this.handleChange}
             />
           </IonItem>
+
+          <IonItem>
+            <IonLabel>תאריך</IonLabel>
+            <IonDatetime
+              name="date"
+              min="2019"
+              value={this.state.date}
+              onIonChange={this.handleChange}
+            />
+          </IonItem>
+          <IonItem>
+            <IonLabel>שעה</IonLabel>
+            <IonDatetime
+              displayFormat="HH:mm "
+              name="hour"
+              value={this.state.hour}
+              onIonChange={this.handleChange}
+            />
+          </IonItem>
+
           <IonItem>
             <IonLabel position="floating">תיאור</IonLabel>
-            <IonInput
+            <IonTextarea
               name="description"
               value={this.state.description}
               onIonChange={this.handleChange}
             />
           </IonItem>
-          <IonItem>
-            <IonLabel position="floating">תאריך</IonLabel>
-            <IonDatetime
-              name="date"
-              value={this.state.date}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
-          <IonButton
-            color="dark"
-            shape="round"
-            expand="block"
-            onClick={this.handleClear}
-          >
+          <IonButton shape="round" expand="block" onClick={this.handleClear}>
             נקה
           </IonButton>
-          <IonButton
-            color="dark"
-            shape="round"
-            expand="block"
-            onClick={this.handleSubmit}
-          >
+          <IonButton shape="round" expand="block" onClick={this.handleSubmit}>
             שלח
           </IonButton>
-        </div>
-      </div>
+        </IonContent>
+      </IonApp>
     );
   }
 }
-// class App extends Component {
-//   render() {
-//     return <Form />;
-//   }
-// }
-
 export default NewClass;
