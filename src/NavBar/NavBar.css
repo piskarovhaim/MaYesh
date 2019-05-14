@@ -1,0 +1,12 @@
+input[type=text] {
+    border: 1px solid rgb(34, 36, 40);
+    background-color: rgb(79, 83, 91);
+    margin-right: 10px;
+    border-radius: 8px;
+    width: 10%;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+  input[type=text]:focus {
+    width: 50%;
+  }
