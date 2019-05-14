@@ -12,7 +12,6 @@ class AllCategory extends Component{
     categoryList: [],
     webSite:false
   }
- 
   slideTo = (i) => this.setState({ currentIndex: i })
  
   onSlideChanged = (e) => this.setState({ currentIndex: e.item })
