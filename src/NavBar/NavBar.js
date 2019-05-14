@@ -13,7 +13,6 @@ import {
   IonButtons
 } from "@ionic/react";
 import "./NavBar.css";
-import NewClass from "../NewClass/NewClass.js";
 
 class NavBar extends Component {
   constructor(props) {
@@ -29,57 +28,27 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <Route
-          path="/login"
-          exact="true"
-          render={() => {
-            return <LogIn />;
-          }}
-        />
 
-        <Route
-          path="/"
-          exact="true"
-          render={() => {
-            return (
-              <IonToolbar color="dark">
-                <IonButtons slot="secondary">
+        <Route path="/login" exact="true" render={() => {return <LogIn />;}}/>
+        <Route path="/" exact="true" render={() => {return (
+              <div className="nav">
                   {this.state.isSignedIn ? (
-                    <span>
-                      <div>Signed In!</div>
-                      <button onClick={() => firebase.auth().signOut()}>
-                        Sign out!
-                      </button>
-                    </span>
-                  ) : (
-                    <Link
-                      to="/login"
-                      exact="true"
-                      target="_blank"
-                      onClick={() =>
-                        window.open(
-                          "/login",
-                          "Popup",
-                          "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=300, height=400, top=30"
-                        )
-                      }
-                    >
-                      <IonButton>
-                        <IonIcon slot="icon-only" name="contact" />
-                      </IonButton>
+                    <div className="inline">
+                      <button onClick={() => firebase.auth().signOut()}>התנתק</button>
+                      <img className="user" src={firebase.auth().currentUser.photoURL}/>
+                      </div>
+                  ) : (                    
+                    <Link to="/login" exact="true" target="_blank" onClick={() => window.open("/login", "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=300, height=400, top=30")}>
+                      כניסת משתמשים
                     </Link>
                   )}
-
-                  <IonButton>
-                    <IonIcon slot="icon-only" name="search" />
-                  </IonButton>
-                  <div>
+                    <button onClick={()=>alert("serch")}>חפש</button>
                     <input type="text" />
-                    <t />
-                    ?מה יש
-                  </div>
-                </IonButtons>
-              </IonToolbar>
+                    <div className="inline" > ?מה יש</div>
+                    
+
+                </div>
+              
             );
           }}
         />

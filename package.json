@@ -12,6 +12,7 @@
     "react-background-video-player": "^1.1.6",
     "react-dom": "^16.8.6",
     "react-firebaseui": "^3.1.2",
+    "react-items-carousel": "^2.3.6",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
@@ -35,6 +36,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.0.1",
+    "react-alice-carousel": "^1.13.11"
   }
 }

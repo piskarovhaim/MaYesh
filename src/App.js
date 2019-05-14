@@ -3,6 +3,7 @@ import ManagePage from "./ManagePage/ManagePage";
 import NavBar from "./NavBar/NavBar";
 import NewClass from "./NewClass/NewClass";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import AllCaterogy from './HomePage/AllCategory.js'
 
 class App extends Component {
   constructor(props) {
@@ -10,24 +11,17 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
         <Router>
-          <Route path="/NewClass" exact="true" component={NewClass} />
-          <Route
-            path="/"
-            render={() => {
-              return <NavBar />;
-            }}
-          />
-          <Route
-            path="/"
-            exact="true"
-            render={() => {
-              return <ManagePage />;
-            }}
-          />
+          <Route path="/NewClass" exact component={NewClass} />
+          <Route path="/" render={() => { return <NavBar />;}}/>
+          <Route path="/" exact render={() => { return (
+          <div>
+          <br></br>
+          <AllCaterogy/>
+          </div>
+          );}}/>
+          
         </Router>
-      </div>
     );
   }
 }
