@@ -31,6 +31,6 @@ input[type=text] {
     align-items: center;
     width: 100%;
     height: 10%;
-    background-color: darkgrey;
+    background-color: rgb(41, 40, 40);
     border: 3px solid none;
 }

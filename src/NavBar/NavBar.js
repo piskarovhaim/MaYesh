@@ -4,14 +4,6 @@ import LogIn from "../Firebase/LogIn.js";
 import firebase from "../Firebase/FireBase.js";
 import "@ionic/core/css/core.css";
 import "@ionic/core/css/ionic.bundle.css";
-import {
-  IonSearchbar,
-  IonToolbar,
-  IonTitle,
-  IonButton,
-  IonIcon,
-  IonButtons
-} from "@ionic/react";
 import "./NavBar.css";
 
 class NavBar extends Component {
@@ -29,8 +21,8 @@ class NavBar extends Component {
     return (
       <div>
 
-        <Route path="/login" exact="true" render={() => {return <LogIn />;}}/>
-        <Route path="/" exact="true" render={() => {return (
+        <Route path="/login" exact render={() => {return <LogIn />;}}/>
+        <Route path="/" exact render={() => {return (
               <div className="nav">
                   {this.state.isSignedIn ? (
                     <div className="inline">
@@ -38,7 +30,7 @@ class NavBar extends Component {
                       <img className="user" src={firebase.auth().currentUser.photoURL}/>
                       </div>
                   ) : (                    
-                    <Link to="/login" exact="true" target="_blank" onClick={() => window.open("/login", "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=300, height=400, top=30")}>
+                    <Link to="/login" exact target="_blank" onClick={() => window.open("/login", "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=300, height=400, top=30")}>
                       כניסת משתמשים
                     </Link>
                   )}
