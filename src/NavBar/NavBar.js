@@ -1,10 +1,9 @@
 import React, { Component } from "react";
+
+import firebase from "../Firebase/FireBase.js";
+import "./NavBar.css";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import LogIn from "../Firebase/LogIn.js";
-import firebase from "../Firebase/FireBase.js";
-import "@ionic/core/css/core.css";
-import "@ionic/core/css/ionic.bundle.css";
-import "./NavBar.css";
 
 class NavBar extends Component {
   constructor(props) {
@@ -37,10 +36,7 @@ class NavBar extends Component {
                     <button onClick={()=>alert("serch")}>חפש</button>
                     <input type="text" />
                     <div className="inline" > ?מה יש</div>
-                    
-
-                </div>
-              
+                </div>              
             );
           }}
         />
