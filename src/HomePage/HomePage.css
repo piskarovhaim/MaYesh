@@ -1,4 +1,3 @@
-div.scroll {
- overflow-y: scroll;
-height: inherit;
+div.home{
+    display: block;
 }

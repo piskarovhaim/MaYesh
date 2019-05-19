@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import './Video.css'
-import { ScrollTo } from "react-scroll-to";
 
 class Video extends Component {
 
@@ -15,24 +14,20 @@ class Video extends Component {
     }
 
     render() {
-        const setHeight = {
+        const setVideoHeight = {
             height: this.state.videoStyle.height
           }
         return (
-            <div>
-            <Route path="/" exact render={() => {return (
-        <div className="video" style={setHeight}>
+        <div className="video" style={setVideoHeight}>
             <video src="https://www.meetup.com/mu_static/en-US/video.dddafbfe.mp4" autoPlay loop muted/>
             <div className="c">
-                <button className="videoButton">הצטרף לחוג</button>
-              <Link to="//NewClass">
+                <button className="videoButton" onClick={() => window.scrollTo(0, this.state.videoStyle.height)}>הצטרף לחוג</button>
+              <Link to="/NewClass">
               <button className="videoButton">צור חוג חדש</button>
               </Link>
-              </div>
+            </div>
         </div>
-            
-        );}}/>
-        </div>)
-    }
+        )
+        }
     }
     export default Video;

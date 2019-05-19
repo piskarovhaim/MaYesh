@@ -1,30 +1,25 @@
-img:hover {
+img.AllCategories:hover {
     border: 0.5px solid black;
 }
-div.AllCategory{
-    position: relative;
+div.AllCategories{
     margin: auto;
-    width: 93%;
+    font-family: "Arial Verdana", Sans-serif;
+    margin: 1%;
+    
 }
 
 div.carouselButton{
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    text-align: center;
-    
+    text-align: center
     
 }
 button.carouselButton{
     border-radius:50%;
     background-color: rgb(255, 255, 255);
-    font-size: 300%;
+    font-size: 250%;
     margin-left: 10px;
     padding-left: 10px;
     padding-right: 10px;
     outline:none;
-    
 
 }
 button.carouselButton:hover{

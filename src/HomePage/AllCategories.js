@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import AliceCarousel from 'react-alice-carousel'
 import "react-alice-carousel/lib/alice-carousel.css"
 import firebase from "../Firebase/FireBase.js";
-import "./AllCategory.css";
+import "./AllCategories.css";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import Test from './test.js'
+
  
-class AllCategory extends Component{
+class AllCategories extends Component{
 
   state = {
     currentIndex: 0,
-    responsive: { 500: { items: (window.innerWidth/150) },100: { items: 3 } },
+    responsive: { 500: { items: (window.innerWidth/150) },0: { items: 3 } },
     categoryList: [],
     webSite:false,
-    currentCategory:""
   }
   slideTo = (i) => this.setState({ currentIndex: i })
  
@@ -23,69 +22,59 @@ class AllCategory extends Component{
  
   slidePrev = () => this.setState({ currentIndex: this.state.currentIndex - 1 })
  
-  componentWillMount() {
+  componentDidMount() {
   
     let imgStyle;
     let web = false;
     let size
-    if(window.innerWidth < 500)
+    if(window.innerWidth < 500) // set the image size by phone or not phone
       size = (window.innerWidth-40)/3
     else{
       size = (window.innerWidth/7);
       web =true;
     }
     imgStyle = {height: size ,width: size}
-    let arr = [];
+    let arrTemp = [];
     let i =0;
     let ref = firebase.database().ref('/CategoryList');
     ref.on('value', snapshot => {
       snapshot.forEach(child => {
             let str = "/Category/" + child.val().name;
-            arr.push(
+            arrTemp.push( // One element in displaying all categories
             <Link to={str}><div className="gallery" key={i}>
-            <img style={imgStyle} src={child.val().img}/>
+            <img className="AllCategories" style={imgStyle} src={child.val().img}/>
             </div>
-            </Link>);
+            </Link>
+            );
             i++;
         });
 
-        this.setState({categoryList:arr,webSite:web});
+        this.setState({categoryList:arrTemp,webSite:web});
     });
   }
  
   render() {
-
-    const addHeight = {
-        height: window.innerHeight/1.3,
-        borber: '1px'
-      }
     return (
-      <div className="AllCategory">
-      <Route path="/Category/:name" exact render={({match}) => {return <Test name={match.params.name}/>;}}/>
-      <Route path="/" exact render={() => {return (
-        <div>
-        <h1>All Categorys</h1>
-        <AliceCarousel
+      <div className="AllCategories">
+        <h1>All Categories</h1>
+
+        <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
           buttonsDisabled={true}
           items={this.state.categoryList}
           responsive={this.state.responsive}
           slideToIndex={this.state.currentIndex}
           onSlideChanged={this.onSlideChanged}
-        />
- 
-        {this.state.webSite ? (
+        /> 
+        {this.state.webSite ? (  // if open in phone show the buttons , else dont show
         <div className="carouselButton">
         <button className="carouselButton" onClick={() => this.slidePrev()}>&lt;</button>
         <button className="carouselButton" onClick={() => this.slideNext()}>&gt;</button>
-        </div>):(<div></div>)
-        }
-        </div>
-      );}}/>
+        </div>):null}
        </div>
     )
   }
 }
 
 
-export default AllCategory;
+export default AllCategories;

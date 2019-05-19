@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "@ionic/core/css/core.css";
-import "@ionic/core/css/ionic.bundle.css";
 import firebase from "../Firebase/FireBase.js";
 import "./NewClass.css";
 import {
@@ -15,6 +13,8 @@ import {
   IonApp,
   IonTextarea
 } from "@ionic/react";
+import "@ionic/core/css/core.css";
+//import "@ionic/core/css/ionic.bundle.css";
 
 function CategeorySelector(props) {
   // get the real category json from the DB
@@ -49,7 +49,8 @@ function CategeorySelector(props) {
   );
 }
 
-class NewClass extends React.Component {
+
+class NewClass extends Component {
   constructor() {
     super();
     this.state = {
@@ -124,9 +125,11 @@ class NewClass extends React.Component {
     //console.log(arr);
     messageRef.set(arr);
   }
+  
   render() {
     return (
-      <IonApp>
+      <div>
+       <IonApp>
         <IonContent>
           <h1 className="content">טופס הצעת קורס</h1>
 
@@ -225,6 +228,7 @@ class NewClass extends React.Component {
           </IonButton>
         </IonContent>
       </IonApp>
+      </div>
     );
   }
 }

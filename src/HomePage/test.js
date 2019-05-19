@@ -1,9 +1,4 @@
 import React, { Component } from "react";
-import AliceCarousel from 'react-alice-carousel'
-import "react-alice-carousel/lib/alice-carousel.css"
-import firebase from "../Firebase/FireBase.js";
-import "./AllCategory.css";
-import { Route } from "react-router";
  
 class Test extends Component{
 
@@ -20,7 +15,7 @@ class Test extends Component{
   render() {
      
     return (
-      <div className="AllCategory">
+      <div>
             <h1>hii {this.state.name}
       </h1>
       </div>
