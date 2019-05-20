@@ -1,0 +1,53 @@
+
+.mainDiv
+{
+   
+    background-color:gold;
+}
+
+.leftSide
+{
+    background-color:gold;
+    float: left;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+.rightSide
+{
+    float: right;
+    margin-right: 120px;
+    margin-top: 60px;
+    font-size: 30px;
+}
+
+.title
+{
+    text-align: center;
+}
+
+h2
+{
+    font-size: 40px;
+    color: blue;
+}
+
+p
+{
+    text-align: center;
+}
+
+button
+{
+    background-color: #4CAF50;
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 40%;
+}
