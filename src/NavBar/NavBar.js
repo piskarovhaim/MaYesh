@@ -1,23 +1,19 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import LogIn from "../Firebase/LogIn.js";
+import Search from './Search.js'
 import firebase from "../Firebase/FireBase.js";
-import "@ionic/core/css/core.css";
-import "@ionic/core/css/ionic.bundle.css";
-import {
-  IonSearchbar,
-  IonToolbar,
-  IonTitle,
-  IonButton,
-  IonIcon,
-  IonButtons
-} from "@ionic/react";
 import "./NavBar.css";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { isSignedIn: false };
+    this.state = { 
+      isSignedInProsses:props.login,
+      isSignedIn: false,
+      navStyle:{
+            height: (window.innerHeight/10)
+        }
+    };
   }
 
   componentDidMount = () => {
@@ -26,33 +22,30 @@ class NavBar extends Component {
     });
   };
   render() {
+    const setNavHeight = {
+      height: this.state.navStyle.height
+    }
+    let login = this.state.isSignedIn;
+    if(this.state.isSignedInProsses)
+      login =false;
     return (
-      <div>
-
-        <Route path="/login" exact="true" render={() => {return <LogIn />;}}/>
-        <Route path="/" exact="true" render={() => {return (
-              <div className="nav">
-                  {this.state.isSignedIn ? (
+              <div className="nav" style={setNavHeight}>
+                  <img className="logo" src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"/>
+                  {login ? (
                     <div className="inline">
-                      <button onClick={() => firebase.auth().signOut()}>התנתק</button>
                       <img className="user" src={firebase.auth().currentUser.photoURL}/>
+                      <div className="dropDown">
+                      <Link to="/EditProfile"><div className="edit"><p className="navText">עריכת פרופיל</p></div></Link>                       
+                        <p className="navText" onClick={() => firebase.auth().signOut()}>יציאה</p>
                       </div>
+                    </div>
                   ) : (                    
-                    <Link to="/login" exact="true" target="_blank" onClick={() => window.open("/login", "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=300, height=400, top=30")}>
-                      כניסת משתמשים
+                    <Link to="/login">
+                    <div className="loginText"><p className="navText">התחבר</p></div>
                     </Link>
                   )}
-                    <button onClick={()=>alert("serch")}>חפש</button>
-                    <input type="text" />
-                    <div className="inline" > ?מה יש</div>
-                    
-
-                </div>
-              
-            );
-          }}
-        />
-      </div>
+                <Search/>
+                </div>              
     );
   }
 }

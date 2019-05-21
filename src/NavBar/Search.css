@@ -1,0 +1,50 @@
+input[type=text].inputSearch {
+    width: 100%;
+    box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    border: none;
+    background: #f1f1f17c;
+    text-align: right;
+    border-radius: 8px;
+    font-family: "Arial Verdana", Sans-serif;
+    color: rgb(187, 187, 187);
+  }
+  
+  input[type=text].inputSearch:focus {
+    background-color: #ddd;
+    outline: none;
+    text-align: right;
+  }
+  div.search{
+    padding-top:17px; 
+    float: right;
+    display: inline-block;
+    position: relative;
+    width: 150px;
+    
+  }
+div.dropDownn{
+  position: absolute;
+  background-color:  #f1f1f17c;
+
+  display: block;
+  float: left;
+  z-index: 1;
+    vertical-align: middle;
+  font-family: "Arial Verdana", Sans-serif;
+  font-weight: bold;
+  color: rgb(187, 187, 187);
+  cursor: pointer;
+  text-align: right;
+  width: 100%;
+  border-radius: 8px;
+}
+div.classFound{
+  background-color:  #f1f1f1;
+  border: 1 solid black;
+  padding: 4px;
+}
+  
+  
+  
