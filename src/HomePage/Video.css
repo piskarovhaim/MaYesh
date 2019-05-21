@@ -1,0 +1,38 @@
+
+
+div.video{
+    position:relative;
+    overflow: hidden;
+    box-shadow: 5px 10px;
+    margin-top: 1%;
+    margin-bottom:5%;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #888888;
+    bottom: 0%;
+}
+div.c{
+    width: 100%;
+    margin:auto;
+    top:25%;
+    text-align: center;
+    position: absolute;
+}
+
+button.videoButton{
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid  rgba(255, 255, 255, 0.801);
+    border-radius: 12px;
+    outline:none;
+    padding: 1%;
+    margin: 3%;
+    margin-bottom: 5%;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 220%;
+    font-family: "Arial Verdana", Sans-serif;
+    cursor: pointer;
+
+}
+button.videoButton:hover{
+    background-color: rgba(170, 168, 168, 0.342);
+     color: rgba(0, 0, 0);
+}
