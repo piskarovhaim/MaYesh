@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./NewClass.css";
 import {
@@ -11,13 +11,15 @@ import {
   IonDatetime,
   IonContent,
   IonApp,
-  IonTextarea
+  IonTextarea,
+  IonButtons,
+  IonTabBar,
+  IonToolbar
 } from "@ionic/react";
 
 import "@ionic/core/css/core.css";
-
-import { Link, Redirect } from "react-router-dom";
-
+import { BrowserRouter as Router } from "react-router-dom";
+import { Redirect } from "react-router";
 function CategeorySelector(props) {
   // get the real category json from the DB
 
@@ -47,7 +49,7 @@ function CategeorySelector(props) {
 class NewClass extends React.Component {
   constructor(props) {
     super(props);
-
+    let endOfProcess = false;
     this.state = {
       name: "",
       category: "",
@@ -92,8 +94,8 @@ class NewClass extends React.Component {
   isValidForm() {
     let arr = Object.keys(this.state);
     let i;
-
-    for (i = 0; i < arr.length - 2; i++) {
+    let numOfprivateStates = 2;
+    for (i = 0; i < arr.length - numOfprivateStates; i++) {
       if (this.state[arr[i]] == "") {
         return false;
       }
@@ -103,7 +105,7 @@ class NewClass extends React.Component {
   componentDidMount() {
     let categories = [];
     let self = this;
-    const ref = firebase
+    firebase
       .database()
       .ref("/CategoryList/")
       .once("value")
@@ -121,7 +123,6 @@ class NewClass extends React.Component {
     //   return;
     // }
 
-    let self = this;
     let ref = firebase
       .database()
       .ref(
@@ -139,12 +140,12 @@ class NewClass extends React.Component {
       .ref(
         "/CategoryList/" +
           this.state.category +
-          "/classList" +
-          "/" +
+          "/classList/" +
           this.state.name +
           "/categoryList"
       );
     ref.remove();
+    this.endOfProcess = true;
   }
 
   render() {
@@ -152,8 +153,9 @@ class NewClass extends React.Component {
       <div>
         <IonApp>
           <IonContent>
-            <h1 className="content">טופס הצעת קורס</h1>
-
+            <div className="style">
+              <h1>טופס הצעת קורס</h1>
+            </div>
             <IonItem>
               <IonInput
                 name="name"
@@ -180,7 +182,7 @@ class NewClass extends React.Component {
             <IonItem>
               <IonInput
                 placeholder="מס טלפון"
-                type="number"
+                type="tel"
                 name="phoneNumber"
                 value={this.state.phoneNumber}
                 onIonChange={this.handleChange}
@@ -240,16 +242,27 @@ class NewClass extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonButton shape="round" expand="block" onClick={this.handleClear}>
+
+            <IonButton
+              shape="round"
+              expand="block"
+              color="dark"
+              onClick={this.handleClear}
+            >
               נקה
             </IonButton>
 
-            <IonButton shape="round" expand="block" onClick={this.handleSubmit}>
+            <IonButton
+              shape="round"
+              expand="block"
+              color="dark"
+              onClick={this.handleSubmit}
+            >
               שלח
             </IonButton>
-            <Link to="/" />
           </IonContent>
         </IonApp>
+        {this.endOfProcess ? <Redirect to="/" /> : null}
       </div>
     );
   }
