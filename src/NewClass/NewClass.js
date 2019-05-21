@@ -15,6 +15,7 @@ import {
   IonApp,
   IonTextarea
 } from "@ionic/react";
+import { Link } from "react-router-dom";
 
 function CategeorySelector(props) {
   // get the real category json from the DB
@@ -110,6 +111,7 @@ class NewClass extends React.Component {
         self.setState({ categoryList: categories });
       });
   }
+
   handleSubmit() {
     // if (!this.isValidForm()) {
     //   alert("מלא את כל הטופס בבקשה");
@@ -141,6 +143,7 @@ class NewClass extends React.Component {
       );
     ref.remove();
   }
+
   render() {
     return (
       <IonApp>
@@ -236,9 +239,11 @@ class NewClass extends React.Component {
           <IonButton shape="round" expand="block" onClick={this.handleClear}>
             נקה
           </IonButton>
-          <IonButton shape="round" expand="block" onClick={this.handleSubmit}>
-            שלח
-          </IonButton>
+          <Link>
+            <IonButton shape="round" expand="block" onClick={this.handleSubmit}>
+              שלח
+            </IonButton>
+          </Link>
         </IonContent>
       </IonApp>
     );
