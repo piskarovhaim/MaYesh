@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import firebase from "../Firebase/FireBase.js";
-import NavBar from "../NavBar/NavBar.js";
 import './Class.css'
 
 class Class extends Component {
@@ -15,12 +13,11 @@ class Class extends Component {
                 location:props.location,
             }
         }
-        console.log(props.name,"SHOZUL");
     }
         render(){
             return(
                 <div>
-                    <div id="rcorners">{this.state.name}</div>
+                    <div id="rcorners">{this.state.class.name}</div>
                 </div>
             )
         }

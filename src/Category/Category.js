@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
-import NavBar from "../NavBar/NavBar.js";
 import Class from "../Category/Class.js"
+
 class Category extends Component {
 
   constructor(props) {
@@ -17,37 +17,46 @@ class Category extends Component {
             name: props.name 
         }
     }
-
-    //this.searchCategory = this.searchCategory.bind(this);
   }
   componentDidMount(){
-    let cat = firebase.database().ref('CategoryList');
-    cat.child('Sport').on('value' ,snapshot => {
-            this.setState({category:snapshot.val()})
+    let temp = this.state.category;
+    let cat = firebase.database().ref('CategoryList/' + 'Yuga');
+    cat.on('value' ,snapshot => {
+      let obj = snapshot.val().classList;
+      let classArr = Object.values(obj)
+      temp.likesCounter = snapshot.val().likesCounter
+      temp.classList = classArr
+      temp.img = snapshot.val().img
+      temp.desc = snapshot.val().desc
+      this.setState({category:temp})
     })
-    console.log();
+    
   }
-  /*
- async searchCategory(){
-    let db = firebase.database();
-    let collection = db.ref("CategoryList/"+this.state.name);
-    console.log(collection);
 
-  }
-  */
   render() {
-   // this.searchCategory();
-   console.log(this.state.category);
+  let a = this.state.category.classList;
+  let gallery = a.map(element =><Class name = {element.name} />)
+  let styleImg = 
+  {
+    backgroundImage : 'url('+this.state.category.img+')', 
+    backgroundRepeat  : 'no-repeat',
+    backgroundPosition: 'center',
+    height: 250,
+    
+  }
+   
     return (
-        <div>
-            <header>
-                <h1>{this.state.category.desc}</h1>
-            </header>
-            <img src={this.state.category.img}></img>
-            <body>
-               <Class name = {"football"}/>>
-            </body>
+      <div className="gallery-container">
+        <div style = {styleImg}>
+          <h1> {this.state.category.desc} </h1>
+        </div>  
+        <div className = "model">
         </div>
+        <div  className = "gallery-grid">
+             {gallery} 
+        </div>
+            
+      </div>
     )
   }
 }

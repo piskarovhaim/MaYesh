@@ -4,4 +4,67 @@
     padding: 20px;
     width: 200px;
     height: 150px;
+    display: inline-block;
+  }
+
+  .container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border: 2px solid;
+    border-color: gray;
+  }
+
+  .gallery-container {
+    padding: .9375rem 0;
+  }
+
+  .gallery-container h1 {
+    margin: 2rem 0;
+    padding: 0;
+    text-align: center;
+    color: rgb(51, 15, 153);
+    text-transform: uppercase;
+    font-size: 6.5vw;
+    font-weight: lighter;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 8px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    
+    @include bp( x-small ) {
+      grid-template-columns: repeat(1, 1fr);
+    }	  
+    @include bp( small ) {
+      grid-template-columns: repeat(2, 1fr);
+    }	
+    
+    @include bp( large ) {
+      grid-template-columns: repeat(3, 1fr);
+    }	
+  }
+
+  .modal {
+    position: fixed;
+    z-index: 999;
+    width: 50%;
+    max-width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    @include bp( x-small ) {
+      width: 95%;
+    }	  
+    @include bp( small ) {
+      width: 80%;
+    }	
+    @include bp( large ) {
+      width: 60%;
+    }	
   }
