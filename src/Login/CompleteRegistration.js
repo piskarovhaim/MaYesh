@@ -25,7 +25,6 @@ class CompleteRegistration extends Component {
   }
 
   AddUser(){
-    console.log(this.state.user);
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
     return(<Redirect to="/" />);
   }

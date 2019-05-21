@@ -34,6 +34,10 @@ div.loginText{
   display: inline-block;
   float: right;
 }
+div.edit{
+  display: inline-block;
+  float: right;
+}
 p.navText{
   vertical-align: middle;
   font-family: "Arial Verdana", Sans-serif;
@@ -56,8 +60,10 @@ div.dropDown {
 }
 
 
-div.dropDown p:hover {color: #5f5454;}
-
+div.dropDown p:hover {
+  color: #5f5454;
+  
+}
 .inline:hover div.dropDown {
   display: block;
 }

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Search from './Search.js'
 import firebase from "../Firebase/FireBase.js";
 import "./NavBar.css";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import "./NavBar.css"
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class NavBar extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class NavBar extends Component {
                     <div className="inline">
                       <img className="user" src={firebase.auth().currentUser.photoURL}/>
                       <div className="dropDown">
-                        <p className="navText">עריכת פרופיל</p>
+                      <Link to="/EditProfile"><div className="edit"><p className="navText">עריכת פרופיל</p></div></Link>                       
                         <p className="navText" onClick={() => firebase.auth().signOut()}>יציאה</p>
                       </div>
                     </div>

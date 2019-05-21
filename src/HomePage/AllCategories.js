@@ -3,7 +3,7 @@ import AliceCarousel from 'react-alice-carousel'
 import "react-alice-carousel/lib/alice-carousel.css"
 import firebase from "../Firebase/FireBase.js";
 import "./AllCategories.css";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
  
 class AllCategories extends Component{
@@ -42,7 +42,7 @@ class AllCategories extends Component{
             let str = "/Category/" + child.val().name;
             arrTemp.push( // One element in displaying all categories
             <Link to={str}><div className="gallery" key={i}>
-            <img className="AllCategories" style={imgStyle} src={child.val().img}/>
+            <img alt={child.val().name} className="AllCategories" style={imgStyle} src={child.val().img}/>
             </div>
             </Link>
             );
@@ -57,7 +57,7 @@ class AllCategories extends Component{
     return (
       <div className="AllCategories">
         <h1>All Categories</h1>
-
+        <Router>
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
           buttonsDisabled={true}
@@ -71,6 +71,7 @@ class AllCategories extends Component{
         <button className="carouselButton" onClick={() => this.slidePrev()}>&lt;</button>
         <button className="carouselButton" onClick={() => this.slideNext()}>&gt;</button>
         </div>):null}
+        </Router>
        </div>
     )
   }

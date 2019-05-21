@@ -1,3 +1,4 @@
 div.home{
     display: block;
+    scroll-behavior: smooth;
 }

@@ -6,9 +6,7 @@ import Video from './Video.js'
 import ClassBy from'./ClassBy.js';
 
 class HomePage extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     return (   
           <div className="home">

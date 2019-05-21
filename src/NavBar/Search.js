@@ -37,12 +37,17 @@ class Search extends Component {
           let found = temp.filter((classs)=> classs.name.indexOf(keyWord) > 0)
           const classElements = found.map((classs) =>
           <div className="classFound">{classs.name}</div>
-        );
+          );
+          let notFound;
+          if(found.length === 0 && keyWord !== "")
+            notFound = <div className="classFound">לא נמצאו תוצאות</div>
+  
         return(
             <div className="search">
-                <input type="text" className="inputSearch" placeholder="..חפש חוג" name="keyWord" value={this.state.keyWord} onChange={this.handleChange}/>
+                <input type="text" className="inputSearch" placeholder="...חפש חוג" name="keyWord" onChange={this.handleChange}/>
                 <div className="dropDownn">
                     {classElements}
+                    {notFound}
                 </div>
             </div>
         )

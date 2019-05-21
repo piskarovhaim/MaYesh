@@ -95,7 +95,7 @@ class NewClass extends Component {
     let arr = Object.keys(this.state);
     let i;
     for (i = 0; i < arr.length; i++) {
-      if (this.state[arr[i]] == "" && arr[i] != "isConfirmed") {
+      if (this.state[arr[i]] === "" && arr[i] !== "isConfirmed") {
         return false;
       }
       return true;

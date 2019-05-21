@@ -4,6 +4,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import NavBar from "../NavBar/NavBar";
 import { Redirect } from 'react-router';
 import CompleteRegistration from './CompleteRegistration.js';
+import './CompleteRegistration.css'
 
 class LogIn extends Component {
     
@@ -34,7 +35,7 @@ class LogIn extends Component {
       ref.on('value', snapshot => {
         snapshot.forEach(child => {
             console.log(child.key)
-            if(user.uid == child.key)
+            if(user.uid === child.key)
                 this.setState({newUser:false,loading:false});
           });
           if(user)
@@ -56,7 +57,7 @@ class LogIn extends Component {
     return (
       <div className="login">
           <NavBar login={!endProcess}/>
-          
+          <hr/>
           {signin ? (
           <StyledFirebaseAuth
           uiConfig={this.uiConfig}

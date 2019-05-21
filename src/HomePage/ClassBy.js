@@ -3,9 +3,8 @@ import AliceCarousel from 'react-alice-carousel'
 import "react-alice-carousel/lib/alice-carousel.css"
 import firebase from "../Firebase/FireBase.js";
 import "./ClassBy.css";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
- 
+
 class ClassBy extends Component{
 
     constructor(props){
@@ -39,15 +38,9 @@ class ClassBy extends Component{
     componentDidMount() {
   
     let web = false;
-    let imgStyle;
-    let size
-    if(window.innerWidth < 500) // set the image size by phone or not phone
-      size = (window.innerWidth-40)/3
-    else{
-      size = (window.innerWidth/7);
+    if(window.innerWidth > 500) // set the image size by phone or not phone
       web =true;
-    }
-    imgStyle = {height: size ,width: size}
+      
     let arrTempAllClasses = [];
     let ref = firebase.database().ref('/CategoryList');
     ref.on('value', snapshot => {
@@ -63,8 +56,9 @@ class ClassBy extends Component{
             case 'date':
                 arrTempAllClasses.sort(this.byDate);
                 title = "Coming Soon";
+                break;
             case 'popolar':
-
+                break;
             default:
         }
     
