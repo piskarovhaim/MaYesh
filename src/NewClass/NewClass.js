@@ -13,35 +13,30 @@ import {
   IonApp,
   IonTextarea
 } from "@ionic/react";
+
 import "@ionic/core/css/core.css";
-//import "@ionic/core/css/ionic.bundle.css";
+
+import { Link, Redirect } from "react-router-dom";
 
 function CategeorySelector(props) {
   // get the real category json from the DB
-  let objectOptions = [
-    {
-      type: "Yuga"
-    },
-    {
-      type: "Sport"
-    },
-    {
-      type: "Cooking"
-    },
-    {
-      type: "Art"
-    },
-    {
-      type: "Lecture"
-    }
-  ];
+
+  let categories = [];
+  categories = props.categories;
+
   return (
     <IonItem>
-      <IonLabel>קטגוריה</IonLabel>
-      <IonSelect value={props.value} onIonChange={props.func} name="category">
-        {objectOptions.map((object, i) => {
+      <IonSelect
+        placeholder="קטגוריה"
+        value={props.value}
+        onIonChange={props.func}
+        name="category"
+      >
+        {categories.map((object, i) => {
           return (
-            <IonSelectOption value={object.type}>{object.type}</IonSelectOption>
+            <IonSelectOption key={i} value={object.type}>
+              {object.type}
+            </IonSelectOption>
           );
         })}
       </IonSelect>
@@ -49,10 +44,10 @@ function CategeorySelector(props) {
   );
 }
 
+class NewClass extends React.Component {
+  constructor(props) {
+    super(props);
 
-class NewClass extends Component {
-  constructor() {
-    super();
     this.state = {
       name: "",
       category: "",
@@ -64,7 +59,8 @@ class NewClass extends Component {
       description: "",
       date: "",
       hour: "",
-      isConfirmed: false
+      isConfirmed: false,
+      categoryList: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClear = this.handleClear.bind(this);
@@ -72,9 +68,10 @@ class NewClass extends Component {
   }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state);
   }
   handleClear() {
+    let categories = this.state.categoryList;
+
     const initialState = {
       name: "",
       category: "",
@@ -86,7 +83,8 @@ class NewClass extends Component {
       description: "",
       date: "",
       hour: "",
-      isConfirmed: false
+      isConfirmed: false,
+      categoryList: categories
     };
     this.setState(initialState);
     console.log(this.state);
@@ -94,140 +92,164 @@ class NewClass extends Component {
   isValidForm() {
     let arr = Object.keys(this.state);
     let i;
-    for (i = 0; i < arr.length; i++) {
-      if (this.state[arr[i]] === "" && arr[i] !== "isConfirmed") {
+
+    for (i = 0; i < arr.length - 2; i++) {
+      if (this.state[arr[i]] == "") {
         return false;
       }
       return true;
     }
   }
-  handleSubmit() {
-    if (!this.isValidForm()) {
-      alert("מלא את כל הטופס בבקשה");
-      return;
-    }
-    const messageRef = firebase
+  componentDidMount() {
+    let categories = [];
+    let self = this;
+    const ref = firebase
       .database()
-      .ref("/CategoryList/" + this.state.category + "/classList");
-
-    let arr = [];
-
-    messageRef.on("value", snapshot => {
-      snapshot.forEach(child => {
-        arr.push(child.val());
+      .ref("/CategoryList/")
+      .once("value")
+      .then(function(snapshot) {
+        Object.keys(snapshot.val()).forEach(function(value) {
+          categories.push({ type: value });
+        });
+        self.setState({ categoryList: categories });
       });
-    });
-
-    // let newMessage = messageRef.push();
-    // newMessage.set(this.state);
-
-    arr.push(this.state);
-    //console.log(arr);
-    messageRef.set(arr);
   }
-  
+
+  handleSubmit() {
+    // if (!this.isValidForm()) {
+    //   alert("מלא את כל הטופס בבקשה");
+    //   return;
+    // }
+
+    let self = this;
+    let ref = firebase
+      .database()
+      .ref(
+        "/CategoryList/" +
+          this.state.category +
+          "/classList" +
+          "/" +
+          this.state.name +
+          "/"
+      );
+    ref.set(this.state);
+
+    ref = firebase
+      .database()
+      .ref(
+        "/CategoryList/" +
+          this.state.category +
+          "/classList" +
+          "/" +
+          this.state.name +
+          "/categoryList"
+      );
+    ref.remove();
+  }
+
   render() {
     return (
       <div>
-       <IonApp>
-        <IonContent>
-          <h1 className="content">טופס הצעת קורס</h1>
+        <IonApp>
+          <IonContent>
+            <h1 className="content">טופס הצעת קורס</h1>
 
-          <IonItem>
-            <IonLabel position="floating" required={true}>
-              שם הקורס
-            </IonLabel>
-            <IonInput
-              name="name"
-              value={this.state.name}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
+            <IonItem>
+              <IonInput
+                name="name"
+                placeholder="שם הקורס"
+                value={this.state.name}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
 
-          <CategeorySelector
-            value={this.state.category}
-            func={this.handleChange}
-          />
+            <CategeorySelector
+              value={this.state.category}
+              func={this.handleChange}
+              categories={this.state.categoryList}
+            />
 
-          <IonItem>
-            <IonLabel position="floating">שם המארגן</IonLabel>
-            <IonInput
-              name="organizer"
-              value={this.state.organizer}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
-          <IonItem>
-            <IonLabel position="floating">מספר טלפון</IonLabel>
-            <IonInput
-              type="number"
-              name="phoneNumber"
-              value={this.state.phoneNumber}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
-          <IonItem>
-            <IonLabel position="floating">מיקום הקורס</IonLabel>
-            <IonInput
-              name="location"
-              value={this.state.location}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
-          <IonItem>
-            <IonLabel position="floating">מס משתתפים מינימלי</IonLabel>
-            <IonInput
-              type="number"
-              name="minPartici"
-              value={this.state.minPartici}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
-          <IonItem>
-            <IonLabel position="floating">מס משתתפים מקסימלי</IonLabel>
-            <IonInput
-              type="number"
-              name="maxPartici"
-              value={this.state.maxPartici}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
+            <IonItem>
+              <IonInput
+                placeholder="שם המארגן"
+                name="organizer"
+                value={this.state.organizer}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
+            <IonItem>
+              <IonInput
+                placeholder="מס טלפון"
+                type="number"
+                name="phoneNumber"
+                value={this.state.phoneNumber}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
+            <IonItem>
+              <IonInput
+                placeholder="מיקום"
+                name="location"
+                value={this.state.location}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
+            <IonItem>
+              <IonInput
+                placeholder="מינימום משתתפים"
+                type="number"
+                name="minPartici"
+                value={this.state.minPartici}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
+            <IonItem>
+              <IonInput
+                type="number"
+                name="maxPartici"
+                placeholder="מקסימום משתתפים"
+                value={this.state.maxPartici}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
 
-          <IonItem>
-            <IonLabel>תאריך</IonLabel>
-            <IonDatetime
-              name="date"
-              min="2019"
-              value={this.state.date}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
-          <IonItem>
-            <IonLabel>שעה</IonLabel>
-            <IonDatetime
-              displayFormat="HH:mm "
-              name="hour"
-              value={this.state.hour}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
+            <IonItem>
+              <IonDatetime
+                placeholder="תאריך"
+                name="date"
+                min="2019"
+                value={this.state.date}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
+            <IonItem>
+              <IonDatetime
+                placeholder="שעה"
+                displayFormat="HH:mm "
+                name="hour"
+                value={this.state.hour}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
 
-          <IonItem>
-            <IonLabel position="floating">תיאור</IonLabel>
-            <IonTextarea
-              name="description"
-              value={this.state.description}
-              onIonChange={this.handleChange}
-            />
-          </IonItem>
-          <IonButton shape="round" expand="block" onClick={this.handleClear}>
-            נקה
-          </IonButton>
-          <IonButton shape="round" expand="block" onClick={this.handleSubmit}>
-            שלח
-          </IonButton>
-        </IonContent>
-      </IonApp>
+            <IonItem>
+              <IonTextarea
+                placeholder="תיאור"
+                name="description"
+                value={this.state.description}
+                onIonChange={this.handleChange}
+              />
+            </IonItem>
+            <IonButton shape="round" expand="block" onClick={this.handleClear}>
+              נקה
+            </IonButton>
+
+            <IonButton shape="round" expand="block" onClick={this.handleSubmit}>
+              שלח
+            </IonButton>
+            <Link to="/" />
+          </IonContent>
+        </IonApp>
       </div>
     );
   }
