@@ -24,7 +24,6 @@
     "react-scroll-to": "^2.0.9",
     "react-video-cover": "^1.2.2",
     "reactstrap": "^8.0.0"
-
   },
   "scripts": {
     "predeploy": "npm run build",
