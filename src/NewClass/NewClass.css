@@ -1,11 +1,12 @@
-.content {
+.style {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: gray;
+  overflow-y: auto;
+  color: rgb(80, 82, 82);
 }
-.details {
+.detailss {
   border: 2px solid gray;
   padding: 1px;
   width: 50%;
