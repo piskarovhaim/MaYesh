@@ -1,13 +1,11 @@
 
 .mainDiv
 {
-   
     background-color:gold;
 }
 
 .leftSide
 {
-    background-color:gold;
     float: left;
     margin-left: 50px;
     margin-top: 30px;
@@ -23,6 +21,7 @@
 
 .title
 {
+    font-size: larger;
     text-align: center;
 }
 
@@ -35,9 +34,10 @@ h2
 p
 {
     text-align: center;
+    font-size: large;
 }
 
-button
+.button
 {
     background-color: #4CAF50;
     border: groove;
@@ -50,4 +50,9 @@ button
     margin: 4px 2px;
     cursor: pointer;
     margin-left: 40%;
+}
+
+.location
+{
+    font-size: large;
 }
