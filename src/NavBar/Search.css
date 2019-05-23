@@ -7,7 +7,9 @@ input[type=text].inputSearch {
     background: #f1f1f17c;
     text-align: right;
     border-radius: 8px;
+    margin-top:5px; 
     font-family: "Arial Verdana", Sans-serif;
+    padding: 8px 10px;
     color: rgb(187, 187, 187);
   }
   
@@ -31,7 +33,7 @@ div.dropDownn{
   display: block;
   float: left;
   z-index: 1;
-    vertical-align: middle;
+  vertical-align: middle;
   font-family: "Arial Verdana", Sans-serif;
   font-weight: bold;
   color: rgb(187, 187, 187);

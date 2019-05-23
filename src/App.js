@@ -6,6 +6,7 @@ import LogIn from "./Login/LogIn.js";
 import Test from './HomePage/test.js'
 import EditProfile from "./Login/EditProfile.js"
 
+
 class App extends Component {
   
   render() {
@@ -15,7 +16,7 @@ class App extends Component {
         <Route path="/" exact component={HomePage}/>
         <Route path="/NewClass" exact component={NewClass}/>
         <Route path="/login" exact component={LogIn}/>
-        <Route path="/EditProfile" exact component={EditProfile}/>
+        <Route path="/editProfile/:id" exact component={EditProfile}/>
         <Route path="/Category/:name" exact render={({match}) => {return <Test name={match.params.name}/>;}}/>
         </Switch>
       </Router>

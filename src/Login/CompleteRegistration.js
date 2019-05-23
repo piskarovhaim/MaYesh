@@ -1,23 +1,18 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router';
 import firebase from "../Firebase/FireBase.js";
 import './CompleteRegistration.css'
+import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 
 
 class CompleteRegistration extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-        id:"",email:"",name:"",phone:"",img:"",favoriteCat:"",listOfSignInClass:""
-    };
+    this.state = props.user;
       
   this.handleChange = this.handleChange.bind(this);
   this.AddUser = this.AddUser.bind(this);
-  }
-  componentDidMount = () => {
-    firebase.auth().onAuthStateChanged(user => {
-        this.setState({id:user.uid,email:user.email,name:user.displayName,phone:user.phoneNumber,img:user.photoURL,favoriteCat:"",listOfSignInClass:""});
-    })
+  this.handleUploadError = this.handleUploadError.bind(this);
+  this.handleUploadSuccess = this.handleUploadSuccess.bind(this)
   }
 
   handleChange(e) {
@@ -26,8 +21,19 @@ class CompleteRegistration extends Component {
 
   AddUser(){
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
-    return(<Redirect to="/" />);
   }
+
+  handleUploadError (error) {
+    alert("Upload Error: " + error);
+};
+handleUploadSuccess(filename) {
+firebase
+  .storage()
+  .ref("usersImg")
+  .child(filename)
+  .getDownloadURL()
+  .then(url => this.setState({ img: url }));
+};
 
   render() {
     const divWidth = {
@@ -35,13 +41,26 @@ class CompleteRegistration extends Component {
     };
     if(window.innerWidth < 500) // if it is phone set the width to 100%
         divWidth.maxWidth = '100%';
-   
     return (
         <div className="completeReg" style ={divWidth}>
         <form onSubmit={this.AddUser}>
         <h1>ברוכים הבאים למה יש</h1>
-        {//<img src={this.state.img} />
-        }
+        <label>   
+        <div className="imguserc">
+          <img className="user_e" src={this.state.img}/>
+          <div className="useret">
+              שנה תמונה
+          </div> 
+        </div>
+          <FileUploader
+            hidden
+            accept="image/*"
+            randomizeFilename
+            storageRef={firebase.storage().ref("usersImg")}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleUploadSuccess}
+          />
+          </label>
         <label>
         ?השם שלך
         <input type="text" name="name" value={this.state.name} onChange={this.handleChange}></input>
@@ -59,6 +78,7 @@ class CompleteRegistration extends Component {
         <input type="checkbox" name="o2" value="sport"/>ספורט<br/>
         <input type="checkbox" name="03" value="yuga"/> יוגה<br/>
         <hr/>
+        <p onClick={this.AddUser}>דלג על שלב זה</p>
         <input className="registerbtn" type="submit" value="המשך" />
       </form>
         </div>

@@ -57,7 +57,6 @@ class AllCategories extends Component{
     return (
       <div className="AllCategories">
         <h1>All Categories</h1>
-        <Router>
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
           buttonsDisabled={true}
@@ -71,7 +70,6 @@ class AllCategories extends Component{
         <button className="carouselButton" onClick={() => this.slidePrev()}>&lt;</button>
         <button className="carouselButton" onClick={() => this.slideNext()}>&gt;</button>
         </div>):null}
-        </Router>
        </div>
     )
   }

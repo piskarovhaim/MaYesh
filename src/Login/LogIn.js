@@ -30,7 +30,7 @@ class LogIn extends Component {
       this.setState({ isSignedIn: !!user})
       if(!user)
         return;
-        
+      let tempPhone = user.phoneNumber
       let ref = firebase.database().ref('/Users');
       ref.on('value', snapshot => {
         snapshot.forEach(child => {
@@ -38,8 +38,10 @@ class LogIn extends Component {
             if(user.uid === child.key)
                 this.setState({newUser:false,loading:false});
           });
+          if(tempPhone == null)
+            tempPhone = "";
           if(user)
-            this.setState({loading:false,user:{id:user.uid,email:user.email,name:user.displayName,phone:user.phoneNumber,img:user.photoURL,favoriteCat:"",listOfSignInClass:""}});
+            this.setState({loading:false,user:{id:user.uid,email:user.email,name:user.displayName,phone:tempPhone,img:user.photoURL,favoriteCat:"",listOfSignInClass:""}});
       });
     })
   }
@@ -64,7 +66,7 @@ class LogIn extends Component {
           firebaseAuth={firebase.auth()}/>
           ):null}
           {notRegistered ? (
-           <CompleteRegistration/>
+           <CompleteRegistration user={this.state.user}/>
           ):null}
           {endProcess ? (
             <Redirect to="/" />
