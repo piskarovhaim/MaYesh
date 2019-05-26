@@ -8,7 +8,8 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 class AllCategories extends Component {
   state = {
     currentIndex: 0,
-    responsive: { 500: { items: window.innerWidth / 150 }, 0: { items: 3 } },
+    responsive: { 500: { items: window.innerWidth / 180 }, 0: { items: 3 } },
+
     categoryList: [],
     webSite: false
   };
@@ -42,20 +43,19 @@ class AllCategories extends Component {
         let str = "/Category/" + child.val().name;
         arrTemp.push(
           // One element in displaying all categories
-          <Link to={str}>
-            <div className="gallery" key={i}>
+          <div className="gallery" key={i}>
+            <Link to={str}>
               <img
                 alt={child.val().name}
                 className="AllCategories"
                 style={imgStyle}
                 src={child.val().img}
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
         );
         i++;
       });
-
       this.setState({ categoryList: arrTemp, webSite: web });
     });
   }
@@ -64,7 +64,6 @@ class AllCategories extends Component {
     return (
       <div className="AllCategories">
         <h1>All Categories</h1>
-
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
           buttonsDisabled={true}

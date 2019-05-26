@@ -7,8 +7,11 @@ input[type=text].inputSearch {
     background: #f1f1f17c;
     text-align: right;
     border-radius: 8px;
+    margin-top:5px; 
     font-family: "Arial Verdana", Sans-serif;
+    padding: 8px 10px;
     color: rgb(187, 187, 187);
+    margin-bottom: 5px;
   }
   
   input[type=text].inputSearch:focus {
@@ -26,24 +29,25 @@ input[type=text].inputSearch {
   }
 div.dropDownn{
   position: absolute;
-  background-color:  #f1f1f17c;
-
+  background-color:  rgb(255, 255, 255);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding-left: 15px;
+  padding-right: 15px;
+  float: right;
   display: block;
-  float: left;
   z-index: 1;
-    vertical-align: middle;
   font-family: "Arial Verdana", Sans-serif;
   font-weight: bold;
   color: rgb(187, 187, 187);
   cursor: pointer;
   text-align: right;
-  width: 100%;
+  width: 300%;
+  right: -55px;
   border-radius: 8px;
 }
 div.classFound{
-  background-color:  #f1f1f1;
-  border: 1 solid black;
-  padding: 4px;
+  background-color:  rgb(255, 255, 255);
+  padding: 6px;
 }
   
   

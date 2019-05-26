@@ -1,0 +1,90 @@
+
+.mainDiv
+{
+    background-color:gold;
+}
+
+.leftSide
+{
+    float: left;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+.rightSide
+{
+    float: right;
+    margin-right: 120px;
+    margin-top: 60px;
+    font-size: 30px;
+}
+
+.title
+{
+    font-size: larger;
+    text-align: center;
+}
+
+h2
+{
+    font-size: 40px;
+    color: blue;
+}
+
+p
+{
+    text-align: center;
+    font-size: large;
+    margin-bottom: 60px;
+}
+
+.button1
+{
+    background-color: #4CAF50;
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 40%;
+    margin-right: 40px;
+}
+
+.button2
+{
+    background-color: #4CAF50;
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 40px;
+}
+
+
+
+.location
+{
+    font-size: large;
+}
+
+.numOfCurrPartici
+{
+    font-size: large;
+}
+
+.classImg
+{
+    width: 600px;
+    display: inline-block;
+    margin-bottom: 50px;
+    border: 0.5px solid black;
+}
