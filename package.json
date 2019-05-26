@@ -20,7 +20,6 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
-
     "react-scroll-parallax": "^2.1.2",
     "react-scroll-to": "^2.0.9",
     "react-video-cover": "^1.2.2",

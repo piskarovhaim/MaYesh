@@ -15,7 +15,6 @@ class App extends Component {
           <Route path="/" exact component={HomePage} />
           <Route path="/NewClass" exact component={NewClass} />
           <Route path="/login" exact component={LogIn} />
-          <Route path="/web" exact component={WebForm} />
           <Route path="/editProfile/:id" exact component={EditProfile} />
           <Route
             path="/Category/:name"
