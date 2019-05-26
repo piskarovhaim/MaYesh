@@ -21,7 +21,7 @@ class Video extends Component {
         <div className="video" style={setVideoHeight}>
             <video src="https://www.meetup.com/mu_static/en-US/video.dddafbfe.mp4" autoPlay loop muted/>
             <div className="c">
-                <button className="videoButton" onClick={() => window.scrollTo(0, this.state.videoStyle.height)}>הצטרף לחוג</button>
+                <button className="videoButton" onClick={() => window.scrollTo(0,window.innerHeight-10)}>הצטרף לחוג</button>
               <Link to="/NewClass">
               <button className="videoButton">צור חוג חדש</button>
               </Link>
