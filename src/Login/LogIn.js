@@ -4,13 +4,13 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import NavBar from "../NavBar/NavBar";
 import { Redirect } from 'react-router';
 import CompleteRegistration from './CompleteRegistration.js';
-import './CompleteRegistration.css'
+import './FormStyle.css'
 
 class LogIn extends Component {
     
   constructor(){
     super();
-    this.state = { isSignedIn: false,newUser:true,loading : true};
+    this.state = { isSignedIn: false,newUser:true,loading : true , categoryList:[]};
   }
 
   uiConfig = {
@@ -25,25 +25,35 @@ class LogIn extends Component {
 }
   componentDidMount = () => {
 
+      let categories = [];
+      let ref = firebase.database().ref('/CategoryList');
+      ref.on('value', snapshot => {
+        snapshot.forEach(child => {
+              categories.push(child.val());
+          });
+            this.setState({categoryList:categories});
+      });
+
     firebase.auth().onAuthStateChanged(user => {
 
       this.setState({ isSignedIn: !!user})
       if(!user)
         return;
-        
-      let ref = firebase.database().ref('/Users');
+      let tempPhone = user.phoneNumber
+      ref = firebase.database().ref('/Users');
       ref.on('value', snapshot => {
         snapshot.forEach(child => {
             console.log(child.key)
             if(user.uid === child.key)
                 this.setState({newUser:false,loading:false});
           });
+          if(tempPhone == null)
+            tempPhone = "";
           if(user)
-            this.setState({loading:false,user:{id:user.uid,email:user.email,name:user.displayName,phone:user.phoneNumber,img:user.photoURL,favoriteCat:"",listOfSignInClass:""}});
+            this.setState({loading:false,user:{id:user.uid,email:user.email,name:user.displayName,phone:tempPhone,img:user.photoURL,favoriteCat:"",listOfSignInClass:""}});
       });
     })
   }
-
   render() {
     let signin =false;
     let notRegistered = false;
@@ -64,7 +74,7 @@ class LogIn extends Component {
           firebaseAuth={firebase.auth()}/>
           ):null}
           {notRegistered ? (
-           <CompleteRegistration/>
+           <CompleteRegistration user={this.state.user} categoryList={this.state.categoryList}/>
           ):null}
           {endProcess ? (
             <Redirect to="/" />
