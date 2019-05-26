@@ -1,10 +1,10 @@
 import React from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./NewClass.css";
+import FileUploader from "react-firebase-file-uploader";
 import {
   IonInput,
   IonItem,
-  IonLabel,
   IonButton,
   IonSelect,
   IonSelectOption,
@@ -12,14 +12,16 @@ import {
   IonContent,
   IonApp,
   IonTextarea,
+  IonLabel,
   IonButtons,
-  IonTabBar,
-  IonToolbar
+  IonToolbar,
+  IonTitle
 } from "@ionic/react";
 
 import "@ionic/core/css/core.css";
-import { BrowserRouter as Router } from "react-router-dom";
+
 import { Redirect } from "react-router";
+
 function CategeorySelector(props) {
   // get the real category json from the DB
 
@@ -49,7 +51,7 @@ function CategeorySelector(props) {
 class NewClass extends React.Component {
   constructor(props) {
     super(props);
-    let endOfProcess = false;
+
     this.state = {
       name: "",
       category: "",
@@ -61,12 +63,17 @@ class NewClass extends React.Component {
       description: "",
       date: "",
       hour: "",
+      imgUrl: "",
+      isUploading: false,
       isConfirmed: false,
       categoryList: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
+    this.handleUploadError = this.handleUploadError.bind(this);
+    this.handleUploadStart = this.handleUploadStart.bind(this);
   }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -85,18 +92,19 @@ class NewClass extends React.Component {
       description: "",
       date: "",
       hour: "",
+      imgUrl: "",
+      isUploading: false,
       isConfirmed: false,
       categoryList: categories
     };
     this.setState(initialState);
-    console.log(this.state);
   }
   isValidForm() {
     let arr = Object.keys(this.state);
     let i;
     let numOfprivateStates = 2;
     for (i = 0; i < arr.length - numOfprivateStates; i++) {
-      if (this.state[arr[i]] == "") {
+      if (this.state[arr[i]] === "") {
         return false;
       }
       return true;
@@ -117,11 +125,17 @@ class NewClass extends React.Component {
       });
   }
 
-  handleSubmit() {
+  async handleSubmit() {
     // if (!this.isValidForm()) {
     //   alert("מלא את כל הטופס בבקשה");
     //   return;
     // }
+    if (this.state.isUploading) {
+      return;
+    }
+
+    await this.setState({ isUploading: null });
+    console.log(this.state);
 
     let ref = firebase
       .database()
@@ -146,11 +160,29 @@ class NewClass extends React.Component {
       );
     ref.remove();
     this.endOfProcess = true;
+    alert("הטופס נשלח לאישור ההנהלה");
+    this.setState({});
+  }
+  handleUploadStart() {
+    this.setState({ isUploading: true });
+  }
+  handleUploadError(error) {
+    console.error(error);
+  }
+  handleUploadSuccess(filename) {
+    this.setState({ isUploading: false });
+    firebase
+      .storage()
+      .ref("formImages")
+      .child(filename)
+      .getDownloadURL()
+      .then(url => this.setState({ imgUrl: url }));
   }
 
   render() {
     return (
       <div>
+        {this.endOfProcess ? <Redirect to="/" /> : null}
         <IonApp>
           <IonContent>
             <div className="style">
@@ -243,26 +275,34 @@ class NewClass extends React.Component {
               />
             </IonItem>
 
-            <IonButton
-              shape="round"
-              expand="block"
-              color="dark"
-              onClick={this.handleClear}
-            >
+            <IonItem>
+              <label>
+                <img
+                  alt="העלאת תמונה"
+                  style={{ width: 55, height: 55 }}
+                  src={this.state.imgUrl}
+                />
+                <FileUploader
+                  hidden
+                  accept="image/*"
+                  randomizeFilename
+                  storageRef={firebase.storage().ref("formImages")}
+                  onUploadError={this.handleUploadError}
+                  onUploadSuccess={this.handleUploadSuccess}
+                  onUploadStart={this.handleUploadStart}
+                />
+              </label>
+            </IonItem>
+
+            <IonButton expand="block" onClick={this.handleClear}>
               נקה
             </IonButton>
 
-            <IonButton
-              shape="round"
-              expand="block"
-              color="dark"
-              onClick={this.handleSubmit}
-            >
+            <IonButton expand="block" onClick={this.handleSubmit}>
               שלח
             </IonButton>
           </IonContent>
         </IonApp>
-        {this.endOfProcess ? <Redirect to="/" /> : null}
       </div>
     );
   }
