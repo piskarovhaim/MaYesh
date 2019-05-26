@@ -42,8 +42,7 @@ class Category extends Component {
   }
   render() {
   let a = this.state.category.classList;
-  console.log(a);
-  let gallery = a.map(element =><Class name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} />)
+  let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} />)
   let styleImg = 
   {
     backgroundImage : 'url('+this.state.category.img+')', 
@@ -52,13 +51,21 @@ class Category extends Component {
     minWidth:100+'%',
     minHight:100+'%',
   }
-   
+  let type
+  if(window.innerWidth < 500)
+  {
+    type = "phoneCategory"
+  }
+  else
+  {
+    type = "pcCategory"
+  }
     return (
       <div className="gallery-container">
         <div className = "video" style = {styleImg}>
           <h1> {this.state.category.name} </h1>
         </div>  
-        <div  className = "gallery-grid">
+        <div  className = {type}>
              {gallery} 
         </div>
             

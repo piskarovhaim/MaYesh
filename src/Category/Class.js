@@ -22,16 +22,17 @@ class Class extends Component {
 
 
         render(){
-            return(
-                <Link to={"/Category/"+ this.state.class.categoryName +"/Class/"+this.state.class.name} activeClassName="active">
 
-                    <div className = "rcorners" >
+            return(
+                <Link to={"/Category/"+ this.state.class.categoryName +"/Class/"+this.state.class.name}>
+
+                    <div className ='rcorners' >
                         <img src={this.state.class.img} className="imgC"/>
                         <div className="classText">
                             <div className = "className">
                                 {this.state.class.name}
                             </div>    
-                            <br/><br/><br/><br/>
+                            <br/><br/>
                             <div className = "classLocation">
                                 {this.state.class.location}
                             </div>
