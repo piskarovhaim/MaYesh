@@ -1,0 +1,8 @@
+top {
+  border-bottom: double;
+  background-color: red;
+}
+top > label {
+}
+bottom {
+}

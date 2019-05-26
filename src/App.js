@@ -6,7 +6,7 @@ import EditProfile from "./Login/EditProfile.js";
 import NewClass from "./NewClass/NewClass";
 import Classs from "./Class/Class";
 import Category from "./Category/Category.js";
-
+import ManageCategory from "./Manage/ManageCategory.js";
 class App extends Component {
   render() {
     return (
@@ -16,6 +16,7 @@ class App extends Component {
           <Route path="/NewClass" exact component={NewClass} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/editProfile/:id" exact component={EditProfile} />
+          <Route path="/ManageCategory" exact component={ManageCategory} />
           <Route
             path="/Category/:name"
             exact
