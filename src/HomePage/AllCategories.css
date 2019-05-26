@@ -12,6 +12,9 @@ div.carouselButton{
     text-align: center
     
 }
+div.gallery{
+    padding: 10px;
+}
 button.carouselButton{
     border-radius:50%;
     background-color: rgb(255, 255, 255);

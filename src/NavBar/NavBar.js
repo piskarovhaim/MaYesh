@@ -52,9 +52,7 @@ class NavBar extends Component {
     const setNavHeight = {
       height: this.state.navStyle.height
     }
-    const setImgSize ={
-      
-    }
+
     let login = this.state.isSignedIn;
     let edit = false;
     if(this.state.isSignedInProsses)

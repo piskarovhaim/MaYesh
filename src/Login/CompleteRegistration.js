@@ -1,8 +1,30 @@
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
-import './CompleteRegistration.css'
+import './FormStyle.css'
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 
+function FavoritesCategeory(props) {
+  // get the real category json from the DB
+
+  let categories = [];
+  categories = props.categories;
+  console.log(categories);
+  
+  return (
+      <div className="BigfavoritesCat">
+        {categories.map((object, i) => {
+          let strID = "ch" + i;
+          return (
+              <div key={i} className="favoritesCat">
+              <input type="checkbox" id={strID} />
+            <label htmlFor={strID}><img src={object.img} />
+            </label>
+            </div>
+            );
+          })}
+      </div>
+  );
+}
 
 class CompleteRegistration extends Component {
   constructor(props) {
@@ -37,7 +59,7 @@ firebase
 
   render() {
     const divWidth = {
-      maxWidth: '30%'
+      maxWidth: '35%'
     };
     if(window.innerWidth < 500) // if it is phone set the width to 100%
         divWidth.maxWidth = '100%';
@@ -69,14 +91,13 @@ firebase
         <label>
         ?הפלאפון שלך
         <input type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input>
-       
         </label>
-        <br/>
-        בחר את הקטגויות המועדפות שלך
-        <br/>
-        <input type="checkbox" name="o1" value="food"/>אוכל<br/>
-        <input type="checkbox" name="o2" value="sport"/>ספורט<br/>
-        <input type="checkbox" name="03" value="yuga"/> יוגה<br/>
+
+        <label>
+        בחר קטגוריות מעדפות
+        <FavoritesCategeory value={this.state.category} func={this.handleChange} categories={this.props.categoryList}/>
+        </label>
+        <br></br>
         <hr/>
         <p onClick={this.AddUser}>דלג על שלב זה</p>
         <input className="registerbtn" type="submit" value="המשך" />

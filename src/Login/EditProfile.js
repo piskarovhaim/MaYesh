@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router';
 import firebase from "../Firebase/FireBase.js";
-import './CompleteRegistration.css'
+import './FormStyle.css'
 import NavBar from "../NavBar/NavBar";
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 
