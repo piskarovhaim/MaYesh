@@ -58,7 +58,10 @@ class WebForm extends Component {
             Object.keys(snapshot.val()).forEach(function(value) {
               categories.push({ type: value });
             });
-            self.setState({ categoryList: categories });
+            if(self.state.category == "" && categories.length > 0){
+                self.setState({ categoryList: categories,category:categories[0].type });
+            }else{ 
+                self.setState({ categoryList: categories});}
           });
       }
 
@@ -97,7 +100,6 @@ class WebForm extends Component {
       this.setState({});
       }
     render(){
-
     return(
         <div>
         <NavBar/>
