@@ -69,9 +69,7 @@ class LogIn extends Component {
           <NavBar login={!endProcess}/>
           <hr/>
           {signin ? (
-          <StyledFirebaseAuth
-          uiConfig={this.uiConfig}
-          firebaseAuth={firebase.auth()}/>
+          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
           ):null}
           {notRegistered ? (
            <CompleteRegistration user={this.state.user} categoryList={this.state.categoryList}/>

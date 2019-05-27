@@ -7,25 +7,13 @@ class AllCategory extends Component {
         super();
         this.state = {
             CategorysList: [],
-            strCategorysList: " "
         };
 
         this.AllCategorys = this.AllCategorys.bind(this);
     }
-    AllCategorys(){
-        let arr=[];
-        let str ="";
-        let ref = Database.database().ref('/CategoryList/');
-        ref.on('value', snapshot => {
-          snapshot.forEach(child => {
-              arr.push(child.val());
-              str+= child.val().name + '\n';
-            }); 
-            console.log(arr,"list of the category objects on data base");
-            this.setState({CategorysList:arr,strCategorysList:str});
-        });
-      }
+    componentDidMount(){
 
+    }
       render(){
 
         return (

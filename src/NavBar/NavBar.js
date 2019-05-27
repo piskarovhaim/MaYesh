@@ -95,22 +95,22 @@ class NavBar extends Component {
                   }}
                 >
                   <div className="edit">
-                    <p className="navText">עריכת פרופיל</p>
+                    <div className="navText">עריכת פרופיל</div>
                   </div>
                 </Link>
-                <p
+                <div
                   className="navText"
                   onClick={() => firebase.auth().signOut()}
                 >
                   יציאה
-                </p>
+                </div>
               </div>
             )}
           </div>
         ) : (
           <Link to="/login">
             <div className="loginText">
-              <p className="navText">התחבר</p>
+              <div className="navText">התחבר</div>
             </div>
           </Link>
         )}
