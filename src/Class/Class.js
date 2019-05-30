@@ -7,14 +7,14 @@ import { Card, CardImg, CardText, CardBody,
 
 
 
-class Classs extends React.Component
-{
-    constructor(props)
+    class Classs extends React.Component
     {
-        super(props);
-        this.state = {category: props.catname, course: props.classname, isSignedIn: false, newUser:true, loading : true,
-            thisClass:{name:"",location:"",teacher:"",phone:"",img:"",hour:"",description:"", numOfCurrPart: 0} };
-    }
+        constructor(props)
+        {
+            super(props);
+            this.state = {category: props.catname, course: props.classname, isSignedIn: false, newUser:true, loading : true,
+                thisClass:{name:"",location:"",teacher:"",phone:"",img:"",hour:"",description:"", numOfCurrPart: 0} };
+        }
 
     componentDidMount()
     {

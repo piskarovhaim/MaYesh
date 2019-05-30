@@ -7,10 +7,14 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 class NavBar extends Component {
   constructor(props) {
     super(props);
+
+    let location = "/";
+    if (props.location != undefined) location = props.location;
     this.state = {
       isSignedInProsses: props.login,
       edit: props.edit,
       isSignedIn: false,
+      location: props.location,
       navStyle: {
         height: window.innerHeight / 10
       },
@@ -98,17 +102,24 @@ class NavBar extends Component {
                     <div className="navText">עריכת פרופיל</div>
                   </div>
                 </Link>
-                <div
-                  className="navText"
-                  onClick={() => firebase.auth().signOut()}
-                >
-                  יציאה
-                </div>
+                <Link to="/">
+                  <div
+                    className="navText"
+                    onClick={() => firebase.auth().signOut()}
+                  >
+                    יציאה
+                  </div>
+                </Link>
               </div>
             )}
           </div>
         ) : (
-          <Link to="/login">
+          <Link
+            to={{
+              pathname: "/Login",
+              state: { location: this.state.location, title: "התחבר עם" }
+            }}
+          >
             <div className="loginText">
               <div className="navText">התחבר</div>
             </div>

@@ -49,10 +49,14 @@ class MobileForm extends React.Component {
   constructor(props) {
     super(props);
     let endOfProcess = false;
+    let organizerId = "";
+    if(props.user != undefined)
+        organizerId = props.user.id
     this.state = {
       name: "",
       category: "",
       organizer: "",
+      organizerId: organizerId,
       phoneNumber: "",
       location: "",
       minPartici: "",
@@ -145,6 +149,7 @@ class MobileForm extends React.Component {
       );
     ref.remove();
     this.endOfProcess = true;
+    this.setState({})
   }
 
   render() {

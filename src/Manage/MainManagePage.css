@@ -8,6 +8,10 @@ div.manageAllCategory{
     width: 80%;
 }
 
+div.ClassWaitToConfirme{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: right;
+}
 
 div.manageCat {
     float: right;

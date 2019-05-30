@@ -29,10 +29,14 @@ class WebForm extends Component {
     constructor(props) {
         super(props);
         let endOfProcess = false;
+        let organizerId = "";
+        if(props.user != undefined)
+            organizerId = props.user.id
         this.state = {
           name: "",
           category: "",
           organizer: "",
+          organizerId: organizerId,
           phoneNumber: "",
           location: "",
           minPartici: "",
@@ -58,7 +62,10 @@ class WebForm extends Component {
             Object.keys(snapshot.val()).forEach(function(value) {
               categories.push({ type: value });
             });
-            self.setState({ categoryList: categories });
+            if(self.state.category == "" && categories.length > 0){
+                self.setState({ categoryList: categories,category:categories[0].type });
+            }else{ 
+                self.setState({ categoryList: categories});}
           });
       }
 
@@ -70,6 +77,7 @@ class WebForm extends Component {
         //   alert("מלא את כל הטופס בבקשה");
         //   return;
         // }
+        alert("gfdsg");
     
         let ref = firebase
         .database()
@@ -102,9 +110,8 @@ class WebForm extends Component {
         <div>
         <NavBar/>
         <hr/>
-
         <div className="completeReg">
-        <form onSubmit={this.handleSubmit}>
+        <form>
         <h1>טופס חוג חדש</h1>
         <label>
         שם קורס
@@ -156,7 +163,7 @@ class WebForm extends Component {
         <textarea name="description" value={this.state.description} onChange={this.handleChange}></textarea>
         </label>
 
-        <input className="registerbtn" type="submit" value="שמור" />
+        <input className="registerbtn" type="button" value="שמור" onClick={this.handleSubmit}/>
       </form>
         </div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
