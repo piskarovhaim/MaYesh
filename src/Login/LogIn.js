@@ -8,12 +8,30 @@ import './FormStyle.css'
 
 class LogIn extends Component {
     
-  constructor(){
-    super();
-    this.state = { isSignedIn: false,newUser:true,loading : true , categoryList:[]};
+  constructor(props){
+    super(props);
+    this.state = { 
+      isSignedIn: false,
+      newUser:true,
+      loading : true ,
+      title: props.location.state.title,
+      categoryList:[],
+      location: props.location.state.location,
+      user:{
+        id:"",
+        email:"",
+        name:"",
+        phone:"",
+        img:"",
+        favoriteCat:"",
+        listOfSignInClass:""
+      }
+    };
+    this.AddUser = this.AddUser.bind(this);
   }
 
   uiConfig = {
+    signInFlow: 'popup',
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -39,20 +57,28 @@ class LogIn extends Component {
       this.setState({ isSignedIn: !!user})
       if(!user)
         return;
-      let tempPhone = user.phoneNumber
-      ref = firebase.database().ref('/Users');
-      ref.on('value', snapshot => {
-        snapshot.forEach(child => {
-            console.log(child.key)
-            if(user.uid === child.key)
-                this.setState({newUser:false,loading:false});
-          });
-          if(tempPhone == null)
-            tempPhone = "";
-          if(user)
-            this.setState({loading:false,user:{id:user.uid,email:user.email,name:user.displayName,phone:tempPhone,img:user.photoURL,favoriteCat:"",listOfSignInClass:""}});
-      });
+        let currentUser;
+        let tempPhone = user.phoneNumber;
+        if(tempPhone == null)
+          tempPhone =""
+        this.setState({user:{id:user.uid,email:user.email,name:user.displayName,phone:tempPhone,img:user.photoURL,favoriteCat:"",listOfSignInClass:""}});
+        let ref = firebase.database().ref('/Users');
+        ref.on('value', snapshot => {
+          snapshot.forEach(child => {
+              if(user.uid === child.key){
+                currentUser = child.val();
+                this.setState({newUser:false,loading:false,user:{id:currentUser.id,email:currentUser.email,name:currentUser.name,phone:currentUser.phone,img:currentUser.img,favoriteCat:currentUser.favoriteCat,listOfSignInClass:currentUser.favoriteCat}});
+                return;
+              }
+            }); 
+            this.setState({newUser:true,loading:false })        
+        });
     })
+  }
+
+  AddUser(){
+    firebase.database().ref('/Users/' + this.state.id).set(this.state);
+    this.AddUser.endProses =true;
   }
   render() {
     let signin =false;
@@ -68,14 +94,15 @@ class LogIn extends Component {
       <div className="login">
           <NavBar login={!endProcess}/>
           <hr/>
+          <h3>{this.state.title}</h3>
           {signin ? (
           <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
           ):null}
           {notRegistered ? (
-           <CompleteRegistration user={this.state.user} categoryList={this.state.categoryList}/>
+           <CompleteRegistration user={this.state.user} categoryList={this.state.categoryList} location={this.state.location}/>
           ):null}
           {endProcess ? (
-            <Redirect to="/" />
+            <Redirect to={{pathname: this.state.location, state:{isLogin:true,user:this.state.user}}}/>
           ):null}
       
       </div>
