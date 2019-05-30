@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 import LogIn from "./Login/LogIn.js";
 import EditProfile from "./Login/EditProfile.js"
 import NewClass from "./NewClass/NewClass";
-import Classs from './Class/Class' ;
+import Classs from './Class/Class.js' ;
 import Category from "./Category/Category.js";
 import MainManagePage from "./Manage/MainManagePage.js";
 

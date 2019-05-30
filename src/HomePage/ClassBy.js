@@ -73,7 +73,6 @@ class ClassBy extends Component{
     ref.on('value', snapshot => {
       snapshot.forEach(child => {
             let temp = child.val().classList;
-            console.log(temp);
             for (let key in temp) {
                 arrTempAllClasses.push(temp[key]);
               }

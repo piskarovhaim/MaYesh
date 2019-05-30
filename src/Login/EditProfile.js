@@ -49,7 +49,7 @@ class EditProfile extends Component {
         return (
         <div>
         {this.end ? (<Redirect to="/" />):null}  
-        <NavBar edit="edit"/>
+        <NavBar edit="edit" location={this.props.location.pathname}/>
         <hr/>
         <div className="completeReg" style ={divWidth}>
         <form>

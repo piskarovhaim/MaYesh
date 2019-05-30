@@ -145,4 +145,4 @@ class Classs extends React.Component
     }
 }
 
-export default Classs 
+export default Classs
