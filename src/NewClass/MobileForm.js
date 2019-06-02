@@ -2,6 +2,7 @@ import React from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./NewClass.css";
 import FileUploader from "react-firebase-file-uploader";
+import NavBar from "../NavBar/NavBar";
 import {
   IonInput,
   IonItem,
@@ -64,6 +65,7 @@ class MobileForm extends React.Component {
       date: "",
       hour: "",
       imgUrl: "",
+      numOfPartici: 0,
       isUploading: false,
       isConfirmed: false,
       categoryList: []
@@ -93,6 +95,7 @@ class MobileForm extends React.Component {
       date: "",
       hour: "",
       imgUrl: "",
+      numOfPartici: 0,
       isUploading: false,
       isConfirmed: false,
       categoryList: categories

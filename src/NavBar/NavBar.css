@@ -36,13 +36,14 @@ div.edit{
   display: inline-block;
   float: right;
 }
-p.navText{
+div.navText{
   vertical-align: middle;
   font-family: "Arial Verdana", Sans-serif;
   font-weight: bold;
   color: rgba(187, 187, 187, 0.842);
   cursor: pointer;
   text-align: right;
+  padding: 10px;
 }
 
 div.dropDown {

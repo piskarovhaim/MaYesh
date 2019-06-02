@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../Firebase/FireBase.js';
-
+import '../Login/FormStyle.css'
 
 class AddCategory extends Component {
     constructor(){
@@ -43,25 +43,26 @@ class AddCategory extends Component {
       render(){
 
         return (
-        <div>
-        Add Category
-        <br/>
+        <div className="completeReg" style={{margin:15,float:'right',borderLeft:'1px solid black'}}>
+        <form onSubmit={this.AddCategory}>
+        <b>
+        :הוספת קטגוריה חדשה
+       </b>
+       <br/><br/>  
         <label>
-        name:
-        <input type="text" name="name" onChange={this.handleChange} />
+        שם
+        <input type="text" required name="name" onChange={this.handleChange} />
         </label>
-        <br/>
         <label>
-        img:
+        קישור להתמונה
         <input type="text" name="img" onChange={this.handleChange} />
         </label>
-        <br/>
         <label>
-        desc:
+        תיאור
         <input type="text" name="desc" onChange={this.handleChange} />
         </label>
-        <br/>
-       <button onClick={this.AddCategory}>Add</button>
+        <input className="registerbtn" type="submit" value="שמור" />
+       </form>
        </div>
         );
       };

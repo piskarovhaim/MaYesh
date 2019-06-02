@@ -39,6 +39,7 @@ class WebForm extends Component {
       description: "",
       date: "",
       hour: "",
+      numOfPartici: 0,
       isConfirmed: false,
       categoryList: []
     };
@@ -64,7 +65,7 @@ class WebForm extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  handleSubmit() {
+  handleSubmit(event) {
     // if (!this.isValidForm()) {
     //   alert("מלא את כל הטופס בבקשה");
     //   return;

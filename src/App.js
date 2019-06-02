@@ -7,6 +7,8 @@ import NewClass from "./NewClass/NewClass";
 import Classs from "./Class/Class";
 import Category from "./Category/Category.js";
 import ManageCategory from "./Manage/ManageCategory.js";
+import MainManagePage from "./Manage/MainManagePage.js";
+import ManageClass from "./Manage/ManageClass.js";
 class App extends Component {
   render() {
     return (
@@ -15,8 +17,28 @@ class App extends Component {
           <Route path="/" exact component={HomePage} />
           <Route path="/NewClass" exact component={NewClass} />
           <Route path="/login" exact component={LogIn} />
-          <Route path="/editProfile/:id" exact component={EditProfile} />
+          <Route path="/Manage" exact component={MainManagePage} />
           <Route path="/ManageCategory" exact component={ManageCategory} />
+          <Route path="/editProfile/:id" exact component={EditProfile} />
+          <Route
+            path="/ManageClass/:catName/:className"
+            exact
+            render={({ match }) => {
+              return (
+                <ManageClass
+                  categoryName={match.params.catName}
+                  className={match.params.className}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/manage/:name"
+            exact
+            render={({ match }) => {
+              return <Category name={match.params.name} />;
+            }}
+          />
           <Route
             path="/Category/:name"
             exact

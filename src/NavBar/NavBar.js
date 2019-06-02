@@ -40,10 +40,11 @@ class NavBar extends Component {
       let ref = firebase.database().ref('/Users');
       ref.on('value', snapshot => {
         snapshot.forEach(child => {
-            if(user.uid === child.key)
-            currentUser = child.val();
-            this.setState({user:{id:currentUser.id,email:currentUser.email,name:currentUser.name,phone:currentUser.phone,img:currentUser.img,favoriteCat:currentUser.favoriteCat,listOfSignInClass:currentUser.favoriteCat}});
-            return;
+            if(user.uid === child.key){
+              currentUser = child.val();
+              this.setState({user:{id:currentUser.id,email:currentUser.email,name:currentUser.name,phone:currentUser.phone,img:currentUser.img,favoriteCat:currentUser.favoriteCat,listOfSignInClass:currentUser.favoriteCat}});
+              return;
+            }
           });            
       });
     });
@@ -66,13 +67,13 @@ class NavBar extends Component {
                     <div className="inline">
                       <img className="user" src={this.state.user.img}/>
                       {edit ? null:(<div className="dropDown">
-                      <Link to={{pathname: "/editProfile/" + this.state.user.id, state:{user:this.state.user}}}><div className="edit"><p className="navText">עריכת פרופיל</p></div></Link>                       
-                        <p className="navText" onClick={() => firebase.auth().signOut()}>יציאה</p>
+                      <Link to={{pathname: "/editProfile/" + this.state.user.id, state:{user:this.state.user}}}><div className="edit"><div className="navText">עריכת פרופיל</div></div></Link>                       
+                        <div className="navText" onClick={() => firebase.auth().signOut()}>יציאה</div>
                       </div>)}
                     </div>
                   ) : (                    
                     <Link to="/login">
-                    <div className="loginText"><p className="navText">התחבר</p></div>
+                    <div className="loginText"><div className="navText">התחבר</div></div>
                     </Link>
                   )}
                 <Search/>
