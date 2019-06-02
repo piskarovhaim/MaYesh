@@ -22,7 +22,7 @@ class App extends Component {
         <Route path="/editProfile/:id" exact component={EditProfile}/>
         <Route path="/manage/:name" exact render={({match}) => {return <Category name={match.params.name}/>;}}/>
         <Route path="/Category/:name" exact render={({match}) => {return <Category name={match.params.name}/>;}}/>
-        <Route path="/Category/:nameC/Class/:nameClass" exact render={({match}) => {return <Classs catname={match.params.nameC} classname={match.params.nameClass}/>;}}/>
+        <Route path="/Category/:nameC/Class/:nameClass" exact component = {Classs}/>
        </Switch>
       </Router>
    );
