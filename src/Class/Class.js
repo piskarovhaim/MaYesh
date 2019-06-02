@@ -20,14 +20,17 @@ class Classs extends React.Component {
   constructor(props) {
     super(props);
     let isLogin = false;
-    if (props.location !== undefined) isLogin = props.location.isLogin;
+    console.log(props)
+    if (this.props.location.state !== undefined) {
+    isLogin = props.location.isLogin;
+    }
     this.state = {
       ifClassFull: false,
       isJoinClicked: false,
       isLogin: isLogin,
       isSighnIn: false,
-      category: props.catname,
-      course: props.classname,
+      category: props.match.params.nameC,
+      course: props.match.params.nameClass,
       newUser: true,
       loading: true,
       thisClass: {
@@ -171,9 +174,9 @@ class Classs extends React.Component {
     else this.setState.ifClassFull = false; //the class is not full
 
     let location1 =
-      "/CategoryList/" +
+      "/Category/" +
       this.state.category +
-      "/classList/" +
+      "/Class/" +
       this.state.course;
     const classFullMessage = <p>הקורס מלא</p>;
     return (

@@ -7,17 +7,18 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 class NavBar extends Component {
   constructor(props) {
     super(props);
-
-    let location = "/";
-    if (props.location != undefined) location = props.location;
+    let location = window.location.pathname
+    if(location == "/Login")
+        location = "/"
     this.state = {
       isSignedInProsses: props.login,
       edit: props.edit,
       isSignedIn: false,
-      location: props.location,
+      location: location,
       navStyle: {
         height: window.innerHeight / 10
       },
+      categoryList:[],
       user: {
         id: "",
         email: "",
@@ -31,6 +32,16 @@ class NavBar extends Component {
   }
 
   componentDidMount = () => {
+
+    let ref = firebase.database().ref('/CategoryList');
+    ref.on('value', snapshot => {
+      let categories = [];
+      snapshot.forEach(child => {
+            categories.push(child.val());
+        });
+          this.setState({categoryList:categories});
+    });
+
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user });
       if (!user) return;
@@ -61,7 +72,7 @@ class NavBar extends Component {
                 phone: currentUser.phone,
                 img: currentUser.img,
                 favoriteCat: currentUser.favoriteCat,
-                listOfSignInClass: currentUser.favoriteCat
+                listOfSignInClass: currentUser.listOfSignInClass
               }
             });
             return;
@@ -70,6 +81,7 @@ class NavBar extends Component {
       });
     });
   };
+
   render() {
     const setNavHeight = {
       height: this.state.navStyle.height
@@ -79,6 +91,7 @@ class NavBar extends Component {
     let edit = false;
     if (this.state.isSignedInProsses) login = false;
     if (this.state.edit) edit = true;
+    
     return (
       <div className="nav" style={setNavHeight}>
         <Link to="/">
@@ -92,23 +105,22 @@ class NavBar extends Component {
             <img className="user" src={this.state.user.img} />
             {edit ? null : (
               <div className="dropDown">
-                <Link
+                <Link className="linkto"
                   to={{
                     pathname: "/editProfile/" + this.state.user.id,
-                    state: { user: this.state.user }
+                    state: { user: this.state.user, categoryList:this.state.categoryList }
                   }}
                 >
                   <div className="edit">
                     <div className="navText">עריכת פרופיל</div>
                   </div>
                 </Link>
-                <Link to="/">
+                <Link to={{pathname: this.state.location, state:{isLogin:false}}} className="linkto"><div className="edit">
                   <div
                     className="navText"
-                    onClick={() => firebase.auth().signOut()}
-                  >
+                    onClick={() => firebase.auth().signOut()}>
                     יציאה
-                  </div>
+                    </div> </div>
                 </Link>
               </div>
             )}

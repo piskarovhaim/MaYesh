@@ -10,8 +10,9 @@ class HomePage extends Component {
   render() {
     return (   
           <div className="home">
-                <NavBar location={this.props.location.pathname}/>
+                <NavBar />
                 <Video/>
+                <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
               <AllCategories/>
           </div>

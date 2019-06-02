@@ -23,7 +23,7 @@ class LogIn extends Component {
         name:"",
         phone:"",
         img:"",
-        favoriteCat:"",
+        favoriteCat:[],
         listOfSignInClass:""
       }
     };
@@ -61,7 +61,7 @@ class LogIn extends Component {
         let tempPhone = user.phoneNumber;
         if(tempPhone == null)
           tempPhone =""
-        this.setState({user:{id:user.uid,email:user.email,name:user.displayName,phone:tempPhone,img:user.photoURL,favoriteCat:"",listOfSignInClass:""}});
+        this.setState({user:{id:user.uid,email:user.email,name:user.displayName,phone:tempPhone,img:user.photoURL,favoriteCat:[],listOfSignInClass:""}});
         let ref = firebase.database().ref('/Users');
         ref.on('value', snapshot => {
           snapshot.forEach(child => {
@@ -77,6 +77,7 @@ class LogIn extends Component {
   }
 
   AddUser(){
+    console.log(this.state)
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
     this.AddUser.endProses =true;
   }
@@ -94,9 +95,11 @@ class LogIn extends Component {
       <div className="login">
           <NavBar login={!endProcess}/>
           <hr/>
-          <h3>{this.state.title}</h3>
           {signin ? (
-          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+          <div>
+            <h3>{this.state.title}</h3>
+            <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+          </div>
           ):null}
           {notRegistered ? (
            <CompleteRegistration user={this.state.user} categoryList={this.state.categoryList} location={this.state.location}/>

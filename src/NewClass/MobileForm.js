@@ -16,8 +16,8 @@ import {
   IonTabBar,
   IonToolbar
 } from "@ionic/react";
-
 import "@ionic/core/css/core.css";
+import "@ionic/core/css/text-alignment.css";
 import { Redirect } from "react-router";
 function CategeorySelector(props) {
   // get the real category json from the DB
@@ -26,8 +26,9 @@ function CategeorySelector(props) {
   categories = props.categories;
 
   return (
-    <IonItem>
-      <IonSelect
+    <div class="ionright">
+    <IonItem text-right>
+      <IonSelect class="ionrightinner"
         placeholder="קטגוריה"
         value={props.value}
         onIonChange={props.func}
@@ -42,6 +43,7 @@ function CategeorySelector(props) {
         })}
       </IonSelect>
     </IonItem>
+    </div>
   );
 }
 
@@ -76,7 +78,6 @@ class MobileForm extends React.Component {
   }
   handleClear() {
     let categories = this.state.categoryList;
-
     const initialState = {
       name: "",
       category: "",
@@ -160,8 +161,8 @@ class MobileForm extends React.Component {
             <div className="style">
               <h1>טופס הצעת קורס</h1>
             </div>
-            <IonItem>
-              <IonInput
+            <IonItem text-right>
+              <IonInput 
                 name="name"
                 placeholder="שם הקורס"
                 value={this.state.name}
@@ -175,16 +176,16 @@ class MobileForm extends React.Component {
               categories={this.state.categoryList}
             />
 
-            <IonItem>
-              <IonInput
+            <IonItem text-right>
+              <IonInput 
                 placeholder="שם המארגן"
                 name="organizer"
                 value={this.state.organizer}
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
-              <IonInput
+            <IonItem text-right>
+              <IonInput 
                 placeholder="מס טלפון"
                 type="tel"
                 name="phoneNumber"
@@ -192,16 +193,17 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
-              <IonInput
+            <IonItem text-right>
+              <IonInput 
                 placeholder="מיקום"
                 name="location"
                 value={this.state.location}
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
-              <IonInput
+            
+            <IonItem text-right>
+              <IonInput 
                 placeholder="מינימום משתתפים"
                 type="number"
                 name="minPartici"
@@ -209,8 +211,8 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
-              <IonInput
+            <IonItem text-right>
+              <IonInput 
                 type="number"
                 name="maxPartici"
                 placeholder="מקסימום משתתפים"
@@ -219,8 +221,9 @@ class MobileForm extends React.Component {
               />
             </IonItem>
 
+            <div class="ionright">
             <IonItem>
-              <IonDatetime
+              <IonDatetime class="ionrightinner"
                 placeholder="תאריך"
                 name="date"
                 min="2019"
@@ -228,8 +231,11 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
+            </div>
+
+            <div class="ionright">
             <IonItem>
-              <IonDatetime
+              <IonDatetime class="ionrightinner"
                 placeholder="שעה"
                 displayFormat="HH:mm "
                 name="hour"
@@ -237,8 +243,9 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
+            </div>
 
-            <IonItem>
+            <IonItem text-right>
               <IonTextarea
                 placeholder="תיאור"
                 name="description"
