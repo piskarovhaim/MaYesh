@@ -18,9 +18,8 @@ import {
   IonToolbar,
   IonTitle
 } from "@ionic/react";
-
 import "@ionic/core/css/core.css";
-
+import "@ionic/core/css/text-alignment.css";
 import { Redirect } from "react-router";
 
 function CategeorySelector(props) {
@@ -30,33 +29,39 @@ function CategeorySelector(props) {
   categories = props.categories;
 
   return (
-    <IonItem>
-      <IonSelect
-        placeholder="קטגוריה"
-        value={props.value}
-        onIonChange={props.func}
-        name="category"
-      >
-        {categories.map((object, i) => {
-          return (
-            <IonSelectOption key={i} value={object.type}>
-              {object.type}
-            </IonSelectOption>
-          );
-        })}
-      </IonSelect>
-    </IonItem>
+    <div class="ionright">
+      <IonItem text-right>
+        <IonSelect
+          class="ionrightinner"
+          placeholder="קטגוריה"
+          value={props.value}
+          onIonChange={props.func}
+          name="category"
+        >
+          {categories.map((object, i) => {
+            return (
+              <IonSelectOption key={i} value={object.type}>
+                {object.type}
+              </IonSelectOption>
+            );
+          })}
+        </IonSelect>
+      </IonItem>
+    </div>
   );
 }
 
 class MobileForm extends React.Component {
   constructor(props) {
     super(props);
-
+    let endOfProcess = false;
+    let organizerId = "";
+    if (props.user != undefined) organizerId = props.user.id;
     this.state = {
       name: "",
       category: "",
       organizer: "",
+      organizerId: organizerId,
       phoneNumber: "",
       location: "",
       minPartici: "",
@@ -82,7 +87,6 @@ class MobileForm extends React.Component {
   }
   handleClear() {
     let categories = this.state.categoryList;
-
     const initialState = {
       name: "",
       category: "",
@@ -191,7 +195,7 @@ class MobileForm extends React.Component {
             <div className="style">
               <h1>טופס הצעת קורס</h1>
             </div>
-            <IonItem>
+            <IonItem text-right>
               <IonInput
                 name="name"
                 placeholder="שם הקורס"
@@ -206,7 +210,7 @@ class MobileForm extends React.Component {
               categories={this.state.categoryList}
             />
 
-            <IonItem>
+            <IonItem text-right>
               <IonInput
                 placeholder="שם המארגן"
                 name="organizer"
@@ -214,7 +218,7 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
+            <IonItem text-right>
               <IonInput
                 placeholder="מס טלפון"
                 type="tel"
@@ -223,7 +227,7 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
+            <IonItem text-right>
               <IonInput
                 placeholder="מיקום"
                 name="location"
@@ -231,7 +235,8 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
+
+            <IonItem text-right>
               <IonInput
                 placeholder="מינימום משתתפים"
                 type="number"
@@ -240,7 +245,7 @@ class MobileForm extends React.Component {
                 onIonChange={this.handleChange}
               />
             </IonItem>
-            <IonItem>
+            <IonItem text-right>
               <IonInput
                 type="number"
                 name="maxPartici"
@@ -250,26 +255,33 @@ class MobileForm extends React.Component {
               />
             </IonItem>
 
-            <IonItem>
-              <IonDatetime
-                placeholder="תאריך"
-                name="date"
-                min="2019"
-                value={this.state.date}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-            <IonItem>
-              <IonDatetime
-                placeholder="שעה"
-                displayFormat="HH:mm "
-                name="hour"
-                value={this.state.hour}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
+            <div class="ionright">
+              <IonItem>
+                <IonDatetime
+                  class="ionrightinner"
+                  placeholder="תאריך"
+                  name="date"
+                  min="2019"
+                  value={this.state.date}
+                  onIonChange={this.handleChange}
+                />
+              </IonItem>
+            </div>
 
-            <IonItem>
+            <div class="ionright">
+              <IonItem>
+                <IonDatetime
+                  class="ionrightinner"
+                  placeholder="שעה"
+                  displayFormat="HH:mm "
+                  name="hour"
+                  value={this.state.hour}
+                  onIonChange={this.handleChange}
+                />
+              </IonItem>
+            </div>
+
+            <IonItem text-right>
               <IonTextarea
                 placeholder="תיאור"
                 name="description"

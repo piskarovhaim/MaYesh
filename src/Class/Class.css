@@ -6,16 +6,16 @@
 
 .leftSide
 {
+    width: 50%;
+    height: 30%;
     float: left;
-    margin-left: 50px;
-    margin-top: 30px;
+    margin: auto;
+
 }
 
 .rightSide
 {
     float: right;
-    margin-right: 120px;
-    margin-top: 60px;
     font-size: 30px;
 }
 
@@ -69,22 +69,24 @@ p
     margin-left: 40px;
 }
 
+.button
+{
+    left: 50%;
+}
 
 
-.location
+.item
 {
     font-size: large;
 }
 
-.numOfCurrPartici
-{
-    font-size: large;
-}
+
 
 .classImg
 {
-    width: 600px;
+    width: 100%;
     display: inline-block;
-    margin-bottom: 50px;
+    height: 30%;
     border: 0.5px solid black;
+    margin: auto;
 }

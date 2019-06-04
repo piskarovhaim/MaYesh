@@ -3,28 +3,28 @@ import firebase from "../Firebase/FireBase.js";
 import NavBar from "../NavBar/NavBar";
 import "../Login/FormStyle.css";
 import { Redirect } from "react-router";
+import Permissions from "./Permissions";
+// function CategorySelector(props) {
+//   let categories = [];
+//   categories = props.categories;
 
-function CategorySelector(props) {
-  let categories = [];
-  categories = props.categories;
-
-  return (
-    <select value={props.value} onChange={props.func} name="category">
-      {categories.map((object, i) => {
-        return (
-          <option key={i} value={object.type}>
-            {object.type}
-          </option>
-        );
-      })}
-    </select>
-  );
-}
+//   return (
+//     <select value={props.value} onChange={props.func} name="category">
+//       {categories.map((object, i) => {
+//         return (
+//           <option key={i} value={object.type}>
+//             {object.type}
+//           </option>
+//         );
+//       })}
+//     </select>
+//   );
+// }
 
 class ManageClass extends Component {
   constructor(props) {
     super(props);
-    let endOfProcess = false;
+
     this.state = {
       name: props.className,
       category: props.categoryName,
@@ -60,7 +60,7 @@ class ManageClass extends Component {
     let self = this;
     firebase
       .database()
-      .ref("/CategoryList/")
+      .ref("CategoryList/")
       .once("value")
       .then(function(snapshot) {
         Object.keys(snapshot.val()).forEach(function(value) {
@@ -73,42 +73,44 @@ class ManageClass extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  handleSubmit() {
+  async handleSubmit() {
+    if (window.confirm("האם אתה בטוח שברצונך לשמור את השינויים?") == false) {
+      return;
+    }
+    console.log(this.state);
+    await this.setState({ categoryList: [] });
+    alert(this.state.className);
     let ref = firebase
       .database()
       .ref(
         "/CategoryList/" +
-          this.state.category +
-          "/classList" +
-          "/" +
-          this.state.name +
-          "/"
+          this.props.categoryName +
+          "/classList/" +
+          this.props.className
       );
-    ref.set(this.state);
+
+    ref.remove();
 
     ref = firebase
       .database()
       .ref(
         "/CategoryList/" +
-          this.state.category +
+          this.props.categoryName +
           "/classList/" +
-          this.state.name +
-          "/categoryList"
+          this.state.name
       );
-    ref.remove();
-    this.endOfProcess = true;
-    this.setState({});
+    ref.set(this.state);
   }
   render() {
-    console.log(this.state);
     return (
       <div>
         <NavBar />
+        <Permissions />
         <hr />
 
         <div className="completeReg">
           <form onSubmit={this.handleSubmit}>
-            <h1>עריכת קורס</h1>
+            <h1>עריכת קורס {this.props.className}</h1>
             <label>
               שם קורס
               <input
@@ -118,14 +120,7 @@ class ManageClass extends Component {
                 onChange={this.handleChange}
               />
             </label>
-            <label>
-              קטגוריה
-              <CategorySelector
-                value={this.props.category}
-                func={this.handleChange}
-                categories={this.state.categoryList}
-              />
-            </label>
+
             <label>
               שם המארגן
               <input
@@ -140,7 +135,7 @@ class ManageClass extends Component {
               מס' טלפון
               <input
                 type="tel"
-                name=" phoneNumber"
+                name="phoneNumber"
                 value={this.state.phoneNumber}
                 onChange={this.handleChange}
               />

@@ -6,8 +6,21 @@
   overflow-y: auto;
   color: rgb(80, 82, 82);
 }
-.detailss {
-  border: 2px solid gray;
-  padding: 1px;
-  width: 50%;
+
+.ionright{
+  position: relative;
+  text-align: right;
+  float:right;
+  right: 0;
+  width: 100%;
+  
+}
+
+.ionrightinner{
+  position: absolute;
+  text-align: right;
+  float:right;
+  right: 0;
+  z-index: 1;
+  margin-right: 6px;
 }

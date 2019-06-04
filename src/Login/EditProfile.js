@@ -5,29 +5,85 @@ import './FormStyle.css'
 import NavBar from "../NavBar/NavBar";
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 
+function FavoritesCategeory(props) {
+  // get the real category json from the DB
+
+  let categories = [];
+  let favorite;
+  categories = props.categories;
+  if(props.favoriteCat !== null && props.favoriteCat !== undefined)
+  favorite = Object.values(props.favoriteCat);
+  return (
+      <div className="BigfavoritesCat">
+        {categories.map((object, i) => {
+          let strID = "ch" + i;
+          let checked = false;
+          if(props.favoriteCat !== null && props.favoriteCat !== undefined)
+            if(favorite.includes(object.name))
+              checked = true;
+          return (
+              <div key={i} className="favoritesCat">
+              <input type="checkbox" checked={checked} id={strID} value={object.name} onChange={props.func}/>
+            <label htmlFor={strID}><img src={object.img} />
+            </label>
+            </div>
+            );
+          })}
+      </div>
+  );
+}
 
 class EditProfile extends Component {
     constructor(props) {
         super(props);
         
         let end = false;
-        this.state =  props.location.state.user;
+        this.state =  {
+          id:props.location.state.user.id,
+          email:props.location.state.user.email,
+          name:props.location.state.user.name,
+          phone:props.location.state.user.phone,
+          img:props.location.state.user.img,
+          favoriteCat:props.location.state.user.favoriteCat,
+          listOfSignInClass:props.location.state.user.listOfSignInClass,
+          progress:[]
+
+        };
      
         this.handleChange = this.handleChange.bind(this);
         this.SetUser = this.SetUser.bind(this);
         this.handleUploadError = this.handleUploadError.bind(this);
         this.handleUploadSuccess = this.handleUploadSuccess.bind(this)
+        this.hhandleProgress = this.handleProgress.bind(this)
     }
 
     SetUser(){
+      console.log(this.state);
         firebase.database().ref('/Users/' + this.state.id).set(this.state);
         this.end = true;
         this.setState({});
       }
 
     handleChange(e) {
+      if(e.target.type == "checkbox"){
+        let i = e.target.id.substring(2)
+        let tempFavoriteCat = [];
+        if(this.state.favoriteCat !== null && this.state.favoriteCat !== undefined)
+            tempFavoriteCat = this.state.favoriteCat;
+        if(tempFavoriteCat[i] == undefined)
+          tempFavoriteCat[i] = e.target.value;
+        else
+          tempFavoriteCat[i] = null
+        this.setState({favoriteCat:tempFavoriteCat})
+      }
+      else{
         this.setState({[e.target.name]: e.target.value});
       }
+      console.log(this.state.favoriteCat)
+      }
+
+
+      handleProgress = progress => this.setState({ progress:(progress+'%') });
       handleUploadError (error) {
         alert("Upload Error: " + error);
     };
@@ -37,7 +93,7 @@ class EditProfile extends Component {
       .ref("usersImg")
       .child(filename)
       .getDownloadURL()
-      .then(url => this.setState({ img: url }));
+      .then(url => this.setState({ img: url,progress:[]}));
     };
 
     render() {
@@ -49,7 +105,7 @@ class EditProfile extends Component {
         return (
         <div>
         {this.end ? (<Redirect to="/" />):null}  
-        <NavBar edit="edit"/>
+        <NavBar edit="edit" location={this.props.location.pathname}/>
         <hr/>
         <div className="completeReg" style ={divWidth}>
         <form>
@@ -59,7 +115,7 @@ class EditProfile extends Component {
         <div className="imguserc">
           <img className="user_e" src={this.state.img}/>
           <div className="useret">
-              שנה תמונה
+              {this.state.progress}שנה תמונה
           </div> 
         </div>
           <FileUploader
@@ -69,6 +125,7 @@ class EditProfile extends Component {
             storageRef={firebase.storage().ref("usersImg")}
             onUploadError={this.handleUploadError}
             onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
           />
           </label>
           <br/>
@@ -81,6 +138,12 @@ class EditProfile extends Component {
         <input type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input> 
         </label>
         <hr/>
+        <label>
+        קטגוריות מועדפות
+        <FavoritesCategeory func={this.handleChange} categories={this.props.location.state.categoryList} favoriteCat={this.state.favoriteCat}/>
+        </label>
+        <br/>
+        <h3></h3>
         <input className="registerbtn" type="button" value="שמור" onClick={this.SetUser}/>
       </form>
         </div>

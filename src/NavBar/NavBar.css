@@ -32,9 +32,8 @@ div.loginText{
   display: inline-block;
   float: right;
 }
-div.edit{
-  display: inline-block;
-  float: right;
+ link {
+  text-decoration: none;
 }
 div.navText{
   vertical-align: middle;
@@ -44,6 +43,7 @@ div.navText{
   cursor: pointer;
   text-align: right;
   padding: 10px;
+  
 }
 
 div.dropDown {
@@ -65,4 +65,8 @@ div.dropDown p:hover {
 }
 .inline:hover div.dropDown {
   display: block;
+}
+
+.linkto{
+  text-decoration: none;
 }

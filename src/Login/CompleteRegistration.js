@@ -2,21 +2,20 @@ import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import './FormStyle.css'
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
+import { Redirect } from 'react-router';
 
 function FavoritesCategeory(props) {
   // get the real category json from the DB
 
   let categories = [];
   categories = props.categories;
-  console.log(categories);
-  
   return (
       <div className="BigfavoritesCat">
         {categories.map((object, i) => {
           let strID = "ch" + i;
           return (
               <div key={i} className="favoritesCat">
-              <input type="checkbox" id={strID} />
+              <input type="checkbox" id={strID} value={object.name} onChange={props.func}/>
             <label htmlFor={strID}><img src={object.img} />
             </label>
             </div>
@@ -29,32 +28,60 @@ function FavoritesCategeory(props) {
 class CompleteRegistration extends Component {
   constructor(props) {
     super(props);
-    this.state = props.user;
-      
+    this.state = {
+      id:props.user.id,
+      email:props.user.email,
+      name:props.user.name,
+      phone:props.user.phone,
+      img:props.user.img,
+      favoriteCat:props.user.favoriteCat,
+      listOfSignInClass:props.user.listOfSignInClass,
+      progress:[]
+
+    };;
+    let endProses =false;
   this.handleChange = this.handleChange.bind(this);
   this.AddUser = this.AddUser.bind(this);
   this.handleUploadError = this.handleUploadError.bind(this);
-  this.handleUploadSuccess = this.handleUploadSuccess.bind(this)
+  this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
+  this.hhandleProgress = this.handleProgress.bind(this);
   }
 
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+    
+    
+    if(e.target.type == "checkbox"){
+      let i = e.target.id.substring(2)
+      let tempFavoriteCat = this.state.favoriteCat;
+      if(tempFavoriteCat[i] == undefined)
+        tempFavoriteCat[i] = e.target.value;
+      else
+        tempFavoriteCat[i] = null
+      this.setState({favoriteCat:tempFavoriteCat})
+    }
+    else{
+      this.setState({[e.target.name]: e.target.value});
+    }
   }
+ 
 
   AddUser(){
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
+    this.endProses =true;
+    this.setState({});
   }
 
   handleUploadError (error) {
     alert("Upload Error: " + error);
 };
+handleProgress = progress => this.setState({ progress:(progress+'%') });
 handleUploadSuccess(filename) {
 firebase
   .storage()
   .ref("usersImg")
   .child(filename)
   .getDownloadURL()
-  .then(url => this.setState({ img: url }));
+  .then(url => this.setState({ img: url ,progress:[]}));
 };
 
   render() {
@@ -65,13 +92,13 @@ firebase
         divWidth.maxWidth = '100%';
     return (
         <div className="completeReg" style ={divWidth}>
-        <form onSubmit={this.AddUser}>
+        <form>
         <h1>ברוכים הבאים למה יש</h1>
         <label>   
         <div className="imguserc">
           <img className="user_e" src={this.state.img}/>
           <div className="useret">
-              שנה תמונה
+            {this.state.progress}שנה תמונה
           </div> 
         </div>
           <FileUploader
@@ -81,6 +108,7 @@ firebase
             storageRef={firebase.storage().ref("usersImg")}
             onUploadError={this.handleUploadError}
             onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
           />
           </label>
         <label>
@@ -95,13 +123,16 @@ firebase
 
         <label>
         בחר קטגוריות מעדפות
-        <FavoritesCategeory value={this.state.category} func={this.handleChange} categories={this.props.categoryList}/>
+        <FavoritesCategeory func={this.handleChange} categories={this.props.categoryList}/>
         </label>
-        <br></br>
+        <br/>
         <hr/>
-        <p onClick={this.AddUser}>דלג על שלב זה</p>
-        <input className="registerbtn" type="submit" value="המשך" />
+        <h3 onClick={this.AddUser}>דלג על שלב זה</h3>
+        <input className="registerbtn" type="button" value="המשך" onClick={this.AddUser}/>
       </form>
+      {this.endProses  ? (
+            <Redirect to={{pathname: this.props.location, state:{isLogin:true,user:this.state.user}}}/>
+          ):null}
         </div>
     );
   }

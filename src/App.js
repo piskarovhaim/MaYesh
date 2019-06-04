@@ -4,11 +4,16 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LogIn from "./Login/LogIn.js";
 import EditProfile from "./Login/EditProfile.js";
 import NewClass from "./NewClass/NewClass";
-import Classs from "./Class/Class";
+import Classs from "./Class/Class.js";
+
 import Category from "./Category/Category.js";
 import ManageCategory from "./Manage/ManageCategory.js";
 import MainManagePage from "./Manage/MainManagePage.js";
+
 import ManageClass from "./Manage/ManageClass.js";
+
+import ContactForm from "./Footer/ContactForm.js";
+
 class App extends Component {
   render() {
     return (
@@ -18,25 +23,13 @@ class App extends Component {
           <Route path="/NewClass" exact component={NewClass} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/Manage" exact component={MainManagePage} />
-          <Route path="/ManageCategory" exact component={ManageCategory} />
+          <Route path="/Contact" exact component={ContactForm} />
           <Route path="/editProfile/:id" exact component={EditProfile} />
           <Route
-            path="/ManageClass/:catName/:className"
+            path="/Manage/:name"
             exact
             render={({ match }) => {
-              return (
-                <ManageClass
-                  categoryName={match.params.catName}
-                  className={match.params.className}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/manage/:name"
-            exact
-            render={({ match }) => {
-              return <Category name={match.params.name} />;
+              return <ManageCategory name={match.params.name} />;
             }}
           />
           <Route
@@ -49,11 +42,17 @@ class App extends Component {
           <Route
             path="/Category/:nameC/Class/:nameClass"
             exact
+            component={Classs}
+          />
+          <Route path="/ManageCategory" exact component={ManageCategory} />
+          <Route
+            path="/ManageClass/:catName/:className"
+            exact
             render={({ match }) => {
               return (
-                <Classs
-                  catname={match.params.nameC}
-                  classname={match.params.nameClass}
+                <ManageClass
+                  categoryName={match.params.catName}
+                  className={match.params.className}
                 />
               );
             }}

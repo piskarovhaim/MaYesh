@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./AllCourses.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { object } from "prop-types";
 class AllCourses extends Component {
   constructor(props) {
     super(props);
     this.state = {
       categoryName: props.categoryName,
-      classList: [],
+      classList: props.list,
       coursesArray: []
     };
   }
@@ -16,7 +17,7 @@ class AllCourses extends Component {
   }
 
   render() {
-    let array = this.props.list.map(obj => {
+    let array = Object.values(this.props.list).map(obj => {
       return (
         <Course
           categoryName={this.props.categoryName}

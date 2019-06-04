@@ -28,10 +28,13 @@ class WebForm extends Component {
   constructor(props) {
     super(props);
     let endOfProcess = false;
+    let organizerId = "";
+    if (props.user != undefined) organizerId = props.user.id;
     this.state = {
       name: "",
       category: "",
       organizer: "",
+      organizerId: organizerId,
       phoneNumber: "",
       location: "",
       minPartici: "",
@@ -39,7 +42,6 @@ class WebForm extends Component {
       description: "",
       date: "",
       hour: "",
-      numOfPartici: 0,
       isConfirmed: false,
       categoryList: []
     };
@@ -58,18 +60,26 @@ class WebForm extends Component {
         Object.keys(snapshot.val()).forEach(function(value) {
           categories.push({ type: value });
         });
-        self.setState({ categoryList: categories });
+        if (self.state.category == "" && categories.length > 0) {
+          self.setState({
+            categoryList: categories,
+            category: categories[0].type
+          });
+        } else {
+          self.setState({ categoryList: categories });
+        }
       });
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  handleSubmit(event) {
+  handleSubmit() {
     // if (!this.isValidForm()) {
     //   alert("מלא את כל הטופס בבקשה");
     //   return;
     // }
+    alert("gfdsg");
 
     let ref = firebase
       .database()
@@ -101,9 +111,8 @@ class WebForm extends Component {
       <div>
         <NavBar />
         <hr />
-
         <div className="completeReg">
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <h1>טופס חוג חדש</h1>
             <label>
               שם קורס
@@ -203,7 +212,12 @@ class WebForm extends Component {
               />
             </label>
 
-            <input className="registerbtn" type="submit" value="שמור" />
+            <input
+              className="registerbtn"
+              type="button"
+              value="שמור"
+              onClick={this.handleSubmit}
+            />
           </form>
         </div>
         {this.endOfProcess ? <Redirect to="/" /> : null}

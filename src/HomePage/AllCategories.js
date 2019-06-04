@@ -63,7 +63,7 @@ class AllCategories extends Component {
   render() {
     return (
       <div className="AllCategories">
-        <h1>All Categories</h1>
+        <h1>כל הקטגוריות</h1>
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
           buttonsDisabled={true}
