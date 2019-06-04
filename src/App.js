@@ -25,6 +25,7 @@ class App extends Component {
           <Route path="/login" exact component={LogIn} />
           <Route path="/Manage" exact component={MainManagePage} />
           <Route path="/Contact" exact component={ContactForm} />
+          <Route path="/RedirectTemp" exact component={redirectTemp}/>
           <Route path="/editProfile/:id" exact component={EditProfile} />
           <Route
             path="/Manage/:name"

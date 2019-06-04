@@ -35,7 +35,7 @@ select {
   border-radius: 4px;
   cursor: pointer;
 }
-.container input[type="submit"] {
+.container button {
   width: 100%;
   background-color: #a5a5a5;
   color: white;
@@ -45,8 +45,7 @@ select {
   border-radius: 4px;
   cursor: pointer;
 }
-
-input[type="submit"]:hover {
+button:hover {
   background-color: #4c4d4c;
   color: white;
 }

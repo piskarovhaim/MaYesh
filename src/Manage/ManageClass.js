@@ -4,22 +4,40 @@ import NavBar from "../NavBar/NavBar";
 import "../Login/FormStyle.css";
 import { Redirect } from "react-router";
 import Permissions from "./Permissions";
-// function CategorySelector(props) {
-//   let categories = [];
-//   categories = props.categories;
+import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
+import './ManageClass.css';
 
-//   return (
-//     <select value={props.value} onChange={props.func} name="category">
-//       {categories.map((object, i) => {
-//         return (
-//           <option key={i} value={object.type}>
-//             {object.type}
-//           </option>
-//         );
-//       })}
-//     </select>
-//   );
-// }
+function ShowPartici(props) {
+  let particiList = [];
+  let particiListKey = [];
+
+  if(props.particiList !== null && props.particiList !== undefined){
+      particiList = Object.values(props.particiList);
+      particiListKey = Object.keys(props.particiList);
+      console.log(particiListKey);
+  }
+  return (
+      <div>
+        <h3>רשימת משתתפים בחוג</h3>
+        {particiList.map((participant, i) => {
+          return (
+              <div key={i}>
+              
+              <div>
+                    <div className = "participantmanage" key = {participant.id}>
+                        <span><img  className = "partimgmanage" src = {participant.img}/></span>
+                        <div>{participant.name}</div>
+                        <div className="delPartici" onClick={()=>props.removePartici(particiListKey[i])}>הסר משתתף </div>
+                    </div>
+                    <hr/>
+                </div>
+                 
+            </div>
+            );
+          })}
+      </div>
+  );
+}
 
 class ManageClass extends Component {
   constructor(props) {
@@ -29,21 +47,29 @@ class ManageClass extends Component {
       name: props.className,
       category: props.categoryName,
       organizer: "",
+      organizerId:"",
       phoneNumber: "",
       location: "",
       minPartici: "",
       maxPartici: "",
       date: "",
+      numOfCurrPartici:"",
       hour: "",
       description: "",
       imgUrl: "",
-      categoryList: []
+      particiList:[],
+      progress:[]
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUploadError = this.handleUploadError.bind(this);
+    this.handleUploadSuccess = this.handleUploadSuccess.bind(this)
+    this.handleProgress = this.handleProgress.bind(this)
+    this.removePartici = this.removePartici.bind(this)
   }
 
   componentDidMount() {
+
     let ref = firebase
       .database()
       .ref(
@@ -53,21 +79,12 @@ class ManageClass extends Component {
           this.props.className
       );
     ref.on("value", snapshot => {
-      this.setState(snapshot.val());
+      let tempState = snapshot.val();
+      if(tempState.numOfCurrPartici < 1)
+        tempState.particiList= [];
+      this.setState(tempState);
     });
 
-    let categories = [];
-    let self = this;
-    firebase
-      .database()
-      .ref("CategoryList/")
-      .once("value")
-      .then(function(snapshot) {
-        Object.keys(snapshot.val()).forEach(function(value) {
-          categories.push({ type: value });
-        });
-        self.setState({ categoryList: categories });
-      });
   }
 
   handleChange(e) {
@@ -77,9 +94,6 @@ class ManageClass extends Component {
     if (window.confirm("האם אתה בטוח שברצונך לשמור את השינויים?") == false) {
       return;
     }
-    console.log(this.state);
-    await this.setState({ categoryList: [] });
-    alert(this.state.className);
     let ref = firebase
       .database()
       .ref(
@@ -100,16 +114,44 @@ class ManageClass extends Component {
           this.state.name
       );
     ref.set(this.state);
+    this.endOfProcess =true;
+    this.setState({});
   }
+
+  
+  handleProgress = progress => this.setState({ progress:(progress+'%') });
+  handleUploadError (error) {
+    alert("Upload Error: " + error);
+};
+handleUploadSuccess(filename) {
+firebase
+  .storage()
+  .ref("classImg")
+  .child(filename)
+  .getDownloadURL()
+  .then(url => this.setState({ imgUrl: url,progress:[]}));
+};
+
+removePartici(particiKey){
+  firebase.database().ref("/CategoryList/" + this.state.category +"/classList/" + this.state.name + "/particiList/" + particiKey).remove();
+  firebase.database().ref("/CategoryList/" + this.state.category +"/classList/" + this.state.name + "/numOfCurrPartici").set((this.state.numOfCurrPartici - 1));
+}
+
+
   render() {
+    const divWidth = {
+      maxWidth: '30%'
+    };
+    if(window.innerWidth < 500) // if it is phone set the width to 100%
+        divWidth.maxWidth = '100%';
     return (
       <div>
         <NavBar />
         <Permissions />
         <hr />
 
-        <div className="completeReg">
-          <form onSubmit={this.handleSubmit}>
+        <div className="completeReg" style ={divWidth}>
+          <form>
             <h1>עריכת קורס {this.props.className}</h1>
             <label>
               שם קורס
@@ -199,20 +241,29 @@ class ManageClass extends Component {
                 onChange={this.handleChange}
               />
             </label>
+            
             <label>
-              קישור לתמונה
-              <input
-                type="text"
-                name="imgUrl"
-                value={this.state.imgUrl}
-                onChange={this.handleChange}
-              />
-            </label>
-
-            <input className="registerbtn" type="submit" value="שמור" />
+        <div className="imgclassManagec">
+          <img className="class_e" src={this.state.imgUrl}/>
+          <div className="classet">
+              {this.state.progress}שנה תמונה
+          </div> 
+        </div>
+          <FileUploader
+            hidden
+            accept="image/*"
+            randomizeFilename
+            storageRef={firebase.storage().ref("classImg")}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
+          />
+          </label>
+            <ShowPartici particiList={this.state.particiList} removePartici={this.removePartici}/>
+            <input className="registerbtn" type="bottun" value="שמור" onClick={this.handleSubmit}/>
           </form>
         </div>
-        {this.endOfProcess ? <Redirect to="/ManageClass" /> : null}
+        {this.endOfProcess ? <Redirect to="/Manage" /> : null}
       </div>
     );
   }
