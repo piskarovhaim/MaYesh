@@ -1,48 +1,42 @@
 import React, { Component } from "react";
-import "../Login/FormStyle.css";
-import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
-import NavBar from "../NavBar/NavBar";
 import firebase from "../Firebase/FireBase.js";
+import NavBar from "../NavBar/NavBar";
+import "../Login/FormStyle.css";
 import { Redirect } from "react-router";
+import Permissions from "./Permissions";
+// function CategorySelector(props) {
+//   let categories = [];
+//   categories = props.categories;
 
-function CategeorySelector(props) {
-  // get the real category json from the DB
+//   return (
+//     <select value={props.value} onChange={props.func} name="category">
+//       {categories.map((object, i) => {
+//         return (
+//           <option key={i} value={object.type}>
+//             {object.type}
+//           </option>
+//         );
+//       })}
+//     </select>
+//   );
+// }
 
-  let categories = [];
-  categories = props.categories;
-
-  return (
-    <select value={props.value} onChange={props.func} name="category">
-      {categories.map((object, i) => {
-        return (
-          <option key={i} value={object.type}>
-            {object.type}
-          </option>
-        );
-      })}
-    </select>
-  );
-}
-
-class WebForm extends Component {
+class ManageClass extends Component {
   constructor(props) {
     super(props);
-    let endOfProcess = false;
-    let organizerId = "";
-    if (props.user != undefined) organizerId = props.user.id;
+
     this.state = {
-      name: "",
-      category: "",
+      name: props.className,
+      category: props.categoryName,
       organizer: "",
-      organizerId: organizerId,
       phoneNumber: "",
       location: "",
       minPartici: "",
       maxPartici: "",
-      description: "",
       date: "",
       hour: "",
-      isConfirmed: false,
+      description: "",
+      imgUrl: "",
       categoryList: []
     };
     this.handleChange = this.handleChange.bind(this);
@@ -50,70 +44,73 @@ class WebForm extends Component {
   }
 
   componentDidMount() {
+    let ref = firebase
+      .database()
+      .ref(
+        "/CategoryList/" +
+          this.props.categoryName +
+          "/classList/" +
+          this.props.className
+      );
+    ref.on("value", snapshot => {
+      this.setState(snapshot.val());
+    });
+
     let categories = [];
     let self = this;
     firebase
       .database()
-      .ref("/CategoryList/")
+      .ref("CategoryList/")
       .once("value")
       .then(function(snapshot) {
         Object.keys(snapshot.val()).forEach(function(value) {
           categories.push({ type: value });
         });
-        if (self.state.category == "" && categories.length > 0) {
-          self.setState({
-            categoryList: categories,
-            category: categories[0].type
-          });
-        } else {
-          self.setState({ categoryList: categories });
-        }
+        self.setState({ categoryList: categories });
       });
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  handleSubmit() {
-    // if (!this.isValidForm()) {
-    //   alert("מלא את כל הטופס בבקשה");
-    //   return;
-    // }
-    alert("gfdsg");
-
+  async handleSubmit() {
+    if (window.confirm("האם אתה בטוח שברצונך לשמור את השינויים?") == false) {
+      return;
+    }
+    console.log(this.state);
+    await this.setState({ categoryList: [] });
+    alert(this.state.className);
     let ref = firebase
       .database()
       .ref(
         "/CategoryList/" +
-          this.state.category +
-          "/classList" +
-          "/" +
-          this.state.name +
-          "/"
+          this.props.categoryName +
+          "/classList/" +
+          this.props.className
       );
-    ref.set(this.state);
+
+    ref.remove();
 
     ref = firebase
       .database()
       .ref(
         "/CategoryList/" +
-          this.state.category +
+          this.props.categoryName +
           "/classList/" +
-          this.state.name +
-          "/categoryList"
+          this.state.name
       );
-    ref.remove();
-    this.endOfProcess = true;
-    this.setState({});
+    ref.set(this.state);
   }
   render() {
     return (
       <div>
         <NavBar />
+        <Permissions />
         <hr />
+
         <div className="completeReg">
-          <form>
-            <h1>טופס חוג חדש</h1>
+          <form onSubmit={this.handleSubmit}>
+            <h1>עריכת קורס {this.props.className}</h1>
             <label>
               שם קורס
               <input
@@ -121,15 +118,6 @@ class WebForm extends Component {
                 name="name"
                 value={this.state.name}
                 onChange={this.handleChange}
-              />
-            </label>
-
-            <label>
-              קטגוריה
-              <CategeorySelector
-                value={this.state.category}
-                func={this.handleChange}
-                categories={this.state.categoryList}
               />
             </label>
 
@@ -211,19 +199,22 @@ class WebForm extends Component {
                 onChange={this.handleChange}
               />
             </label>
+            <label>
+              קישור לתמונה
+              <input
+                type="text"
+                name="imgUrl"
+                value={this.state.imgUrl}
+                onChange={this.handleChange}
+              />
+            </label>
 
-            <input
-              className="registerbtn"
-              type="button"
-              value="שמור"
-              onClick={this.handleSubmit}
-            />
+            <input className="registerbtn" type="submit" value="שמור" />
           </form>
         </div>
-        {this.endOfProcess ? <Redirect to="/" /> : null}
+        {this.endOfProcess ? <Redirect to="/ManageClass" /> : null}
       </div>
     );
   }
 }
-
-export default WebForm;
+export default ManageClass;
