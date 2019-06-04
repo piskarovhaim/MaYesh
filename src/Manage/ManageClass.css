@@ -1,0 +1,43 @@
+div.imgclassManagec{
+    float: right;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+img.class_e{
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+}
+
+div.classet{
+    right: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.247);
+    top: 50%;
+    color: white;
+    border-radius: 4px;
+}
+
+.partimgmanage
+{
+    height: 45px;
+    width: 45;
+    border-radius: 50%;
+}
+
+.participantmanage
+{
+    font-size: large;
+    text-align: center;
+    position: relative;
+}
+
+div.delPartici{
+    color:red;
+    position: absolute;
+    top:30%;
+    right: 0;
+    cursor: pointer;
+}
