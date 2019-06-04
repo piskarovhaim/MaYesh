@@ -4,22 +4,6 @@ import NavBar from "../NavBar/NavBar";
 import "../Login/FormStyle.css";
 import { Redirect } from "react-router";
 import Permissions from "./Permissions";
-// function CategorySelector(props) {
-//   let categories = [];
-//   categories = props.categories;
-
-//   return (
-//     <select value={props.value} onChange={props.func} name="category">
-//       {categories.map((object, i) => {
-//         return (
-//           <option key={i} value={object.type}>
-//             {object.type}
-//           </option>
-//         );
-//       })}
-//     </select>
-//   );
-// }
 
 class ManageClass extends Component {
   constructor(props) {
@@ -55,19 +39,6 @@ class ManageClass extends Component {
     ref.on("value", snapshot => {
       this.setState(snapshot.val());
     });
-
-    let categories = [];
-    let self = this;
-    firebase
-      .database()
-      .ref("CategoryList/")
-      .once("value")
-      .then(function(snapshot) {
-        Object.keys(snapshot.val()).forEach(function(value) {
-          categories.push({ type: value });
-        });
-        self.setState({ categoryList: categories });
-      });
   }
 
   handleChange(e) {
@@ -77,9 +48,6 @@ class ManageClass extends Component {
     if (window.confirm("האם אתה בטוח שברצונך לשמור את השינויים?") == false) {
       return;
     }
-    console.log(this.state);
-    await this.setState({ categoryList: [] });
-    alert(this.state.className);
     let ref = firebase
       .database()
       .ref(
@@ -90,7 +58,6 @@ class ManageClass extends Component {
       );
 
     ref.remove();
-
     ref = firebase
       .database()
       .ref(
@@ -100,6 +67,8 @@ class ManageClass extends Component {
           this.state.name
       );
     ref.set(this.state);
+    this.endOfProcess = true;
+    this.setState({});
   }
   render() {
     return (
@@ -208,11 +177,10 @@ class ManageClass extends Component {
                 onChange={this.handleChange}
               />
             </label>
-
             <input className="registerbtn" type="submit" value="שמור" />
           </form>
         </div>
-        {this.endOfProcess ? <Redirect to="/ManageClass" /> : null}
+        {this.endOfProcess ? <Redirect to="/Manage" /> : null}
       </div>
     );
   }

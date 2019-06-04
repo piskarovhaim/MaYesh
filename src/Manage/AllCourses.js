@@ -12,9 +12,6 @@ class AllCourses extends Component {
       coursesArray: []
     };
   }
-  handleClick(e) {
-    console.log(e.target);
-  }
 
   render() {
     let array = Object.values(this.props.list).map(obj => {
@@ -24,7 +21,6 @@ class AllCourses extends Component {
           img={obj.imgUrl}
           className={obj.name}
           date={obj.date}
-          handleClick={this.handleClick}
         />
       );
     });

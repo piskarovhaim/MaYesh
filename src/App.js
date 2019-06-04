@@ -5,15 +5,12 @@ import LogIn from "./Login/LogIn.js";
 import EditProfile from "./Login/EditProfile.js";
 import NewClass from "./NewClass/NewClass";
 import Classs from "./Class/Class.js";
-
 import Category from "./Category/Category.js";
 import ManageCategory from "./Manage/ManageCategory.js";
 import MainManagePage from "./Manage/MainManagePage.js";
-
 import ManageClass from "./Manage/ManageClass.js";
-
 import ContactForm from "./Footer/ContactForm.js";
-import redirectTemp from "./Login/redirectTemp.js"
+import redirectTemp from "./Login/redirectTemp.js";
 
 class App extends Component {
   render() {
@@ -25,6 +22,7 @@ class App extends Component {
           <Route path="/login" exact component={LogIn} />
           <Route path="/Manage" exact component={MainManagePage} />
           <Route path="/Contact" exact component={ContactForm} />
+          <Route path="RedirectTemp" exact component={redirectTemp} />
           <Route path="/editProfile/:id" exact component={EditProfile} />
           <Route
             path="/Manage/:name"
