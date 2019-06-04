@@ -19,7 +19,6 @@ class Classs extends React.Component
         {
             isLogin = props.location.state.isLogin;
         }
-        
         this.state = {
             loading: false,
             ifClassFull: false, 
@@ -45,8 +44,10 @@ class Classs extends React.Component
                 partiList:[] }};
     }
 
+    
     componentDidMount()
     { 
+        
         let ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course);
         ref.child("particiList").on('value', snapshot => {
             let tempParticiList = [];//will keep the list of participants for this class
@@ -162,8 +163,10 @@ class Classs extends React.Component
     render()
     {
         console.log(this.state.thisClass)
-        let style={};
-        if(window.innerWidth < 7)
+        let widthImg = (window.innerWidth/3);
+        let hightImg = (window.innerWidth/4);
+        let style={}
+        if(window.innerWidth < 500)
             style.width = '100%';
         let sendToLogin = false;
         if(!this.state.isLogin && this.state.isJoinClicked)
@@ -176,14 +179,14 @@ class Classs extends React.Component
                 {this.state.loading ? <div>
                 {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
                 <NavBar/>
+                <div className="topdiv">
                 <div className = "leftSide" style={style}>
-                    <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
+                    <img className="classImg" src={this.state.thisClass.img} />
                 </div>
                 <div className = "rightSide" style={style}>
                     <Card style={{ width: '30rem' }}>
                         <CardBody>
                             <CardTitle className = "title">{this.state.thisClass.name}</CardTitle>
-                            <hr/>
                             <ListGroup className="list-group-flush">
                                 <p>{this.state.thisClass.description}</p>
                                 <ListGroupItem className = "item">  מועבר על ידי - {this.state.thisClass.organizer}</ListGroupItem>
@@ -196,7 +199,7 @@ class Classs extends React.Component
                             </div>
                         </CardBody>
                     </Card>
-                </div>  </div> : null}
+                </div>  </div> </div>: null}
             </div>
         )
     }

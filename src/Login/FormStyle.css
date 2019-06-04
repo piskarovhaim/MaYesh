@@ -188,3 +188,13 @@ div.favoritesCat {
     box-shadow: 0 0 5px #333;
     z-index: -1;
   }
+  div.textdivEdit{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: rgb(148, 148, 148);
+    color: white;
+    opacity: 0.6;
+}

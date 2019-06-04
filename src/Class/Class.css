@@ -1,22 +1,31 @@
 
 .mainDiv
 {
-    background-color:gold;
+   
+}
+
+.topdiv{
+    width: 90%;
+    margin: auto;
+    display: inline-block;
+    text-align: right; 
+
 }
 
 .leftSide
 {
-    width: 50%;
-    height: 30%;
-    float: left;
-    margin: auto;
-
+    width: 40%;
+    max-width: 40%;
+    height: 100%;
+    display: inline-block;
 }
 
 .rightSide
 {
-    float: right;
+    display: inline-block;
+    width: 40%;
     font-size: 30px;
+    padding-right: 10%;
 }
 
 .title
@@ -25,55 +34,12 @@
     text-align: center;
 }
 
-h2
-{
-    font-size: 40px;
-    color: blue;
-}
-
 p
 {
     text-align: center;
     font-size: large;
-    margin-bottom: 60px;
+    margin-bottom: 10%;
 }
-
-.button1
-{
-    background-color: #4CAF50;
-    border: groove;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    margin-left: 40%;
-    margin-right: 40px;
-}
-
-.button2
-{
-    background-color: #4CAF50;
-    border: groove;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    margin-left: 40px;
-}
-
-.button
-{
-    left: 50%;
-}
-
 
 .item
 {
@@ -85,8 +51,7 @@ p
 .classImg
 {
     width: 100%;
-    display: inline-block;
-    height: 30%;
+    height: 100%;
     border: 0.5px solid black;
     margin: auto;
 }

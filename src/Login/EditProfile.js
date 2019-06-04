@@ -24,7 +24,11 @@ function FavoritesCategeory(props) {
           return (
               <div key={i} className="favoritesCat">
               <input type="checkbox" checked={checked} id={strID} value={object.name} onChange={props.func}/>
-            <label htmlFor={strID}><img src={object.img} />
+            <label htmlFor={strID}>
+            <img src={object.img} />
+            <div className="textdivEdit">
+            {object.name}
+            </div>
             </label>
             </div>
             );
@@ -58,7 +62,6 @@ class EditProfile extends Component {
     }
 
     SetUser(){
-      console.log(this.state);
         firebase.database().ref('/Users/' + this.state.id).set(this.state);
         this.end = true;
         this.setState({});

@@ -9,6 +9,7 @@ import Classs from './Class/Class.js' ;
 import Category from "./Category/Category.js";
 import MainManagePage from "./Manage/MainManagePage.js";
 import ContactForm from "./Footer/ContactForm.js";
+import redirectTemp from "./Login/redirectTemp.js"
 
 class App extends Component {
   
@@ -21,6 +22,7 @@ class App extends Component {
         <Route path="/login" exact component={LogIn}/>
         <Route path="/Manage" exact component={MainManagePage}/>
         <Route path="/Contact" exact component={ContactForm}/>
+        <Route path="/RedirectTemp" exact component={redirectTemp}/>
         <Route path="/editProfile/:id" exact component={EditProfile}/>
         <Route path="/manage/:name" exact render={({match}) => {return <Category name={match.params.name}/>;}}/>
         <Route path="/Category/:name" exact render={({match}) => {return <Category name={match.params.name}/>;}}/>

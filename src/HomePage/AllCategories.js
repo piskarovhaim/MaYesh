@@ -41,9 +41,12 @@ class AllCategories extends Component{
       snapshot.forEach(child => {
             let str = "/Category/" + child.val().name;
             arrTemp.push( // One element in displaying all categories
-              <div className="gallery" key={i}>
+              <div className="gallery" key={i} style={imgStyle}>
             <Link to={str}>
             <img alt={child.val().name} className="AllCategories" style={imgStyle} src={child.val().img}/>
+            <div className="textdiv" style={{padding:'4px'}}>
+            {child.val().name}
+            </div>
             </Link>
             </div>
             );
@@ -55,8 +58,20 @@ class AllCategories extends Component{
   }
  
   render() {
+    let web = false;
+    if(window.innerWidth > 500) // set the image size by phone or not phone
+      web =true;
     return (
       <div className="AllCategories">
+
+        {web ? (  // if open in phone show the buttons , else dont show
+        <div>
+        <div className="carouselButtondivL">
+        <button className="carouselButton" onClick={() => this.slidePrev()}>&lsaquo;</button>
+        </div><div className="carouselButtondivR">
+        <button className="carouselButton" onClick={() => this.slideNext()}>&rsaquo;</button>
+        </div></div>):null} 
+
         <h1>כל הקטגוריות</h1>
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
@@ -66,11 +81,6 @@ class AllCategories extends Component{
           slideToIndex={this.state.currentIndex}
           onSlideChanged={this.onSlideChanged}
         /> 
-        {this.state.webSite ? (  // if open in phone show the buttons , else dont show
-        <div className="carouselButton">
-        <button className="carouselButton" onClick={() => this.slidePrev()}>&lt;</button>
-        <button className="carouselButton" onClick={() => this.slideNext()}>&gt;</button>
-        </div>):null}
        </div>
     )
   }

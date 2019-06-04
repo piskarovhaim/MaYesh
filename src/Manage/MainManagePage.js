@@ -21,6 +21,9 @@ function AllCategory(props) {
             <div className="manageCat" key={i}>
             <Link to={str}>
             <img className="imgmanageCat" src={object.img}/>
+            <div className="textdivmanage" style={{padding:'4px'}}>
+            {object.name}
+            </div>
             </Link>
             </div>
           );

@@ -16,7 +16,7 @@ class NavBar extends Component {
       isSignedIn: false,
       location: location,
       navStyle: {
-        height: window.innerHeight / 10
+        height: window.innerHeight / 10,
       },
       categoryList:[],
       user: {
@@ -83,9 +83,14 @@ class NavBar extends Component {
   };
 
   render() {
-    const setNavHeight = {
+    let setNavHeight = {
       height: this.state.navStyle.height
     };
+    let setLogoSize = {
+      width: window.innerWidth /4
+    };
+    if(window.innerWidth < 500)
+        setLogoSize.hight =  120
 
     let login = this.state.isSignedIn;
     let edit = false;
@@ -96,13 +101,13 @@ class NavBar extends Component {
       <div className="nav" style={setNavHeight}>
         <Link to="/">
           <img
-            className="logo"
-            src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"
+            className="logoh" style={setLogoSize}
+            src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/logo.png?alt=media&token=477548f9-1686-4a70-bdeb-736a2c9dba27"
           />
         </Link>
         {login ? (
           <div className="inline">
-            <img className="user" src={this.state.user.img} />
+            <img className="user" src={this.state.user.img}  />
             {edit ? null : (
               <div className="dropDown">
                 <Link className="linkto"

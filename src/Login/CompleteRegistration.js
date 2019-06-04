@@ -16,7 +16,11 @@ function FavoritesCategeory(props) {
           return (
               <div key={i} className="favoritesCat">
               <input type="checkbox" id={strID} value={object.name} onChange={props.func}/>
-            <label htmlFor={strID}><img src={object.img} />
+            <label htmlFor={strID}>
+            <img src={object.img} />
+            <div className="textdivEdit">
+            {object.name}
+            </div>
             </label>
             </div>
             );
