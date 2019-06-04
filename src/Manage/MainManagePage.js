@@ -91,14 +91,13 @@ class MainManagePage extends Component {
 
   }
 
-  componentWillMount ()  {
-  }
 
   componentDidMount(){
-    let arr=[];
-    let arrTempClasses = [];
+
     let ref = firebase.database().ref('/CategoryList/');
     ref.on('value', snapshot => {
+      let arr=[];
+      let arrTempClasses = [];
       snapshot.forEach(child => {
           arr.push(child.val());
           let temp = child.val().classList;
