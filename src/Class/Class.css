@@ -6,19 +6,27 @@
     margin: auto;
 }
 
-.leftSide
-{
-    width: 50%;
-    height: 30%;
-    float: left;
+.topdiv{
+    width: 90%;
     margin: auto;
     padding-left: 3%;
+
+}
+
+.leftSide
+{
+    width: 40%;
+    max-width: 40%;
+    height: 100%;
+    display: inline-block;
 }
 
 .rightSide
 {
-    float: right;
+    display: inline-block;
+    width: 40%;
     font-size: 30px;
+    padding-right: 10%;
 }
 
 .title
@@ -27,18 +35,13 @@
     text-align: center;
 }
 
-h2
-{
-    font-size: 40px;
-    color: blue;
-}
-
 p
 {
     text-align: center;
     font-size: large;
-    margin-bottom: 60px;
+    margin-bottom: 10%;
 }
+
 
 .button1
 {
@@ -62,6 +65,7 @@ p
     margin: auto;
     left: 50%;
 }
+
 
 
 .item

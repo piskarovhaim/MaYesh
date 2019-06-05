@@ -19,15 +19,16 @@ class Search extends Component {
     }
 
     componentDidMount()  {
-        let arrTempAllClasses = [];
         let ref = firebase.database().ref('/CategoryList');
         ref.on('value', snapshot => {
+          let arrTempAllClasses = [];
           snapshot.forEach(child => {
                 let temp = child.val().classList;
                 for (let key in temp) {
                     arrTempAllClasses.push(temp[key]);
                   }
             });
+            console.log(arrTempAllClasses);
             this.setState({classList:arrTempAllClasses});
         });
       };
@@ -60,7 +61,7 @@ class Search extends Component {
             notFound = <div className="classFound">לא נמצאו תוצאות</div>
         return(
             <div className="search" style={style} >
-                {this.state.redirect ? <Redirect to={"/Category/"+ this.state.currentcategory +"/Class/"+ this.state.currentclass}/> : null}
+                {this.state.redirect ? <Redirect to={{pathname: "/RedirectTemp", location:{l:"/Category/"+ this.state.currentcategory +"/Class/"+ this.state.currentclass}}}/> : null}
                 <input type="text" value={this.state.keyWord} className="inputSearch" placeholder="...חפש חוג" name="keyWord" onChange={this.handleChange} onBlur={this.handleBlur} autoComplete="off"/>
                 <div className="dropDownn">
                     {classElements}

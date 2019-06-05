@@ -2,21 +2,52 @@ img.AllCategories:hover {
     border: 0.7px solid rgba(0, 0, 0, 0.438);
 }
 div.gallery:hover {
-    width: 120%;
-    height: 120%;
+    width: 130%;
+    height: 130%;
 }
 div.AllCategories{
     margin: auto;
     font-family: "Arial Verdana", Sans-serif;
-    margin: 1%;
-    
+    text-align: right;
+    margin: 2%;
+    position: relative;
 }
 
-div.carouselButton{
-    text-align: center
-    
+div.carouselButtondivR{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: 0px;
+
+}
+div.carouselButtondivL{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 0px;
+}
+button.carouselButton{
+    font-size: 400%;
+    outline:none;
+    font-weight: bold;
+    padding: 0;
+    border: none;
+    opacity: 0.5;
+}
+button.carouselButton:hover{
 }
 
+
+div.textdiv{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    padding: 2%;
+    border-radius: 3px;
+    background-color: black;
+    color: white;
+    opacity: 0.6;
+}
 
 div.gallery{
     margin: 10px;
@@ -25,30 +56,6 @@ div.gallery{
     height: 100%;
     font-family: Arial;
     cursor: pointer;
-    border-radius: 3px;
-}
-
-div.textdiv{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    padding: 8px;
-    border-radius: 3px;
-    background-color: black;
-    color: white;
-    opacity: 0.6;
-}
-
-button.carouselButton{
-    border-radius:50%;
-    background-color: rgb(255, 255, 255);
-    font-size: 250%;
-    margin-left: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    outline:none;
-
-}
-button.carouselButton:hover{
-    background-color: rgba(170, 168, 168, 0.089);
+    padding: 1px;
+    border: 1px solid black;
 }

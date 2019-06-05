@@ -105,6 +105,14 @@ class ShowClass extends Component{
         <div className="AllCategories">
         <h1>{this.state.title}</h1>
 
+        {web ? (  // if open in phone show the buttons , else dont show
+        <div>
+        <div className="carouselButtondivL">
+        <button className="carouselButton" onClick={() => this.slidePrev()}>&lsaquo;</button>
+        </div><div className="carouselButtondivR">
+        <button className="carouselButton" onClick={() => this.slideNext()}>&rsaquo;</button>
+        </div></div>):null}
+
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
           buttonsDisabled={true}
@@ -114,11 +122,7 @@ class ShowClass extends Component{
           onSlideChanged={this.onSlideChanged}
         />
  
-        {web ? (  // if open in phone show the buttons , else dont show
-        <div className="carouselButton">
-        <button className="carouselButton" onClick={() => this.slidePrev()}>&lt;</button>
-        <button className="carouselButton" onClick={() => this.slideNext()}>&gt;</button>
-        </div>):null}
+
        </div>
       )
     }

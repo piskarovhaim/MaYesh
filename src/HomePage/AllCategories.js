@@ -1,62 +1,77 @@
 import React, { Component } from "react";
-import AliceCarousel from 'react-alice-carousel'
-import "react-alice-carousel/lib/alice-carousel.css"
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 import firebase from "../Firebase/FireBase.js";
 import "./AllCategories.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
- 
-class AllCategories extends Component{
-
+class AllCategories extends Component {
   state = {
     currentIndex: 0,
-    responsive: { 500: { items: (window.innerWidth/180) },0: { items: 3 } },
+    responsive: { 500: { items: window.innerWidth / 180 }, 0: { items: 3 } },
+
     categoryList: [],
-    webSite:false,
-  }
-  slideTo = (i) => this.setState({ currentIndex: i })
- 
-  onSlideChanged = (e) => this.setState({ currentIndex: e.item })
- 
-  slideNext = () => this.setState({ currentIndex: this.state.currentIndex + 1 })
- 
-  slidePrev = () => this.setState({ currentIndex: this.state.currentIndex - 1 })
- 
+    webSite: false
+  };
+  slideTo = i => this.setState({ currentIndex: i });
+
+  onSlideChanged = e => this.setState({ currentIndex: e.item });
+
+  slideNext = () =>
+    this.setState({ currentIndex: this.state.currentIndex + 1 });
+
+  slidePrev = () =>
+    this.setState({ currentIndex: this.state.currentIndex - 1 });
+
   componentDidMount() {
-  
     let imgStyle;
     let web = false;
-    let size
-    if(window.innerWidth < 500) // set the image size by phone or not phone
-      size = (window.innerWidth-40)/3
-    else{
-      size = (window.innerWidth/7);
-      web =true;
+    let size;
+    if (window.innerWidth < 500)
+      // set the image size by phone or not phone
+      size = (window.innerWidth - 40) / 3;
+    else {
+      size = window.innerWidth / 7;
+      web = true;
     }
-    imgStyle = {height: size ,width: size}
+    imgStyle = { height: size, width: size };
     let arrTemp = [];
-    let i =0;
-    let ref = firebase.database().ref('/CategoryList');
-    ref.on('value', snapshot => {
+    let i = 0;
+    let ref = firebase.database().ref("/CategoryList");
+    ref.on("value", snapshot => {
       snapshot.forEach(child => {
             let str = "/Category/" + child.val().name;
             arrTemp.push( // One element in displaying all categories
-              <div className="gallery" key={i}>
+              <div className="gallery" key={i} style={imgStyle}>
             <Link to={str}>
             <img alt={child.val().name} className="AllCategories" style={imgStyle} src={child.val().img}/>
-            </Link>
+            <div className="textdiv" style={{padding:'4px'}}>
+            {child.val().name}
             </div>
-            );
-            i++;
-        });
-
-        this.setState({categoryList:arrTemp,webSite:web});
+            </Link>
+          </div>
+        );
+        i++;
+      });
+      this.setState({ categoryList: arrTemp, webSite: web });
     });
   }
- 
+
   render() {
+    let web = false;
+    if(window.innerWidth > 500) // set the image size by phone or not phone
+      web =true;
     return (
       <div className="AllCategories">
+
+        {web ? (  // if open in phone show the buttons , else dont show
+        <div>
+        <div className="carouselButtondivL">
+        <button className="carouselButton" onClick={() => this.slidePrev()}>&lsaquo;</button>
+        </div><div className="carouselButtondivR">
+        <button className="carouselButton" onClick={() => this.slideNext()}>&rsaquo;</button>
+        </div></div>):null} 
+
         <h1>כל הקטגוריות</h1>
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
@@ -66,15 +81,9 @@ class AllCategories extends Component{
           slideToIndex={this.state.currentIndex}
           onSlideChanged={this.onSlideChanged}
         /> 
-        {this.state.webSite ? (  // if open in phone show the buttons , else dont show
-        <div className="carouselButton">
-        <button className="carouselButton" onClick={() => this.slidePrev()}>&lt;</button>
-        <button className="carouselButton" onClick={() => this.slideNext()}>&gt;</button>
-        </div>):null}
        </div>
     )
   }
 }
-
 
 export default AllCategories;

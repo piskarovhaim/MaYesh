@@ -21,6 +21,9 @@ function AllCategory(props) {
             <div className="manageCat" key={i}>
             <Link to={str}>
             <img className="imgmanageCat" src={object.img}/>
+            <div className="textdivmanage" style={{padding:'4px'}}>
+            {object.name}
+            </div>
             </Link>
             </div>
           );
@@ -88,14 +91,13 @@ class MainManagePage extends Component {
 
   }
 
-  componentWillMount ()  {
-  }
 
   componentDidMount(){
-    let arr=[];
-    let arrTempClasses = [];
+
     let ref = firebase.database().ref('/CategoryList/');
     ref.on('value', snapshot => {
+      let arr=[];
+      let arrTempClasses = [];
       snapshot.forEach(child => {
           arr.push(child.val());
           let temp = child.val().classList;

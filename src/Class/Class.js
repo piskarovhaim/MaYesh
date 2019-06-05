@@ -22,7 +22,6 @@ class Classs extends React.Component
         {
             isLogin = props.location.state.isLogin;
         }
-        
         this.state = {
             loading: false,
             ifClassFull: false, 
@@ -52,8 +51,10 @@ class Classs extends React.Component
             this.whenCancelClicked = this.whenCancelClicked.bind(this)
     }
 
+    
     componentDidMount()
     { 
+        
         let ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course);
         ref.child("particiList").on('value', snapshot => {
             let tempParticiList = [];//will keep the list of participants for this class
@@ -151,6 +152,7 @@ class Classs extends React.Component
             isManager = true
         let style={};
         if(window.innerWidth < 7)
+
             style.width = '100%';
         let sendToLogin = false;
         if(!this.state.isLogin && this.state.isJoinClicked)
@@ -221,6 +223,7 @@ class Classs extends React.Component
                         <ParticipantList list = {this.state.thisClass.partiList} manager = {isManager}/>
                     </div>
                 </div> : null}
+
             </div>
         )
     }

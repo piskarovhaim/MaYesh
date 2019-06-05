@@ -34,6 +34,7 @@ div.message{
 }
 
 div.manageCat {
+    position: relative;
     float: right;
     width: 100px;
     height: 100px;
@@ -86,4 +87,15 @@ div.managenavText{
 }
 .linkto{
   text-decoration: none;
+}
+
+div.textdivmanage{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    padding: 2%;
+    border-radius: 3px;
+    background-color: black;
+    color: white;
+    opacity: 0.6;
 }
