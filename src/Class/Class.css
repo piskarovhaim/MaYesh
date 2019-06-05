@@ -1,7 +1,9 @@
 
 .mainDiv
 {
-    background-color:gold;
+    margin-top: 10%;
+    width: 90%;
+    margin: auto;
 }
 
 .leftSide
@@ -10,7 +12,7 @@
     height: 30%;
     float: left;
     margin: auto;
-
+    padding-left: 3%;
 }
 
 .rightSide
@@ -54,39 +56,89 @@ p
     margin-right: 40px;
 }
 
-.button2
-{
-    background-color: #4CAF50;
-    border: groove;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    margin-left: 40px;
-}
-
 .button
 {
+    border: 1px;
+    margin: auto;
     left: 50%;
 }
 
 
 .item
 {
+    padding: 2%;
     font-size: large;
+    text-align: right;
+}
+
+.itemunittext
+{
+    margin-right: 2%;
+    margin-bottom: 1%;
+    display: inline-block;
+}
+
+.itemuniticon
+{
+    display: inline-block;
 }
 
 
 
 .classImg
 {
-    width: 100%;
+    width: 90%;
     display: inline-block;
     height: 30%;
-    border: 0.5px solid black;
+    padding-bottom: 4%;
     margin: auto;
+}
+
+.tabs
+{
+    width: 90%;
+    border: solid 0.5px black;
+}
+
+
+.participant
+{
+    font-size: large;
+    text-align: center;
+}
+
+.particiListDiv
+{
+    float: left;
+    margin-top: 5%;
+    width: 50%;
+    border:solid 0.5px black;
+}
+
+.particiList
+{
+    margin-top: 5%;
+    margin: auto;
+    width: 100%;
+    border:solid 0.5px black;
+}
+
+.classFull
+{
+    font-size: larger;
+    text-align: center;
+}
+
+.partimg
+{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right:  1%;
+}
+
+.prtiItem
+{
+    display: inline-block;
 }
