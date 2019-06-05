@@ -5,6 +5,7 @@ import './MainManagePage.css'
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import '../Login/FormStyle.css'
 import Permissions from './Permissions.js';
+import Search from '../NavBar/Search.js'
 
 function AllCategory(props) {
   // get the real category json from the DB
@@ -57,12 +58,37 @@ function ClassWaitToConfirme(props) {
   let classes = props.classes;
   return(
     <div className="ClassWaitToConfirme">
-      <h1> קורסים חדשים הממתינים לאישור</h1>
+      <h1> חוגים חדשים הממתינים לאישור</h1>
           {classes.map((object, i) => {
           return (
             <div className="manageCat" key={i}>
-            <Link to={"/Category/"+ object.category +"/Class/"+object.name}>
+            <Link to={"/ManageClass/"+ object.category +"/"+object.name}>
             <img className="imgmanageCat" src={object.imgUrl}/>
+            <div className="textdivmanage" style={{padding:'4px'}}>
+            {object.name}
+            </div>
+            </Link>
+            </div>
+          );
+        })}
+    </div>
+  )
+}
+
+function OldClass(props) {
+
+  let classes = props.classes;
+  return(
+    <div className="ClassWaitToConfirme">
+      <h1> חוגים ישנים</h1>
+          {classes.map((object, i) => {
+          return (
+            <div className="manageCat" key={i}>
+            <Link to={"/ManageClass/"+ object.category +"/"+object.name}>
+            <img className="imgmanageCat" src={object.imgUrl}/>
+            <div className="textdivmanage" style={{padding:'4px'}}>
+            {object.name}
+            </div>
             </Link>
             </div>
           );
@@ -81,6 +107,7 @@ class MainManagePage extends Component {
         CategorysList:[],
         showClasses:false,
         ClassWaitToConfirme:[],
+        OldClass:[],
         showMessages:false,
         Messages:[],
         navStyle: {
@@ -97,17 +124,23 @@ class MainManagePage extends Component {
     let ref = firebase.database().ref('/CategoryList/');
     ref.on('value', snapshot => {
       let arr=[];
-      let arrTempClasses = [];
+      let arrTempWaitClasses = [];
+      let arrTempOldClasses = [];
+      let time = new Date(Date.now())
       snapshot.forEach(child => {
           arr.push(child.val());
           let temp = child.val().classList;
             for (let key in temp) {
-                if(!temp[key].isConfirmed)
-                    arrTempClasses.push(temp[key]);
-              }
+              let classTime = new Date(temp[key].date)
+              if(time > classTime || isNaN(classTime))
+                  arrTempOldClasses.push(temp[key])
+              else if(!temp[key].isConfirmed)
+                  arrTempWaitClasses.push(temp[key]);
+            }
         }); 
-        this.setState({CategorysList:arr,ClassWaitToConfirme:arrTempClasses});
+        this.setState({CategorysList:arr,ClassWaitToConfirme:arrTempWaitClasses,OldClass:arrTempOldClasses});
     });
+  
     
     firebase.database().ref('/Messages').on("value", snapshot => {
       let tempMessages=[];
@@ -136,11 +169,15 @@ class MainManagePage extends Component {
         <Permissions/>
         <div className="managenav" style={setNavHeight}>
           <Link to="/"><img className="logo" src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"/></Link>
+          <Search manage={true}/>
         <div className="managenavbarinline">
-              <div className="managenavText" onClick={()=>this.setState({showCategorysList:true,showClasses:false,showMessages:false})}>ניהול קטגוריות</div>
-              <div className="managenavText" onClick={()=>this.setState({showCategorysList:false,showClasses:false,showMessages:true})}>פניות ממשתמשים</div>
-              <div className="managenavText" onClick={()=>this.setState({showCategorysList:false,showClasses:true,showMessages:false})}>חוגים הממתינים לאישור</div>
+        
+              <div className="managenavText" onClick={()=>this.setState({showCategorysList:true,showClasses:false,showMessages:false,showOldClasses:false})}>ניהול קטגוריות</div>
+              <div className="managenavText" onClick={()=>this.setState({showCategorysList:false,showClasses:false,showMessages:true,showOldClasses:false})}>פניות ממשתמשים</div>
+              <div className="managenavText" onClick={()=>this.setState({showCategorysList:false,showClasses:true,showMessages:false,showOldClasses:false})}>חוגים הממתינים לאישור</div>
+              <div className="managenavText" onClick={()=>this.setState({showCategorysList:false,showClasses:false,showMessages:false,showOldClasses:true})}>חוגים ישנים</div>
             </div>
+            
       </div>
           <hr/>
           {this.state.showCategorysList ? (
@@ -152,7 +189,8 @@ class MainManagePage extends Component {
           
           {this.state.showMessages ? <Messages messages={this.state.Massages} del={this.deleteMessage} delAll={this.deleteAllMessage}/> : null}  
           {this.state.showClasses ? <ClassWaitToConfirme classes={this.state.ClassWaitToConfirme}/>:null}
-
+          {this.state.showOldClasses ? <OldClass classes={this.state.OldClass}/>:null}
+          
        </div>
       );
   }

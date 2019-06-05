@@ -58,7 +58,7 @@ class EditProfile extends Component {
         this.SetUser = this.SetUser.bind(this);
         this.handleUploadError = this.handleUploadError.bind(this);
         this.handleUploadSuccess = this.handleUploadSuccess.bind(this)
-        this.hhandleProgress = this.handleProgress.bind(this)
+        this.handleProgress = this.handleProgress.bind(this)
     }
 
     SetUser(){

@@ -118,7 +118,7 @@ class ShowClass extends Component{
           buttonsDisabled={true}
           items={this.state.elements}
           responsive={this.state.responsive}
-          slideToIndex={this.state.currentIndex}
+          slideToIndex={this.state.currentIndex+1}
           onSlideChanged={this.onSlideChanged}
         />
  
@@ -158,15 +158,22 @@ class ClassBy extends Component{
       this.setState({readFavoriteCat:true})
     }
   })
-  
-      
-    let arrTempAllClasses = [];
     let ref = firebase.database().ref('/CategoryList');
     ref.on('value', snapshot => {
+      let time = new Date(Date.now())
+      let arrTempAllClasses = [];
       snapshot.forEach(child => {
             let temp = child.val().classList;
             for (let key in temp) {
-                arrTempAllClasses.push(temp[key]);
+                let classTime = new Date(temp[key].date)
+                if(time > classTime || isNaN(classTime)){
+                    if(temp[key].isConfirmed){
+                      temp[key].isConfirmed =false;
+                      firebase.database().ref('/CategoryList/' + temp[key].category + "/classList/" + temp[key].name).update(temp[key]);
+                    }
+                }
+                if(temp[key].isConfirmed)
+                  arrTempAllClasses.push(temp[key]);
               }
         });
         this.setState({allClasses:arrTempAllClasses,readClasses:true})
