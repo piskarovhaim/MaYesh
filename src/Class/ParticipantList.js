@@ -48,9 +48,9 @@ class ParticipantList extends React.Component
             <div>
                 <ul className="list-group-flush">
                     <p>:רשימת משתתפים</p>
+                    <hr/>
                     <div>{list}</div>
                 </ul>
-                
             </div>
         )
     }

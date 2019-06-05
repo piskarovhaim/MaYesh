@@ -4,29 +4,29 @@
     margin-top: 10%;
     width: 90%;
     margin: auto;
-}
-
-.topdiv{
-    width: 90%;
-    margin: auto;
-    padding-left: 3%;
-
+    padding-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .leftSide
 {
+    padding-left: 5%;
+    padding-top: 2%;
     width: 40%;
-    max-width: 40%;
     height: 100%;
     display: inline-block;
 }
 
 .rightSide
 {
+    padding-top: 2%;
+    margin: auto;
+    float: right;
+    height: 100%;
     display: inline-block;
     width: 40%;
     font-size: 30px;
-    padding-right: 10%;
+    padding-right: 5%;
 }
 
 .title
@@ -91,7 +91,7 @@ p
 
 .classImg
 {
-    width: 90%;
+    width: 99%;
     display: inline-block;
     height: 30%;
     padding-bottom: 4%;
@@ -100,8 +100,7 @@ p
 
 .tabs
 {
-    width: 90%;
-    border: solid 0.5px black;
+    width: 99%;
 }
 
 
@@ -113,18 +112,18 @@ p
 
 .particiListDiv
 {
-    float: left;
+    margin: auto;
     margin-top: 5%;
-    width: 50%;
-    border:solid 0.5px black;
+    width: 90%;
+    padding-bottom: 5%;
 }
 
 .particiList
 {
     margin-top: 5%;
     margin: auto;
-    width: 100%;
-    border:solid 0.5px black;
+    width: 90%;
+    margin-bottom: 2%;
 }
 
 .classFull

@@ -3,7 +3,7 @@ import "./Class.css"
 import Button from '@material-ui/core/Button';
 import firebase from "../Firebase/FireBase.js";
 
-class JoinButton extends React.Component
+class JoinCancelButton extends React.Component
 {
     ifAlreadyParti()//returns Cancel button if the user is already in, and Join if else
     {
@@ -19,11 +19,14 @@ class JoinButton extends React.Component
             return null;
         this.props.class.partiList.forEach(participant => {
             if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === participant.id)
+            {
                 button = <Button className = "button1" variant="contained" color="primary"  onClick = {this.props.cancel}>ביטול רישום</Button>
+            }
+                
         })
         if(button === null && ifFull)//class full and cuurent user is not in
             button = (<p className = "classFull">הקורס מלא</p>)
-        else if(button === null || firebase.auth().currentUser == null)//classis not  full and cuurent user is not in
+        else if(button === null || firebase.auth().currentUser === null)//classis not  full and cuurent user is not in
             button = <Button className = "button1" variant="contained" color="primary"  onClick = {this.props.join}>Join</Button>
         return(button)
     }
@@ -38,4 +41,4 @@ class JoinButton extends React.Component
     }
 }
 
-export default JoinButton
+export default JoinCancelButton

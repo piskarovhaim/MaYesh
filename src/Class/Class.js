@@ -1,6 +1,5 @@
 import React from "react"
-import ParticipantList from "./ParticipantList.js"
-import JoinButton from "./JoinButton.js"
+import JoinCancelButton from "./JoinButton.js"
 import ClassTabs from "./ClassTabs.js"
 import firebase from "../Firebase/FireBase.js";
 import "./Class.css"
@@ -8,8 +7,7 @@ import NavBar from "../NavBar/NavBar"
 import { Redirect } from 'react-router';
 import { Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, ListGroup, ListGroupItem} from 'reactstrap';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
+
 
 
 class Classs extends React.Component
@@ -152,7 +150,6 @@ class Classs extends React.Component
             isManager = true
         let style={};
         if(window.innerWidth < 7)
-
             style.width = '100%';
         let sendToLogin = false;
         if(!this.state.isLogin && this.state.isJoinClicked)
@@ -160,7 +157,6 @@ class Classs extends React.Component
 
         let location1 = '/Category/' + this.state.category + '/Class/' + this.state.course;
         return(
-            
             <div  className = "all">
                 {this.state.loading ? <div>
                     {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
@@ -169,7 +165,7 @@ class Classs extends React.Component
                         <div className = "leftSide" style={style}>
                             <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
                             <div className = "tabs">
-                                <ClassTabs/>
+                                <ClassTabs  list = {this.state.thisClass.partiList} manager = {isManager} description = {this.state.thisClass.description}/>
                             </div>
                         </div>
                         <div className = "rightSide" style={style}>
@@ -178,7 +174,6 @@ class Classs extends React.Component
                                     <CardTitle className = "title">{this.state.thisClass.name}</CardTitle>
                                     <hr/>
                                     <ListGroup className="list-group-flush">
-                                        <p>{this.state.thisClass.description}</p>
 
 
                                         <div className = "item">
@@ -213,15 +208,15 @@ class Classs extends React.Component
 
                                     </ListGroup>
                                     <div className = "button">
-                                        <JoinButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass}/>
+                                        <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass}/>
                                     </div>
                                 </CardBody>
                             </Card>
                         </div> 
                     </div> 
-                    <div className = "particiList">
-                        <ParticipantList list = {this.state.thisClass.partiList} manager = {isManager}/>
-                    </div>
+                    {/* <div className = "particiList">
+                        <ParticipantList />
+                    </div> */}
                 </div> : null}
 
             </div>
