@@ -98,16 +98,23 @@ p
     margin: auto;
 }
 
-.tabs
+.classFull
 {
-    width: 99%;
+    font-size: larger;
+    text-align: center;
 }
 
 
-.participant
+
+
+.tabs
 {
-    font-size: large;
-    text-align: center;
+    width: 100%;
+}
+
+.tab
+{
+    width: 100%;
 }
 
 .particiListDiv
@@ -118,30 +125,35 @@ p
     padding-bottom: 5%;
 }
 
-.particiList
+.participant
 {
-    margin-top: 5%;
     margin: auto;
-    width: 90%;
-    margin-bottom: 2%;
+    text-align: center;
 }
 
-.classFull
+.participantDetails
 {
-    font-size: larger;
+    font-size: large;
     text-align: center;
+    display: inline-block;
+    margin-left: 1%;
+    margin: auto;
+    
 }
 
 .partimg
 {
-    height: 45px;
-    width: 45px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     display: inline-block;
-    margin-right:  1%;
+    margin-right:  3%;
+    border: solid 1px black;
 }
 
 .prtiItem
 {
-    display: inline-block;
+    font-size: medium;
+    text-align: center;
+    margin: auto;
 }

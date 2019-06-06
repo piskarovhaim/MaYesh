@@ -7,7 +7,7 @@ class JoinCancelButton extends React.Component
 {
     ifAlreadyParti()//returns Cancel button if the user is already in, and Join if else
     {
-        if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.props.class.organizerId)
+        if(this.props.isLogin && firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.props.class.organizerId)
             return null;
         let ifFull = false
         if(this.props.class.numOfCurrPartici === this.props.class.maxParti)
@@ -18,7 +18,7 @@ class JoinCancelButton extends React.Component
         if(this.props.class.partiList === undefined)
             return null;
         this.props.class.partiList.forEach(participant => {
-            if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === participant.id)
+            if(this.props.isLogin && firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === participant.id)
             {
                 button = <Button className = "button1" variant="contained" color="primary"  onClick = {this.props.cancel}>ביטול רישום</Button>
             }
@@ -26,7 +26,7 @@ class JoinCancelButton extends React.Component
         })
         if(button === null && ifFull)//class full and cuurent user is not in
             button = (<p className = "classFull">הקורס מלא</p>)
-        else if(button === null || firebase.auth().currentUser === null)//classis not  full and cuurent user is not in
+        else if(button === null || !this.props.isLogin)//classis not  full and cuurent user is not in
             button = <Button className = "button1" variant="contained" color="primary"  onClick = {this.props.join}>Join</Button>
         return(button)
     }

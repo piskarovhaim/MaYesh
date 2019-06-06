@@ -1,5 +1,5 @@
 import React from "react"
-import JoinCancelButton from "./JoinButton.js"
+import JoinCancelButton from "./JoinCancelButton.js"
 import ClassTabs from "./ClassTabs.js"
 import firebase from "../Firebase/FireBase.js";
 import "./Class.css"
@@ -15,27 +15,22 @@ class Classs extends React.Component
     constructor(props)
     {
         super(props);
-        let isLogin = false;
-        if(this.props.location.state !== undefined && this.props.location.state.isLogin !== undefined)
-        {
-            isLogin = props.location.state.isLogin;
-        }
+
         this.state = {
             loading: false,
             ifClassFull: false, 
             isJoinClicked: false, 
             isCancelClicked: false, 
-            isLogin:isLogin,
             isSighnIn: false, 
             category: props.match.params.nameC, 
             course: props.match.params.nameClass, 
-            newUser:true,
             thisClass:{
                 organizerId: "",
                 organizer: "",
                 category:"",
                 name:"",
                 location:"",
+                date: "",
                 teacher:"",
                 phone:"",
                 img:"",
@@ -45,14 +40,13 @@ class Classs extends React.Component
                 maxParti: 1,
                 partiList:[] }};
 
-            this.whenJoinClicked = this.whenJoinClicked.bind(this)
-            this.whenCancelClicked = this.whenCancelClicked.bind(this)
+        this.whenJoinClicked = this.whenJoinClicked.bind(this)
+        this.whenCancelClicked = this.whenCancelClicked.bind(this)
     }
 
     
     componentDidMount()
     { 
-        
         let ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course);
         ref.child("particiList").on('value', snapshot => {
             let tempParticiList = [];//will keep the list of participants for this class
@@ -75,7 +69,8 @@ class Classs extends React.Component
                                     name:snapshot.val().name,
                                     description:snapshot.val().description,
                                     img:snapshot.val().imgUrl,
-                                    location: snapshot.val().location, 
+                                    location: snapshot.val().location,
+                                    date: snapshot.val().date, 
                                     numOfCurrPartici: snapshot.val().numOfCurrPartici,
                                     maxParti: snapshot.val().maxPartici,
                                     partiList:this.state.thisClass.partiList
@@ -100,7 +95,12 @@ class Classs extends React.Component
     whenJoinClicked()
     {
         this.setState({isJoinClicked: true})
-        if(this.state.isLogin)
+        let isLogin = false;
+        if(this.props.location.state !== undefined && this.props.location.state.isLogin !== undefined)
+        {
+            isLogin = this.props.location.state.isLogin;
+        }
+        if(isLogin)
         {
             let tempNumOfCurPart;
             const uid = firebase.auth().currentUser.uid
@@ -116,6 +116,8 @@ class Classs extends React.Component
             })
             ref.child("numOfCurrPartici").set(tempNumOfCurPart);
         }
+        else
+            this.setState({isJoinClicked: true})
 
     }
 
@@ -145,6 +147,11 @@ class Classs extends React.Component
    
     render()
     {
+        let isLogin = false;
+        if(this.props.location.state !== undefined && this.props.location.state.isLogin !== undefined)
+        {
+            isLogin = this.props.location.state.isLogin;
+        }
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
@@ -165,7 +172,7 @@ class Classs extends React.Component
                         <div className = "leftSide" style={style}>
                             <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
                             <div className = "tabs">
-                                <ClassTabs  list = {this.state.thisClass.partiList} manager = {isManager} description = {this.state.thisClass.description}/>
+                                <ClassTabs  list = {this.state.thisClass.partiList} manager = {isManager} description = {this.state.thisClass.description} date = {this.state.thisClass.date}/>
                             </div>
                         </div>
                         <div className = "rightSide" style={style}>
@@ -208,15 +215,12 @@ class Classs extends React.Component
 
                                     </ListGroup>
                                     <div className = "button">
-                                        <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass}/>
+                                        <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isLogin = {isLogin}/>
                                     </div>
                                 </CardBody>
                             </Card>
                         </div> 
                     </div> 
-                    {/* <div className = "particiList">
-                        <ParticipantList />
-                    </div> */}
                 </div> : null}
 
             </div>

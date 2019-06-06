@@ -28,7 +28,7 @@ function ClassTabs(props) {
   }
 
   return (
-    <div>
+    <div className = "tab">
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -43,7 +43,7 @@ function ClassTabs(props) {
           <Tab label="קצת על הקורס"  />
         </Tabs>
       </AppBar>
-      {value === 0 && <TabContainer><p>הקורס יתקיים בימי שני החל מה30 ביוני ועד ה4 בספטמבר</p></TabContainer>}
+      {value === 0 && <TabContainer><p>{props.date}</p></TabContainer>}
       {value === 1 && <TabContainer><ParticipantList list = {props.list} manager = {props.manager}/></TabContainer>}
       {value === 2 && <TabContainer><p>{props.description}</p></TabContainer>}
     </div>
