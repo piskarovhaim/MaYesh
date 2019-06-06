@@ -6,6 +6,7 @@ import { Redirect } from "react-router";
 import Permissions from "./Permissions";
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 import './ManageClass.css';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 function ShowPartici(props) {
   let particiList = [];
@@ -58,7 +59,8 @@ class ManageClass extends Component {
       description: "",
       imgUrl: "",
       particiList:[],
-      progress:[]
+      progress:[],
+      isConfirmed:false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -80,7 +82,7 @@ class ManageClass extends Component {
       );
     ref.on("value", snapshot => {
       let tempState = snapshot.val();
-      if(tempState.numOfCurrPartici < 1)
+      if(tempState !== null && tempState !== undefined&& tempState.numOfCurrPartici < 1)
         tempState.particiList= [];
       this.setState(tempState);
     });
@@ -142,14 +144,22 @@ removePartici(particiKey){
     const divWidth = {
       maxWidth: '30%'
     };
+    const setNavHeight = {
+      height: window.innerHeight/10
+    }; 
     if(window.innerWidth < 500) // if it is phone set the width to 100%
         divWidth.maxWidth = '100%';
     return (
       <div>
-        <NavBar />
         <Permissions />
+        <div className="managenav" style={setNavHeight}>
+          <Link to="/"><img className="logo" src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"/></Link>
+        <div className="managenavbarinline">
+          <Link to="/manage"> <div className="managenavText">דף ניהול ראשי</div></Link>
+        </div>
+      </div>   
         <hr />
-
+          {this.endOfProcess ? <Redirect to="/Manage" /> : null}
         <div className="completeReg" style ={divWidth}>
           <form>
             <h1>עריכת קורס {this.props.className}</h1>
@@ -260,10 +270,14 @@ removePartici(particiKey){
           />
           </label>
             <ShowPartici particiList={this.state.particiList} removePartici={this.removePartici}/>
-            <input className="registerbtn" type="bottun" value="שמור" onClick={this.handleSubmit}/>
+           {!this.state.isConfirmed ? 
+            <input className="registerbtn" type="button" value="אשר חוג" onClick={()=>{this.setState({isConfirmed:true})}}/>
+          :
+            <input className="registerbtn" style={{backgroundColor: 'red'}} type="button" value="בטל אישור חוג" onClick={()=>{this.setState({isConfirmed:false})}}/>
+          }
+          <input className="registerbtn" type="button" value="שמור" onClick={this.handleSubmit}/>
           </form>
         </div>
-        {this.endOfProcess ? <Redirect to="/Manage" /> : null}
       </div>
     );
   }

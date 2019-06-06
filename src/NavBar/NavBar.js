@@ -142,7 +142,7 @@ class NavBar extends Component {
             </div>
           </Link>
         )}
-        <Search />
+        <Search/>
       </div>
     );
   }

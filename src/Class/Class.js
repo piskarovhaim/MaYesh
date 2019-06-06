@@ -157,6 +157,7 @@ class Classs extends React.Component
             isManager = true
         let style={};
         if(window.innerWidth < 7)
+
             style.width = '100%';
         let sendToLogin = false;
         if(!this.state.isLogin && this.state.isJoinClicked)

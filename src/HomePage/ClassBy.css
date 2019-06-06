@@ -34,9 +34,6 @@ button.carouselButton{
     border: none;
     opacity: 0.5;
 }
-button.carouselButton:hover{
-}
-
 
 div.textdiv{
     position: absolute;
