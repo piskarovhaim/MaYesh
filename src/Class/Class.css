@@ -1,31 +1,32 @@
 
 .mainDiv
 {
-   
-}
-
-.topdiv{
+    margin-top: 10%;
     width: 90%;
     margin: auto;
-    display: inline-block;
-    text-align: right; 
-
+    padding-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .leftSide
 {
+    padding-left: 5%;
+    padding-top: 2%;
     width: 40%;
-    max-width: 40%;
     height: 100%;
     display: inline-block;
 }
 
 .rightSide
 {
+    padding-top: 2%;
+    margin: auto;
+    float: right;
+    height: 100%;
     display: inline-block;
     width: 40%;
     font-size: 30px;
-    padding-right: 10%;
+    padding-right: 5%;
 }
 
 .title
@@ -41,17 +42,118 @@ p
     margin-bottom: 10%;
 }
 
+
+.button1
+{
+    background-color: #4CAF50;
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 40%;
+    margin-right: 40px;
+}
+
+.button
+{
+    border: 1px;
+    margin: auto;
+    left: 50%;
+}
+
+
+
 .item
 {
+    padding: 2%;
     font-size: large;
+    text-align: right;
+}
+
+.itemunittext
+{
+    margin-right: 2%;
+    margin-bottom: 1%;
+    display: inline-block;
+}
+
+.itemuniticon
+{
+    display: inline-block;
 }
 
 
 
 .classImg
 {
+    width: 99%;
+    display: inline-block;
+    height: 30%;
+    padding-bottom: 4%;
+    margin: auto;
+}
+
+.classFull
+{
+    font-size: larger;
+    text-align: center;
+}
+
+
+
+
+.tabs
+{
     width: 100%;
-    height: 100%;
-    border: 0.5px solid black;
+}
+
+.tab
+{
+    width: 100%;
+}
+
+.particiListDiv
+{
+    margin: auto;
+    margin-top: 5%;
+    width: 90%;
+    padding-bottom: 5%;
+}
+
+.participant
+{
+    margin: auto;
+    text-align: center;
+}
+
+.participantDetails
+{
+    font-size: large;
+    text-align: center;
+    display: inline-block;
+    margin-left: 1%;
+    margin: auto;
+    
+}
+
+.partimg
+{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right:  3%;
+    border: solid 1px black;
+}
+
+.prtiItem
+{
+    font-size: medium;
+    text-align: center;
     margin: auto;
 }
