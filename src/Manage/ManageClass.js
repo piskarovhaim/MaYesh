@@ -15,7 +15,6 @@ function ShowPartici(props) {
   if(props.particiList !== null && props.particiList !== undefined){
       particiList = Object.values(props.particiList);
       particiListKey = Object.keys(props.particiList);
-      console.log(particiListKey);
   }
   return (
       <div>
@@ -82,8 +81,15 @@ class ManageClass extends Component {
       );
     ref.on("value", snapshot => {
       let tempState = snapshot.val();
+      //tempState.date = new Date(tempState.data)
       if(tempState !== null && tempState !== undefined&& tempState.numOfCurrPartici < 1)
         tempState.particiList= [];
+
+
+      tempState.date = new Date(tempState.date).toLocaleDateString("nl",{day:"2-digit",month:"2-digit",year:"2-digit"})
+      if(!new Date(tempState.hour).toLocaleTimeString())
+          console.log(new Date(tempState.hour).toLocaleTimeString());
+      console.log(tempState);
       this.setState(tempState);
     });
 

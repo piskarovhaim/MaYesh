@@ -72,8 +72,6 @@ class ShowClass extends Component{
           </Link>
           )})
       this.setState({elements:elements,title:title})
-      this.slideNext();
-      this.setState({});
   }
 
     slideTo = (i) => this.setState({ currentIndex: i })
