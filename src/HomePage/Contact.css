@@ -1,0 +1,108 @@
+@font-face {
+    font-family: mynewFont;
+    src: url(../font/SecularOne-Regular.ttf);
+}
+
+.contCB{
+    display: none;
+}
+
+.contBG{
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    position: fixed;
+    background-image: radial-gradient(#FF0060, #ed6ffd);
+    left: 5rem;
+    bottom: 5rem;
+    z-index: 200;
+    transition: transform .8s;
+
+}
+
+.headLine{
+    color: #fff;
+    text-align: center;
+    font-family: mynewFont;
+    font-size: 5rem;
+    font-weight: 400;
+    margin-bottom: -2px;
+
+}
+
+.contButt{
+    background-color: #fff;
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    left: 5rem;
+    bottom: 5rem;
+    z-index: 202;
+    position: fixed;
+    box-shadow: 0 1rem 3rem rgb(0, 0, 0, .5)
+
+}
+
+.contNav{
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 201;
+    opacity: 0;
+    width: 0; 
+    transition: all .8s;
+
+}
+
+.contBox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+
+}
+
+.formCont{
+    font-family: mynewFont;
+    font-size: 1.5rem;
+    padding: 1.5rem 2rem;
+    background-color: transparent;
+    border: 4px solid #fff;
+    width: 20rem;
+    margin: 10px;
+
+}
+
+.btnForm{
+    background-color:#258916;
+    color: #fff;
+    width: 24.5rem;
+    border: 4px solid #fff;
+    margin: 10px;
+    ont-family: mynewFont;
+    font-size: 1.5rem;
+    padding: 1.5rem 2rem;
+}
+
+::placeholder{
+    color: #fff;
+    text-align: right;
+}
+
+.contCB:checked ~ .contBG{
+    transform: scale(100);
+}
+
+
+
+.contCB:checked ~ .contNav{
+    width: 100%;
+    opacity: 1;
+}
+
+
+
+
+
+
