@@ -1,42 +1,112 @@
-
-
-div.video{
-    position:relative;
-    overflow: hidden;
-    box-shadow: 5px 10px;
-    margin-top: 1%;
-    margin-bottom:5%;
-    box-shadow: 0.5px 0.5px 0.5px 0.5px #888888;
-    bottom: 0%;
+@font-face {
+    font-family: mynewFont;
+    src: url(../font/SecularOne-Regular.ttf);
 }
 
-video{
-    min-width: 100%;
+.header{
+    height: 100vh;
+    background-size: cover;
+    background-image: url(../imgs/design.jpg);
+    background-position: top;
+    font-family: mynewFont;
 }
-div.c{
-    width: 100%;
-    margin:auto;
-    top:25%;
-    text-align: center;
+
+.textBox{
     position: absolute;
-}
-
-button.videoButton{
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid  rgba(255, 255, 255, 0.801);
-    border-radius: 12px;
-    outline:none;
-    padding: 1%;
-    margin: 3%;
-    margin-bottom: 5%;
-    color: rgba(0, 0, 0, 0.7);
-    font-weight: bold;
-    font-size: 220%;
-    font-family: "Arial Verdana", Sans-serif;
-    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+    text-align: center; 
 
 }
-button.videoButton:hover{
-    background-color: rgba(170, 168, 168, 0.342);
-     color: rgba(0, 0, 0);
+
+.headerText{
+    color: #fff;
+    backface-visibility: hidden;
+    margin-bottom: 120px;
+}
+
+.headerTextPrimary{
+    display: block;
+    font-size: 48px;
+    font-weight: 400;
+    letter-spacing: 7px;
+
+    animation-name: moveInRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.headerTextSub{
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 7px;
+
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn:visited, .btn:link{
+    text-decoration: none;
+    padding: 30px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    font-size: 30px;
+    width: 12rem;
+    transition: all .2s;
+}
+
+.btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgb(0, 0, 0, .7);
+}
+
+.btn:active{
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgb(0, 0, 0, .7);
+}
+
+.greenBtn{
+    background-color:#258916;
+    color: #fff;
+}
+
+.pinkBtn{
+    background-color: #E80A79;
+    color: #fff;
+}
+
+@keyframes moveInRight{
+    0%{
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    80%{
+        transform: translateX(10px); 
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveInLeft{
+    0%{
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    80%{
+        transform: translateX(-10px); 
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
