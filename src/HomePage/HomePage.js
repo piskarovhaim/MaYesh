@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "../NavBar/NavBar";
 import AllCategories from './AllCategories.js'
 import './HomePage.css'
+import Contact from './Contact.js'
 import Video from './Video.js'
 import ClassBy from'./ClassBy.js';
 
@@ -11,6 +12,7 @@ class HomePage extends Component {
     return (   
           <div className="home">
                 <NavBar />
+                <Contact/>
                 <Video/>
                 <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>

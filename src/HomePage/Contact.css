@@ -39,7 +39,9 @@
     bottom: 5rem;
     z-index: 202;
     position: fixed;
-    box-shadow: 0 1rem 3rem rgb(0, 0, 0, .5)
+    box-shadow: 0 1rem 3rem rgb(0, 0, 0, .5);
+    text-align: center;
+    cursor: pointer;
 
 }
 
@@ -57,7 +59,7 @@
 
 .contBox{
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);  
 
@@ -101,6 +103,125 @@
     opacity: 1;
 }
 
+.navIconUP{
+    width: 3rem;
+    height: 2px;
+    background-color: #333;
+    display: inline-block;
+    position: relative;
+    margin-top: 1.5rem;
+    transition: all .2s;
+}
+
+.navIconDown{
+    width: 3rem;
+    height: 2px;
+    background-color: #333;
+    display: inline-block;
+    position: relative;
+    margin-top: 0.7rem;
+    transition: all .2s;
+}
+
+.navIconRight{
+    width: 2rem;
+    height: 2px;
+    background-color: #333;
+    position: absolute;
+    margin: -1rem;
+    margin-top: -.3rem;
+    transform: rotate(90deg);
+    transition: all .2s;
+}
+
+.navIconLeft{
+    width: 2rem;
+    height: 2px;
+    background-color: #333;
+    display: inline-block;
+    position: absolute;
+    margin: -4rem;
+    margin-top: -.3rem;
+    transform: rotate(90deg);
+    transition: all .2s;
+}
+.navIconLeshRight{
+    width: 1.41421rem;
+    height: 2px;
+    background-color: #333;
+    position: absolute;
+    margin: -1.7rem;
+    margin-top: -.4rem;
+    transform: rotate(-45deg);
+    transition: all .2s;
+}
+
+.navIconLeshLeft{
+    width: 1.41421rem;
+    height: 2px;
+    background-color: #333;
+    display: inline-block;
+    position: absolute;
+    margin: -2.7rem;
+    margin-top: -.4rem;
+    transform: rotate(45deg);
+    transition: all .2s;
+}
+
+
+
+.contButt:hover .navIconUP{
+    background-color: transparent;
+}
+
+.contButt:hover .navIconDown{
+    margin-top: 0.5rem;
+}
+
+.contButt:hover .navIconRight{
+    margin-top: -0.6rem;
+    transform: rotate(90deg);
+}
+
+.contButt:hover .navIconLeft{
+    margin-top: -0.6rem;
+    transform: rotate(90deg);
+}
+.contButt:hover .navIconLeshRight{
+    margin-top: -2.2rem;
+    transform: rotate(45deg);
+}
+
+.contButt:hover .navIconLeshLeft{
+    margin-top: -2.2rem;
+    transform: rotate(-45deg);
+}
+
+.contCB:checked + .contButt .navIconUP{
+    margin-top: 3rem;
+    background-color: #333;
+    transform: rotate(135deg);
+}
+
+.contCB:checked + .contButt .navIconDown{
+    
+    margin-top: -10rem;
+    margin-right: 2rem;
+    transform: rotate(-135deg);
+
+}
+.contCB:checked + .contButt .navIconRight{
+    background-color: transparent;
+}
+.contCB:checked + .contButt .navIconLeft{
+    background-color: transparent;
+}
+.contCB:checked + .contButt .navIconLeshRight{
+    background-color: transparent;
+}
+.contCB:checked + .contButt .navIconLeshLeft{
+    background-color: transparent;
+}
 
 
 

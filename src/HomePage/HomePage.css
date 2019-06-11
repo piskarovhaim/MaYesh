@@ -1,4 +1,10 @@
+@font-face {
+    font-family: mynewFont;
+    src: url(../font/SecularOne-Regular.ttf);
+}
+
 div.home{
     display: block;
     scroll-behavior: smooth;
+    font-family: mynewFont;
 }

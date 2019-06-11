@@ -28,7 +28,14 @@ class Contact extends Component {
           return(
             <div className="contact">
                 <input type="checkbox" className="contCB" id="butTog"/>
-                <label for="butTog" className="contButt">MENU</label>
+                <label for="butTog" className="contButt">
+                  <span className="navIconUP">&nbsp;</span>
+                  <span className="navIconDown">&nbsp;</span>
+                  <span className="navIconRight">&nbsp;</span>
+                  <span className="navIconLeft">&nbsp;</span>
+                  <span className="navIconLeshRight">&nbsp;</span>
+                  <span className="navIconLeshLeft">&nbsp;</span>
+                </label>
 
               <div className="contBG"></div>
               <nav className="contNav">
