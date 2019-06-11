@@ -46,9 +46,20 @@ class ShowClass extends Component{
 
       this.byDate = this.byDate.bind(this);
       this.byBestForMe = this.byBestForMe.bind(this);
+      this.updateWindows = this.updateWindows.bind(this)
+    }
+
+    updateWindows(){
+      console.log(window.innerWidth);
+      this.setState({responsive: { 500: { items: (window.innerWidth/180) },0: { items: 3 } },})
+    }
+
+    componentWillUnmount(){
+      window.removeEventListener("resize", this.updateWindows);
     }
 
     componentDidMount(){
+      window.addEventListener("resize", this.updateWindows);
       let listTosort = this.state.classList;
       let title;
           switch(this.state.sortBy) {
@@ -114,9 +125,10 @@ class ShowClass extends Component{
         <AliceCarousel // the component that show the "Carousel" of the all Categories
           dotsDisabled={true}
           buttonsDisabled={true}
+          startIndex = {1}
           items={this.state.elements}
           responsive={this.state.responsive}
-          slideToIndex={this.state.currentIndex+1}
+          slideToIndex={this.state.currentIndex}
           onSlideChanged={this.onSlideChanged}
         />
  

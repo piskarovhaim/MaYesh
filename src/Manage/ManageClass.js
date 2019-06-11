@@ -67,6 +67,7 @@ class ManageClass extends Component {
     this.handleUploadSuccess = this.handleUploadSuccess.bind(this)
     this.handleProgress = this.handleProgress.bind(this)
     this.removePartici = this.removePartici.bind(this)
+    this.formatDate = this.formatDate.bind(this)
   }
 
   componentDidMount() {
@@ -81,19 +82,29 @@ class ManageClass extends Component {
       );
     ref.on("value", snapshot => {
       let tempState = snapshot.val();
-      //tempState.date = new Date(tempState.data)
       if(tempState !== null && tempState !== undefined&& tempState.numOfCurrPartici < 1)
         tempState.particiList= [];
-
-
-      tempState.date = new Date(tempState.date).toLocaleDateString("nl",{day:"2-digit",month:"2-digit",year:"2-digit"})
-      if(!new Date(tempState.hour).toLocaleTimeString())
-          console.log(new Date(tempState.hour).toLocaleTimeString());
-      console.log(tempState);
+      if(tempState !== null && tempState !== undefined ){
+            tempState.date = this.formatDate(tempState.date)
+            if(new Date(tempState.hour) != 'Invalid Date')
+              tempState.hour= new Date(tempState.hour).toLocaleTimeString()
+        }      
       this.setState(tempState);
     });
 
   }
+
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });

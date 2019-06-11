@@ -8,7 +8,9 @@
     "@material-ui/core": "^3.9.3",
     "@types/react-router": "^4.4.5",
     "@types/react-router-dom": "^4.3.1",
+    "env2": "^2.2.2",
     "firebase": "^5.9.2",
+    "google-map-react": "^1.1.4",
     "react": "^16.8.6",
     "react-background-video-player": "^1.1.6",
     "react-datetime": "^2.16.3",
@@ -23,7 +25,8 @@
     "react-scroll-parallax": "^2.1.2",
     "react-scroll-to": "^2.0.9",
     "react-video-cover": "^1.2.2",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "sendemail": "^3.4.0"
   },
   "scripts": {
     "predeploy": "npm run build",

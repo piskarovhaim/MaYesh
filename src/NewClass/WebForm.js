@@ -79,7 +79,6 @@ class WebForm extends Component {
     //   alert("מלא את כל הטופס בבקשה");
     //   return;
     // }
-    alert("gfdsg");
 
     let ref = firebase
       .database()
