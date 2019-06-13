@@ -5,25 +5,25 @@
 
 .header{
     height: 100vh;
-    background-size: cover;
-    background-image: url(../imgs/design.jpg);
-    background-position: top;
     font-family: mynewFont;
 }
 
 .textBox{
+    color: #fff;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);  
     text-align: center; 
+    width: 100%;
 
 }
 
 .headerText{
-    color: #fff;
     backface-visibility: hidden;
     margin-bottom: 120px;
+    width: 50%;
+    margin: auto; 
 }
 
 .headerTextPrimary{
@@ -49,19 +49,11 @@
 }
 
 .btns{
-    display: flex;
-    justify-content: space-around;
+    width: 100%;
+    margin:auto; 
 }
 
-.btn:visited, .btn:link{
-    text-decoration: none;
-    padding: 30px 40px;
-    display: inline-block;
-    border-radius: 100px;
-    font-size: 30px;
-    width: 12rem;
-    transition: all .2s;
-}
+
 
 .btn:hover{
     transform: translateY(-3px);
@@ -73,14 +65,38 @@
     box-shadow: 0 5px 10px rgb(0, 0, 0, .7);
 }
 
-.greenBtn{
+button.greenBtn{
     background-color:#258916;
     color: #fff;
+    text-decoration: none;
+    padding: 2% 3%;
+    font-size: 180%;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    font-family: mynewFont;
+    border: none;
+    cursor: pointer;
+    margin: 3%;
+    margin-bottom: 5%;
+    outline:none;
 }
 
-.pinkBtn{
+button.pinkBtn{
+    border: none;
     background-color: #E80A79;
     color: #fff;
+    text-decoration: none;
+    padding: 2% 3%;
+    font-size: 180%;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    font-family: mynewFont;
+    cursor: pointer;
+    margin: 3%;
+    margin-bottom: 5%;
+    outline:none;
 }
 
 @keyframes moveInRight{

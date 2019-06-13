@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import NavBar from "../NavBar/NavBar";
 import AllCategories from './AllCategories.js'
 import './HomePage.css'
-import Contact from './Contact.js'
 import Video from './Video.js'
 import ClassBy from'./ClassBy.js';
+import Contact from './Contact.js'
+import NetflixSlider from "../NetflixSlider/NetflixSlider";
 
 class HomePage extends Component {
 
   render() {
     return (   
           <div className="home">
+              <div className="nav+video">
                 <NavBar />
-                <Contact/>
                 <Video/>
+                </div>
                 <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
               <AllCategories/>

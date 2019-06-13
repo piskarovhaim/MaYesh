@@ -8,17 +8,19 @@ import logo from './logoN.png'
 class NavBar extends Component {
   constructor(props) {
     super(props);
-
-    let location = "/";
-    if (props.location != undefined) location = props.location;
+    let location = window.location.pathname
+    if(location == "/Login")
+        location = "/"
     this.state = {
       isSignedInProsses: props.login,
       edit: props.edit,
       isSignedIn: false,
-      location: props.location,
+      location: location,
       navStyle: {
-        height: window.innerHeight / 10
+        height: window.innerHeight / 10,
       },
+      pageYOffset : 0,
+      categoryList:[],
       user: {
         id: "",
         email: "",
@@ -29,9 +31,24 @@ class NavBar extends Component {
         listOfSignInClass: ""
       }
     };
+    this.listenToScroll = this.listenToScroll.bind(this)
+  }
+
+  listenToScroll(){
+    this.setState({pageYOffset:window.pageYOffset})
   }
 
   componentDidMount = () => {
+    window.addEventListener('scroll', this.listenToScroll)
+    let ref = firebase.database().ref('/CategoryList');
+    ref.on('value', snapshot => {
+      let categories = [];
+      snapshot.forEach(child => {
+            categories.push(child.val());
+        });
+          this.setState({categoryList:categories});
+    });
+
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user });
       if (!user) return;
@@ -62,7 +79,7 @@ class NavBar extends Component {
                 phone: currentUser.phone,
                 img: currentUser.img,
                 favoriteCat: currentUser.favoriteCat,
-                listOfSignInClass: currentUser.favoriteCat
+                listOfSignInClass: currentUser.listOfSignInClass
               }
             });
             return;
@@ -71,76 +88,73 @@ class NavBar extends Component {
       });
     });
   };
+
   render() {
-    const setNavHeight = {
-      height: this.state.navStyle.height
-    };
 
-    var nav = document.querySelector('#navBar');
-    window.onscroll = function(){
-      if(window.pageYOffset<100){
-         nav.className='nav';
-      } else {
-        nav.className='navScroll';
-      }
-
-    }
     let login = this.state.isSignedIn;
     let edit = false;
     if (this.state.isSignedInProsses) login = false;
     if (this.state.edit) edit = true;
+    
+    let classNav = 'nav'
+    if(this.state.pageYOffset > 50){
+      classNav = 'navScroll';
+      
+    }
+    
+
 
     return (
-      <div className="nav" id="navBar">
-        <div className="navLeft">
-            {login ? (
-              <div className="inline">
-                <img className="user" src={this.state.user.img} />
-                {edit ? null : (
-                  <div className="dropDown">
-                    <Link
-                      to={{
-                        pathname: "/editProfile/" + this.state.user.id,
-                        state: { user: this.state.user }
-                      }}
-                    >
-                      <div className="edit">
-                        <div className="navTextMenu">עריכת פרופיל</div>
-                      </div>
-                    </Link>
-                    <Link to="/">
-                      <div
-                        className="navTextMenu"
-                        onClick={() => firebase.auth().signOut()}
-                      >
-                        יציאה
-                      </div>
-                    </Link>
+      <div className="navtest">
+      <div className={classNav}>
+      <div className="navLeft">
+      {login ? (
+          <div className="inline">
+            <img className="user" src={this.state.user.img}  />
+            {edit ? null : (
+              <div className="dropDown">
+                <Link className="linkto"
+                  to={{
+                    pathname: "/editProfile/" + this.state.user.id,
+                    state: { user: this.state.user, categoryList:this.state.categoryList }
+                  }}
+                >
+                  <div className="edit">
+                      <div className="navTextMenu">עריכת פרופיל</div>
                   </div>
-                )}
+                </Link>
+                <Link to={{pathname: this.state.location, state:{isLogin:false}}} className="linkto"><div className="edit">
+                  <div
+                    className="navTextMenu"
+                    onClick={() => firebase.auth().signOut()}>
+                    יציאה
+                    </div> </div>
+                </Link>
               </div>
-            ) : (
-              <Link
-                to={{
-                  pathname: "/Login",
-                  state: { location: this.state.location, title: "התחבר עם" }
-                }}
-              >
-                <div className="loginText">
-                  <div className="navTextMenu">התחבר</div>
-                </div>
-              </Link>
             )}
-             <a href="#" className="navText">אודות</a>
+          </div>
+        ) : (
+          <Link className="linkto"
+            to={{
+              pathname: "/Login",
+              state: { location: this.state.location, title: "התחבר עם" }
+            }}
+          >
+                <div className="navTextMenu">התחבר</div>
+          </Link>
+        )}
+          <Link to="/about" className="linkto">
+              <div className="navTextAbout">אודות</div>
+          </Link>
+      </div>
+      <div className="navRight">
+      <Search/>
+        <Link to="/">
+          <img className="logoBox" alt="logo" src={logo}/>
+        </Link>
+        
         </div>
-        <div className="navRight">
-            <Search/>
-            <Link to="/">
-            <img src={logo} 
-            className="logoBox" alt="logo"/>
-            </Link>
-           
-        </div>
+      </div>
       </div>
     );
   }

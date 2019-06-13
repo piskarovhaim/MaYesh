@@ -53,7 +53,6 @@ class LogIn extends Component {
       });
 
     firebase.auth().onAuthStateChanged(user => {
-
       this.setState({ isSignedIn: !!user})
       if(!user)
         return;
@@ -77,7 +76,6 @@ class LogIn extends Component {
   }
 
   AddUser(){
-    console.log(this.state)
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
     this.AddUser.endProses =true;
   }
