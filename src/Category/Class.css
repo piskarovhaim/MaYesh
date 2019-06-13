@@ -1,5 +1,10 @@
+@font-face {
+  font-family: mynewestFont;
+  src: url(../font/taamula-bold-aaa.otf);
+}
+
 .rcorners {
-    border-radius: 25px;
+    border-radius: 1px;
     padding: 20px;
     width: 200px;
     height: 150px;
@@ -40,6 +45,8 @@ div.classText{
     padding: 0;
     text-align: center;
     color: rgb(51, 15, 153);
+    font-family: mynewestFont;
+    letter-spacing: 5px;
     text-transform: uppercase;
     font-size: 6.5vw;
     font-weight: lighter;

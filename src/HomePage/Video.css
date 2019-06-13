@@ -2,6 +2,10 @@
     font-family: mynewFont;
     src: url(../font/SecularOne-Regular.ttf);
 }
+@font-face {
+    font-family: mynewestFont;
+    src: url(../font/taamula-bold-aaa.otf);
+}
 
 .header{
     height: 100vh;
@@ -28,10 +32,10 @@
 
 .headerTextPrimary{
     display: block;
-    font-size: 48px;
+    font-size: 83px;
     font-weight: 400;
     letter-spacing: 7px;
-
+    font-family: mynewestFont;
     animation-name: moveInRight;
     animation-duration: 1s;
     animation-timing-function: ease-out;
@@ -53,13 +57,13 @@
     justify-content: space-around;
 }
 
-.btn:visited, .btn:link{
+ .btn{
     text-decoration: none;
     padding: 30px 40px;
     display: inline-block;
     border-radius: 100px;
     font-size: 30px;
-    width: 12rem;
+    width: 10rem;
     transition: all .2s;
 }
 
