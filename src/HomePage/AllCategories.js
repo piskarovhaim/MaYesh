@@ -35,10 +35,12 @@ class AllCategories extends Component {
       web = true;
     }
     imgStyle = { height: size, width: size };
-    let arrTemp = [];
-    let i = 0;
+    
+    
     let ref = firebase.database().ref("/CategoryList");
     ref.on("value", snapshot => {
+      let i = 0;
+      let arrTemp = [];
       snapshot.forEach(child => {
             let str = "/Category/" + child.val().name;
             arrTemp.push( // One element in displaying all categories

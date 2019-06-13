@@ -162,6 +162,11 @@ class Classs extends React.Component
 
     render()
     {
+        if(this.props.location.state !== undefined && this.props.location.state.isLogin !== undefined)
+        {
+            alert(this.props.location.state.isLogin)
+        }
+        
         console.log(this.state.thisClass)
         let widthImg = (window.innerWidth/3);
         let hightImg = (window.innerWidth/4);
