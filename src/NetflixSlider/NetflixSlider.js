@@ -16,7 +16,7 @@ class NetflixSlider extends Component {
       (<div className="app">
         <Slider>
           {this.props.classList.map((movie,i) => (
-            <Slider.Item movie={movie} key={movie.name}>item1</Slider.Item>
+            <Slider.Item movie={movie} key={movie.name} type={this.props.type}>item1</Slider.Item>
           ))}
         </Slider>
       </div>) 

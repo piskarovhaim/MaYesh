@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link} from "react-router-dom";
 import './Video.css'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 class Video extends Component {
 
@@ -14,14 +15,16 @@ class Video extends Component {
     }
 
     render() {
-        const setVideoHeight = {
-            height: this.state.videoStyle.height
-          }
+
+        let style ={}
+        if(window.innerWidth < 500){
+          style.width = '90%';
+        }
         return (
         <div className="header">
                     <div className="textBox">
-                        <div className="headerText">
-                            <span className="headerTextPrimary">העולם בחוץ קורא לכם</span>
+                        <div className="headerText" style={style}>
+                            <span className="headerTextPrimary">אנשים פוגשים אנשים</span>
                             <span className="headerTextSub">הצטרפו למגוון חוגים בכל נושא שמעניין אתכם</span>
                             </div>
                     
@@ -29,7 +32,9 @@ class Video extends Component {
                         <Link to="/NewClass">
                             <button className="btn pinkBtn">צור חוג חדש</button>
                         </Link>
-                        <button className="btn greenBtn" onClick={() => window.scrollTo(0,window.innerHeight-10)}>הצטרף לחוג</button>
+                        <AnchorLink href='#joinToClass'>
+                            <button className="btn greenBtn">הצטרפות לחוג</button>
+                        </AnchorLink>
                     </div>
                 </div>
         </div>
