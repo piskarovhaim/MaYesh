@@ -169,7 +169,9 @@ class MainManagePage extends Component {
         <Permissions/>
         <div className="managenav" style={setNavHeight}>
           <Link to="/"><img className="logo" src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"/></Link>
+          <div style={{display:'-webkit-inline-box',paddingLeft:'15px',color:'black'}}>
           <Search manage={true}/>
+          </div>
         <div className="managenavbarinline">
         
               <div className="managenavText" onClick={()=>this.setState({showCategorysList:true,showClasses:false,showMessages:false,showOldClasses:false})}>ניהול קטגוריות</div>

@@ -43,7 +43,8 @@ class CompleteRegistration extends Component {
       progress:[]
 
     };;
-    let endProses =false;
+  let endProses =false;
+  let whyPhone = false;
   this.handleChange = this.handleChange.bind(this);
   this.AddUser = this.AddUser.bind(this);
   this.handleUploadError = this.handleUploadError.bind(this);
@@ -70,6 +71,11 @@ class CompleteRegistration extends Component {
  
 
   AddUser(){
+    if(this.state.name == "" || this.state.phone == ""){
+      alert("חובה למלא את שם ופלאפון");
+      return;
+    }
+    
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
     this.endProses =true;
     this.setState({});
@@ -97,7 +103,8 @@ firebase
     return (
         <div className="completeReg" style ={divWidth}>
         <form>
-        <h1>ברוכים הבאים למה יש</h1>
+        <h1>ברוכים הבאים לנפגשים</h1>
+        <h4>לפני שנתחיל נשמח לכמה פרטים קטנים</h4>
         <label>   
         <div className="imguserc">
           <img className="user_e" src={this.state.img}/>
@@ -115,23 +122,39 @@ firebase
             onProgress={this.handleProgress}
           />
           </label>
+
         <label>
-        ?השם שלך
+        שם מלא
         <input type="text" name="name" value={this.state.name} onChange={this.handleChange}></input>
+        </label>
+
+        <span className="whyPhone" onClick={()=>{this.whyPhone = !this.whyPhone;this.setState({})}}>?</span>
+        {this.whyPhone? (<div className="whyPhone">
+          אנחנו לא רוצים את הפרטים שלך סתם, אל חשש
+          אנחנו רוצים שלמארגני המפגש יהיה דרך לוודא שכולם מגיעים
+          ולעדכן בפרטים
+          <br/>
+          <span className="whyPhoneGetIt"  onClick={()=>{this.whyPhone = false;this.setState({})}}>הבנתי</span>
+        </div>)
+        :null}
+
           
+        <label for="phone">
+        פלאפון      
         </label>
-        <label>
-        ?הפלאפון שלך
-        <input type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input>
-        </label>
+        <input type="text" name="phone" id="phone" value={this.state.phone} onChange={this.handleChange}></input>
+        
 
         <label>
         בחר קטגוריות מעדפות
+        <br/>
+        <span className="spanfavoriteCat">
+        לפי זה נדע להראות את החוגים שהכי מתאימים לך
+        </span>
         <FavoritesCategeory func={this.handleChange} categories={this.props.categoryList}/>
         </label>
         <br/>
         <hr/>
-        <h3 onClick={this.AddUser}>דלג על שלב זה</h3>
         <input className="registerbtn" type="button" value="המשך" onClick={this.AddUser}/>
       </form>
       {this.endProses  ? (
