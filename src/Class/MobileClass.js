@@ -1,9 +1,8 @@
 import React from "react"
 import JoinCancelButton from "./JoinCancelButton.js"
 import ClassTabs from "./ClassTabs.js"
-import MobileClass from "./MobileClass.js"
 import firebase from "../Firebase/FireBase.js";
-import "./Class.css"
+import "./MobileClass.css"
 import NavBar from "../NavBar/NavBar"
 import { Redirect } from 'react-router';
 import { Card, CardImg, CardText, CardBody,
@@ -156,32 +155,25 @@ class Classs extends React.Component
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
-        let smallSize = false;
+        let style={};
         if(window.innerWidth < 7)
-        {
-            smallSize = true;
-            alert("small")
-        }
+
+            style.width = '100%';
         let sendToLogin = false;
         if(!this.state.isLogin && this.state.isJoinClicked)
             sendToLogin = true;
 
         let location1 = '/Category/' + this.state.category + '/Class/' + this.state.course;
         return(
-            <div>
-                {smallSize ? <MobileClass/> : 
             <div  className = "all">
                 {this.state.loading ? <div>
                     {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
                     <NavBar/>
-                    <div  className = "mainDiv">
-                        <div className = "leftSide">
+                    <div  className = "mobilemainDiv">
+                        <div className = "upSide" style={style}>
                             <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
-                            <div className = "tabs">
-                                <ClassTabs  list = {this.state.thisClass.partiList} manager = {isManager} description = {this.state.thisClass.description} date = {this.state.thisClass.date}/>
-                            </div>
                         </div>
-                        <div className = "rightSide">
+                        <div className = "downSide" style={style}>
                             <Card style={{ width: '30rem' }}>
                                 <CardBody>
                                     <CardTitle className = "title">{this.state.thisClass.name}</CardTitle>
@@ -220,8 +212,11 @@ class Classs extends React.Component
                                         : null}
 
                                     </ListGroup>
-                                    <div className = "button">
+                                    <div className = "mobilebutton">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isLogin = {isLogin}/>
+                                    </div>
+                                    <div className = "mobiletabs">
+                                        <ClassTabs  list = {this.state.thisClass.partiList} manager = {isManager} description = {this.state.thisClass.description} date = {this.state.thisClass.date}/>
                                     </div>
                                 </CardBody>
                             </Card>
@@ -229,7 +224,6 @@ class Classs extends React.Component
                     </div> 
                 </div> : null}
 
-            </div>}
             </div>
         )
     }
