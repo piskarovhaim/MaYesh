@@ -14,7 +14,6 @@ class ManageCategory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //fix here to " props.name"
       categoryName: props.name,
       img: "",
       desc: "",

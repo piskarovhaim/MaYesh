@@ -17,7 +17,6 @@ function ShowPartici(props) {
   if (props.particiList !== null && props.particiList !== undefined) {
     particiList = Object.values(props.particiList);
     particiListKey = Object.keys(props.particiList);
-    console.log(particiListKey);
   }
   return (
     <div>
@@ -76,6 +75,7 @@ class ManageClass extends Component {
     this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.removePartici = this.removePartici.bind(this);
+    this.formatDate = this.formatDate.bind(this);
   }
 
   componentDidMount() {
@@ -89,16 +89,31 @@ class ManageClass extends Component {
       );
     ref.on("value", snapshot => {
       let tempState = snapshot.val();
-
       if (
         tempState !== null &&
         tempState !== undefined &&
         tempState.numOfCurrPartici < 1
       )
         tempState.particiList = [];
-
+      if (tempState !== null && tempState !== undefined) {
+        tempState.date = this.formatDate(tempState.date);
+        if (new Date(tempState.hour) != "Invalid Date")
+          tempState.hour = new Date(tempState.hour).toLocaleTimeString();
+      }
       this.setState(tempState);
     });
+  }
+
+  formatDate(date) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
   }
 
   handleChange(e) {

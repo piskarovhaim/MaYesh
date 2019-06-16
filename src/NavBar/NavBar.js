@@ -3,6 +3,7 @@ import Search from "./Search.js";
 import firebase from "../Firebase/FireBase.js";
 import "./NavBar.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import logo from './logoN.png'
 
 class NavBar extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class NavBar extends Component {
       navStyle: {
         height: window.innerHeight / 10,
       },
+      pageYOffset : 0,
       categoryList:[],
       user: {
         id: "",
@@ -29,10 +31,15 @@ class NavBar extends Component {
         listOfSignInClass: ""
       }
     };
+    this.listenToScroll = this.listenToScroll.bind(this)
+  }
+
+  listenToScroll(){
+    this.setState({pageYOffset:window.pageYOffset})
   }
 
   componentDidMount = () => {
-
+    window.addEventListener('scroll', this.listenToScroll)
     let ref = firebase.database().ref('/CategoryList');
     ref.on('value', snapshot => {
       let categories = [];
@@ -83,29 +90,25 @@ class NavBar extends Component {
   };
 
   render() {
-    let setNavHeight = {
-      height: this.state.navStyle.height
-    };
-    let setLogoSize = {
-      width: window.innerWidth /4
-    };
-    if(window.innerWidth < 500)
-        setLogoSize.hight =  120
 
     let login = this.state.isSignedIn;
     let edit = false;
     if (this.state.isSignedInProsses) login = false;
     if (this.state.edit) edit = true;
     
+    let classNav = 'nav'
+    if(this.state.pageYOffset > 50){
+      classNav = 'navScroll';
+      
+    }
+    
+
+
     return (
-      <div className="nav" style={setNavHeight}>
-        <Link to="/">
-          <img
-            className="logoh" style={setLogoSize}
-            src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/logo.png?alt=media&token=477548f9-1686-4a70-bdeb-736a2c9dba27"
-          />
-        </Link>
-        {login ? (
+      <div className="navtest">
+      <div className={classNav}>
+      <div className="navLeft">
+      {login ? (
           <div className="inline">
             <img className="user" src={this.state.user.img}  />
             {edit ? null : (
@@ -117,12 +120,12 @@ class NavBar extends Component {
                   }}
                 >
                   <div className="edit">
-                    <div className="navText">עריכת פרופיל</div>
+                      <div className="navTextMenu">עריכת פרופיל</div>
                   </div>
                 </Link>
                 <Link to={{pathname: this.state.location, state:{isLogin:false}}} className="linkto"><div className="edit">
                   <div
-                    className="navText"
+                    className="navTextMenu"
                     onClick={() => firebase.auth().signOut()}>
                     יציאה
                     </div> </div>
@@ -131,18 +134,27 @@ class NavBar extends Component {
             )}
           </div>
         ) : (
-          <Link
+          <Link className="linkto"
             to={{
               pathname: "/Login",
               state: { location: this.state.location, title: "התחבר עם" }
             }}
           >
-            <div className="loginText">
-              <div className="navText">התחבר</div>
-            </div>
+                <div className="navTextMenu">התחבר</div>
           </Link>
         )}
-        <Search/>
+          <Link to="/about" className="linkto">
+              <div className="navTextAbout">אודות</div>
+          </Link>
+      </div>
+      <div className="navRight">
+      <Search/>
+        <Link to="/">
+          <img className="logoBox" alt="logo" src={logo}/>
+        </Link>
+        
+        </div>
+      </div>
       </div>
     );
   }

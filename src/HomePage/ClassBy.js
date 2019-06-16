@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import AliceCarousel from 'react-alice-carousel'
 import "react-alice-carousel/lib/alice-carousel.css"
 import firebase from "../Firebase/FireBase.js";
-import "./ClassBy.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import NetflixSlider from "../NetflixSlider/NetflixSlider.js";
 
 function ClassElement(props) {
       let oneclass = props.class;
@@ -38,7 +38,7 @@ class ShowClass extends Component{
         elements:[],
         classList:props.classList,
         favoriteCat:props.favoriteCat,
-        currentIndex: 0,
+        currentIndex: 1,
         responsive: { 500: { items: (window.innerWidth/180) },0: { items: 3 } },
         sortBy: props.sortBy,
         title:""
@@ -46,9 +46,19 @@ class ShowClass extends Component{
 
       this.byDate = this.byDate.bind(this);
       this.byBestForMe = this.byBestForMe.bind(this);
+      this.updateWindows = this.updateWindows.bind(this)
+    }
+
+    updateWindows(){
+      this.setState({responsive: { 500: { items: (window.innerWidth/180) },0: { items: 3 } },})
+    }
+
+    componentWillUnmount(){
+      window.removeEventListener("resize", this.updateWindows);
     }
 
     componentDidMount(){
+      window.addEventListener("resize", this.updateWindows);
       let listTosort = this.state.classList;
       let title;
           switch(this.state.sortBy) {
@@ -72,8 +82,6 @@ class ShowClass extends Component{
           </Link>
           )})
       this.setState({elements:elements,title:title})
-      this.slideNext();
-      this.setState({});
   }
 
     slideTo = (i) => this.setState({ currentIndex: i })
@@ -102,28 +110,9 @@ class ShowClass extends Component{
       if(window.innerWidth > 500) // set the image size by phone or not phone
         web =true;
       return(
-        <div className="AllCategories">
-        <h1>{this.state.title}</h1>
 
-        {web ? (  // if open in phone show the buttons , else dont show
-        <div>
-        <div className="carouselButtondivL">
-        <button className="carouselButton" onClick={() => this.slidePrev()}>&lsaquo;</button>
-        </div><div className="carouselButtondivR">
-        <button className="carouselButton" onClick={() => this.slideNext()}>&rsaquo;</button>
-        </div></div>):null}
-
-        <AliceCarousel // the component that show the "Carousel" of the all Categories
-          dotsDisabled={true}
-          buttonsDisabled={true}
-          items={this.state.elements}
-          responsive={this.state.responsive}
-          slideToIndex={this.state.currentIndex+1}
-          onSlideChanged={this.onSlideChanged}
-        />
+        <NetflixSlider classList={this.state.classList}/>
  
-
-       </div>
       )
     }
 }

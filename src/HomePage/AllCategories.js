@@ -6,13 +6,27 @@ import "./AllCategories.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class AllCategories extends Component {
-  state = {
-    currentIndex: 0,
-    responsive: { 500: { items: window.innerWidth / 180 }, 0: { items: 3 } },
 
-    categoryList: [],
-    webSite: false
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      currentIndex: 1,
+      responsive: { 500: { items: window.innerWidth / 180 }, 0: { items: 3 } },
+      categoryList: [],
+      webSite: false
+    };
+    this.updateWindows = this.updateWindows.bind(this)
+  }
+
+  updateWindows(){
+    console.log(window.innerWidth);
+    this.setState({responsive: { 500: { items: (window.innerWidth/180) },0: { items: 3 } },})
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.updateWindows);
+  }
+
   slideTo = i => this.setState({ currentIndex: i });
 
   onSlideChanged = e => this.setState({ currentIndex: e.item });
@@ -24,6 +38,7 @@ class AllCategories extends Component {
     this.setState({ currentIndex: this.state.currentIndex - 1 });
 
   componentDidMount() {
+    window.addEventListener("resize", this.updateWindows);
     let imgStyle;
     let web = false;
     let size;

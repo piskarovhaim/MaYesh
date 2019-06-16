@@ -18,14 +18,20 @@ class Video extends Component {
             height: this.state.videoStyle.height
           }
         return (
-        <div className="video" style={setVideoHeight}>
-            <video src="https://www.meetup.com/mu_static/en-US/video.dddafbfe.mp4" autoPlay loop muted/>
-            <div className="c">
-                <button className="videoButton" onClick={() => window.scrollTo(0,window.innerHeight-10)}>הצטרף לחוג</button>
-              <Link to="/NewClass">
-              <button className="videoButton">צור חוג חדש</button>
-              </Link>
-            </div>
+        <div className="header">
+                    <div className="textBox">
+                        <div className="headerText">
+                            <span className="headerTextPrimary">העולם בחוץ קורא לכם</span>
+                            <span className="headerTextSub">הצטרפו למגוון חוגים בכל נושא שמעניין אתכם</span>
+                            </div>
+                    
+                    <div className="btns">
+                        <Link to="/NewClass">
+                            <button className="btn pinkBtn">צור חוג חדש</button>
+                        </Link>
+                        <button className="btn greenBtn" onClick={() => window.scrollTo(0,window.innerHeight-10)}>הצטרף לחוג</button>
+                    </div>
+                </div>
         </div>
         )
         }

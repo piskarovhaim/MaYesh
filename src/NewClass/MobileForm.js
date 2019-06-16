@@ -61,7 +61,6 @@ class MobileForm extends React.Component {
       name: "",
       category: "",
       organizer: "",
-      organizerId: organizerId,
       phoneNumber: "",
       location: "",
       minPartici: "",
@@ -73,49 +72,39 @@ class MobileForm extends React.Component {
       numOfPartici: 0,
       isUploading: false,
       isConfirmed: false,
+      organizerId: organizerId,
       categoryList: []
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClear = this.handleClear.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     this.handleUploadError = this.handleUploadError.bind(this);
     this.handleUploadStart = this.handleUploadStart.bind(this);
+    this.handleProgress = this.handleProgress.bind(this);
+    this.isValidForm = this.isValidForm.bind(this);
   }
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-  handleClear() {
-    let categories = this.state.categoryList;
-    const initialState = {
-      name: "",
-      category: "",
-      organizer: "",
-      phoneNumber: "",
-      location: "",
-      minPartici: "",
-      maxPartici: "",
-      description: "",
-      date: "",
-      hour: "",
-      imgUrl: "",
-      numOfPartici: 0,
-      isUploading: false,
-      isConfirmed: false,
-      categoryList: categories
-    };
-    this.setState(initialState);
-  }
-  isValidForm() {
-    let arr = Object.keys(this.state);
-    let i;
-    let numOfprivateStates = 2;
-    for (i = 0; i < arr.length - numOfprivateStates; i++) {
-      if (this.state[arr[i]] === "") {
-        return false;
-      }
-      return true;
+    if ([e.target.name] == "maxPartici" || [e.target.name] == "minPartici") {
+      this.setState({ [e.target.name]: parseInt(e.target.value) });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
     }
+  }
+
+  isValidForm() {
+    if (this.state.category == "") {
+      alert("מה לא תבחר קטגוריה??");
+      return false;
+    }
+    if (this.state.imgUrl == "") {
+      alert("אנו נשמח לתמונה בבקשה");
+      return false;
+    } else if (this.state.hour == "" || this.state.date == "") {
+      alert("איך נדע מתי זה קורה? אנא מלא תאריך ושעה");
+      return false;
+    }
+    return true;
   }
   componentDidMount() {
     let categories = [];
@@ -132,17 +121,19 @@ class MobileForm extends React.Component {
       });
   }
 
-  async handleSubmit() {
-    // if (!this.isValidForm()) {
-    //   alert("מלא את כל הטופס בבקשה");
-    //   return;
-    // }
+  async handleSubmit(e) {
+    console.log(this.state);
+    e.preventDefault();
+    if (!this.isValidForm()) {
+      //alert("אנא מלא את כל הטופש בבקשה");
+      return;
+    }
+
     if (this.state.isUploading) {
       return;
     }
 
     await this.setState({ isUploading: null });
-    console.log(this.state);
 
     let ref = firebase
       .database()
@@ -167,7 +158,7 @@ class MobileForm extends React.Component {
       );
     ref.remove();
     this.endOfProcess = true;
-    alert("הטופס נשלח לאישור ההנהלה");
+    alert("תודה רבה! הטופס נשלח לאישור ההנהלה");
     this.setState({});
   }
   handleUploadStart() {
@@ -176,6 +167,10 @@ class MobileForm extends React.Component {
   handleUploadError(error) {
     console.error(error);
   }
+  handleProgress = progress => this.setState({ progress: progress + "%" });
+  handleUploadError(error) {
+    alert("Upload Error: " + error);
+  }
   handleUploadSuccess(filename) {
     this.setState({ isUploading: false });
     firebase
@@ -183,7 +178,7 @@ class MobileForm extends React.Component {
       .ref("formImages")
       .child(filename)
       .getDownloadURL()
-      .then(url => this.setState({ imgUrl: url }));
+      .then(url => this.setState({ imgUrl: url, progress: [] }));
   }
 
   render() {
@@ -191,131 +186,151 @@ class MobileForm extends React.Component {
       <div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
         <IonApp>
-          <IonContent>
-            <div className="style">
-              <h1>טופס הצעת קורס</h1>
-            </div>
-            <IonItem text-right>
-              <IonInput
-                name="name"
-                placeholder="שם הקורס"
-                value={this.state.name}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-
-            <CategeorySelector
-              value={this.state.category}
-              func={this.handleChange}
-              categories={this.state.categoryList}
-            />
-
-            <IonItem text-right>
-              <IonInput
-                placeholder="שם המארגן"
-                name="organizer"
-                value={this.state.organizer}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-            <IonItem text-right>
-              <IonInput
-                placeholder="מס טלפון"
-                type="tel"
-                name="phoneNumber"
-                value={this.state.phoneNumber}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-            <IonItem text-right>
-              <IonInput
-                placeholder="מיקום"
-                name="location"
-                value={this.state.location}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-
-            <IonItem text-right>
-              <IonInput
-                placeholder="מינימום משתתפים"
-                type="number"
-                name="minPartici"
-                value={this.state.minPartici}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-            <IonItem text-right>
-              <IonInput
-                type="number"
-                name="maxPartici"
-                placeholder="מקסימום משתתפים"
-                value={this.state.maxPartici}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-
-            <div class="ionright">
-              <IonItem>
-                <IonDatetime
-                  class="ionrightinner"
-                  placeholder="תאריך"
-                  name="date"
-                  min="2019"
-                  value={this.state.date}
+          <IonContent class="ionContent">
+            <form onSubmit={this.handleSubmit}>
+              <div className="style">
+                <h1>כמה פרטים קטנים</h1>
+              </div>
+              <IonItem text-right>
+                <IonInput
+                  background="Secondary"
+                  color="Secondary"
+                  required={true}
+                  name="name"
+                  placeholder="שם הקורס"
+                  type="text"
+                  value={this.state.name}
                   onIonChange={this.handleChange}
                 />
               </IonItem>
-            </div>
 
-            <div class="ionright">
-              <IonItem>
-                <IonDatetime
-                  class="ionrightinner"
-                  placeholder="שעה"
-                  displayFormat="HH:mm "
-                  name="hour"
-                  value={this.state.hour}
+              <CategeorySelector
+                value={this.state.category}
+                func={this.handleChange}
+                categories={this.state.categoryList}
+              />
+
+              <IonItem text-right>
+                <IonInput
+                  required={true}
+                  placeholder="שם המארגן"
+                  type="text"
+                  name="organizer"
+                  value={this.state.organizer}
                   onIonChange={this.handleChange}
                 />
               </IonItem>
-            </div>
-
-            <IonItem text-right>
-              <IonTextarea
-                placeholder="תיאור"
-                name="description"
-                value={this.state.description}
-                onIonChange={this.handleChange}
-              />
-            </IonItem>
-
-            <IonItem>
-              <label>
-                <img
-                  alt="העלאת תמונה"
-                  style={{ width: 55, height: 55 }}
-                  src={this.state.imgUrl}
+              <IonItem text-right>
+                <IonInput
+                  required={true}
+                  type="tel"
+                  placeholder="מס טלפון"
+                  minlength={9}
+                  maxlength={10}
+                  name="phoneNumber"
+                  value={this.state.phoneNumber}
+                  onIonChange={this.handleChange}
                 />
-                <FileUploader
-                  hidden
-                  accept="image/*"
-                  randomizeFilename
-                  storageRef={firebase.storage().ref("formImages")}
-                  onUploadError={this.handleUploadError}
-                  onUploadSuccess={this.handleUploadSuccess}
-                  onUploadStart={this.handleUploadStart}
+              </IonItem>
+              <IonItem text-right>
+                <ion-icon name="pin" />
+                <IonInput
+                  required={true}
+                  placeholder="מיקום"
+                  name="location"
+                  value={this.state.location}
+                  onIonChange={this.handleChange}
                 />
-              </label>
-            </IonItem>
+              </IonItem>
 
-            <IonButton expand="block" onClick={this.handleClear}>
-              נקה
-            </IonButton>
+              <IonItem text-right>
+                <IonInput
+                  required={true}
+                  min={0}
+                  placeholder="מינימום משתתפים"
+                  type="number"
+                  name="minPartici"
+                  value={this.state.minPartici}
+                  onIonChange={this.handleChange}
+                />
+              </IonItem>
+              <IonItem text-right>
+                <IonInput
+                  min={this.state.minPartici}
+                  required={true}
+                  type="number"
+                  name="maxPartici"
+                  placeholder="מקסימום משתתפים"
+                  value={this.state.maxPartici}
+                  onIonChange={this.handleChange}
+                />
+              </IonItem>
 
-            <IonButton expand="block" onClick={this.handleSubmit}>
-              שלח
-            </IonButton>
+              <div class="ionright">
+                <IonItem>
+                  <IonDatetime
+                    class="ionrightinner"
+                    placeholder="תאריך"
+                    display-format="DD/MM/YYYY"
+                    picker-format="DD-MMMM-YYYY"
+                    name="date"
+                    min={2019}
+                    value={this.state.date}
+                    onIonChange={this.handleChange}
+                  />
+                </IonItem>
+              </div>
+
+              <div class="ionright">
+                <IonItem>
+                  <IonDatetime
+                    class="ionrightinner"
+                    placeholder="שעה"
+                    displayFormat="HH:mm "
+                    name="hour"
+                    value={this.state.hour}
+                    onIonChange={this.handleChange}
+                  />
+                </IonItem>
+              </div>
+
+              <IonItem text-right>
+                <IonTextarea
+                  required={true}
+                  rows={4}
+                  cols={20}
+                  placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
+                  name="description"
+                  value={this.state.description}
+                  onIonChange={this.handleChange}
+                />
+              </IonItem>
+
+              <IonItem>
+                <label>
+                  <img
+                    alt="תמונה"
+                    style={{ width: 55, height: 55 }}
+                    src={this.state.imgUrl}
+                  />
+                  {this.state.progress}
+                  <FileUploader
+                    hidden
+                    accept="image/*"
+                    randomizeFilename
+                    storageRef={firebase.storage().ref("formImages")}
+                    onUploadError={this.handleUploadError}
+                    onUploadSuccess={this.handleUploadSuccess}
+                    onUploadStart={this.handleUploadStart}
+                    onProgress={this.handleProgress}
+                  />
+                </label>
+              </IonItem>
+
+              <IonButton class="fancy-button" expand="block" type={"submit"}>
+                שלח
+              </IonButton>
+            </form>
           </IonContent>
         </IonApp>
       </div>

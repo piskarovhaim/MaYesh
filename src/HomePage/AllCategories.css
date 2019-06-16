@@ -1,10 +1,7 @@
 img.AllCategories:hover {
     border: 0.7px solid rgba(0, 0, 0, 0.438);
 }
-div.gallery:hover {
-    width: 130%;
-    height: 130%;
-}
+
 div.AllCategories{
     margin: auto;
     font-family: "Arial Verdana", Sans-serif;

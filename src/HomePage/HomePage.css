@@ -1,4 +1,10 @@
 div.home{
     display: block;
     scroll-behavior: smooth;
+    background: rgb(56, 56, 56);
+    height: 100vh;
+    background-size: cover;
+    background-image: url(../imgs/design.jpg);
+    background-position: top;
+    font-family: mynewFont;
 }
