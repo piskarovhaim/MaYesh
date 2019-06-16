@@ -10,7 +10,7 @@ class AllCategories extends Component {
   constructor(props){
     super(props)
     this.state = {
-      currentIndex: 0,
+      currentIndex: 1,
       responsive: { 500: { items: window.innerWidth / 180 }, 0: { items: 3 } },
       categoryList: [],
       webSite: false

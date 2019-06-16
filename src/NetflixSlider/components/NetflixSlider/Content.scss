@@ -1,0 +1,91 @@
+.content {
+  position: relative;
+  height: 40vw;
+  margin-top: -40px;
+  text-align: right;
+
+  &__background,
+  &__background__shadow,
+  &__background__image,
+  &__area {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+
+  &__background {
+    left: 0;
+    right: 0;
+
+    &__shadow {
+      right: 0;
+      background: rgb(0, 0, 0);
+      width: 30%;
+      z-index: 2;
+
+      &:before {
+        content: '';
+        position: absolute;
+        z-index: 10;
+        background-image: linear-gradient(to left,rgb(0, 0, 0),transparent);
+        top: 0;
+        bottom: 0;
+        right: 100%;
+        width: 275px;
+      }
+    }
+
+    &__image {
+      left: 0;
+      width: 70%;
+      height: 100%;
+      background-position: center 10%;
+      background-size: cover;
+      z-index: 1;
+    }
+  }
+
+  &__area {
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+
+    &__container {
+      padding: 30px 70px;
+      color: wheat;
+    }
+  }
+
+  &__title {
+    font-size: 6vw;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  &__description {
+    font-size: 18px;
+    color: #999;
+    margin-top: 20px;
+    max-width: 500px;
+    float:right;
+  }
+
+  &__linktoclass {
+    font-size: 15px;
+    color: #fff;
+    width: 100%;
+  }
+
+  &__close {
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    outline: none;
+    border: none;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    cursor: pointer;
+  }
+}

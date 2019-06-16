@@ -39,11 +39,11 @@ class Contact extends Component {
 
               <div className="contBG"></div>
               <nav className="contNav">
-                  <form className="contBox">
+                  <form className="contBox" onSubmit={this.sendMassage}>
                         <h1 className="headLine">צור קשר</h1>
-                        <input name="name" type="text" className="formCont" placeholder ="הכנס שם מלא" required/><br/>
-                        <input name="email" type="email" className="formCont" placeholder = "הכנס כתובת דואר אלקטרוני" required/><br/>
-                        <textarea name="messege" className="formCont" placeholder="הכנס הודעתך" row="4" required></textarea><br/>
+                        <input name="name" value={this.state.name} type="text" className="formCont" placeholder ="הכנס שם מלא" required onChange={this.handleChange}/><br/>
+                        <input name="email" value={this.state.email} type="email" className="formCont" placeholder = "הכנס כתובת דואר אלקטרוני" required onChange={this.handleChange}/><br/>
+                        <textarea name="message" value={this.state.message} className="formCont" placeholder="הכנס הודעתך" row="4" required onChange={this.handleChange}/><br/>
                         <input type="submit" className= "btnForm" value="שלח הודעה"/>
                     </form>
               </nav>

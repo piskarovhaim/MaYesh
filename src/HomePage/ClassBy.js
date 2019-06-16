@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import AliceCarousel from 'react-alice-carousel'
 import "react-alice-carousel/lib/alice-carousel.css"
 import firebase from "../Firebase/FireBase.js";
-import "./ClassBy.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import NetflixSlider from "../NetflixSlider/NetflixSlider.js";
 
 function ClassElement(props) {
       let oneclass = props.class;
@@ -38,7 +38,7 @@ class ShowClass extends Component{
         elements:[],
         classList:props.classList,
         favoriteCat:props.favoriteCat,
-        currentIndex: 0,
+        currentIndex: 1,
         responsive: { 500: { items: (window.innerWidth/180) },0: { items: 3 } },
         sortBy: props.sortBy,
         title:""
@@ -50,7 +50,6 @@ class ShowClass extends Component{
     }
 
     updateWindows(){
-      console.log(window.innerWidth);
       this.setState({responsive: { 500: { items: (window.innerWidth/180) },0: { items: 3 } },})
     }
 
@@ -111,29 +110,9 @@ class ShowClass extends Component{
       if(window.innerWidth > 500) // set the image size by phone or not phone
         web =true;
       return(
-        <div className="AllCategories">
-        <h1>{this.state.title}</h1>
 
-        {web ? (  // if open in phone show the buttons , else dont show
-        <div>
-        <div className="carouselButtondivL">
-        <button className="carouselButton" onClick={() => this.slidePrev()}>&lsaquo;</button>
-        </div><div className="carouselButtondivR">
-        <button className="carouselButton" onClick={() => this.slideNext()}>&rsaquo;</button>
-        </div></div>):null}
-
-        <AliceCarousel // the component that show the "Carousel" of the all Categories
-          dotsDisabled={true}
-          buttonsDisabled={true}
-          startIndex = {1}
-          items={this.state.elements}
-          responsive={this.state.responsive}
-          slideToIndex={this.state.currentIndex}
-          onSlideChanged={this.onSlideChanged}
-        />
+        <NetflixSlider classList={this.state.classList}/>
  
-
-       </div>
       )
     }
 }

@@ -1,0 +1,45 @@
+.containerBox{
+    height: 100vh;
+    width: cover;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #000 60%);
+}
+
+.catTextBox{
+color: #fff;
+position: absolute;
+width: 40%;
+top: 20rem;
+left: 75%;
+transform: translate(-50%, -50%);  
+text-align: right;
+}
+
+.catText{
+    backface-visibility: hidden;
+    margin-bottom: 120px;
+    width: 100%;
+    margin: auto; 
+}
+
+.catTextPrimary{
+    display: block;
+    font-size: 150px;
+    font-weight: 400;
+    letter-spacing: 7px;
+    font-family: mynewestFont;
+}
+
+.catTextSub{
+    display: block;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 7px;
+    margin-bottom: 2rem;
+
+}
+
+.galleryBox{
+    margin-top: 25rem;
+    position: relative;
+
+}

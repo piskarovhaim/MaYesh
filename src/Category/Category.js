@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import Class from "../Category/Class.js"
+import './Category.css'
 import { elementType } from "prop-types";
 
 
@@ -45,7 +46,7 @@ class Category extends Component {
   let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} />)
   let styleImg = 
   {
-    backgroundImage : 'url('+this.state.category.img+')', 
+    backgroundImage : 'url('+this.state.category.img+')',
     backgroundRepeat  : 'no-repeat',
     backgroundPosition: 'center',
     minWidth:100+'%',
@@ -61,7 +62,7 @@ class Category extends Component {
     type = "pcCategory"
   }
     return (
-      <div className="gallery-container">
+    /*  <div className="gallery-container">
         <div className = "video" style = {styleImg}>
           <h1> {this.state.category.name} </h1>
         </div>  
@@ -70,6 +71,20 @@ class Category extends Component {
         </div>
             
       </div>
+      */
+     <div style={styleImg}>
+       <div className="containerBox">
+          <div className="catTextBox">
+              <div className="catText">
+                   <span className="catTextPrimary">{this.state.category.name}</span>
+                   <span className="catTextSub">{this.state.category.desc}</span>
+              </div>
+              <div  className = {type}>
+                    {gallery} 
+              </div>
+          </div>
+       </div>
+     </div>
     )
   }
 }
