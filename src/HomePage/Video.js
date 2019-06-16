@@ -1,7 +1,7 @@
-
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link} from "react-router-dom";
 import './Video.css'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 class Video extends Component {
 
@@ -13,26 +13,31 @@ class Video extends Component {
             }
         }
     }
-    
 
     render() {
-        const setVideoHeight = {
-            height: this.state.videoStyle.height
-          }
-        return (
-            <div className="header">
-                <div className="textBox">
-                    <div className="headerText">
-                        <span className="headerTextPrimary">העולם בחוץ קורא לכם</span>
-                        <span className="headerTextSub">הצטרפו למגוון חוגים בכל נושא שמעניין אתכם</span>
-                    </div>
-                    <div className="btns">
-                        <a href="/NewClass" className="btn pinkBtn">צור חוג חדש</a>
 
-                        <a href="#" className="btn greenBtn" onClick={() => window.scrollTo(0,window.innerHeight-window.innerHeight)}>הצטרף לחוג</a>
+        let style ={}
+        if(window.innerWidth < 500){
+          style.width = '90%';
+        }
+        return (
+        <div className="header">
+                    <div className="textBox">
+                        <div className="headerText" style={style}>
+                            <span className="headerTextPrimary">אנשים פוגשים אנשים</span>
+                            <span className="headerTextSub">הצטרפו למגוון חוגים בכל נושא שמעניין אתכם</span>
+                            </div>
+                    
+                    <div className="btns">
+                        <Link to="/NewClass">
+                            <button className="btn pinkBtn">צור חוג חדש</button>
+                        </Link>
+                        <AnchorLink href='#joinToClass'>
+                            <button className="btn greenBtn">הצטרפות לחוג</button>
+                        </AnchorLink>
                     </div>
                 </div>
-            </div>
+        </div>
         )
         }
     }

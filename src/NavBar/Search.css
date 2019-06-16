@@ -1,42 +1,33 @@
-@font-face {
-  font-family: mynewFont;
-  src: url(../font/SecularOne-Regular.ttf);
-}
-
 input[type=text].inputSearch {
     width: 100%;
     box-sizing: border-box;
     box-sizing: border-box;
     display: block;
-    border: 2px solid #fff;
-    background: none;
+    border: none;
+    background: #f1f1f17c;
     text-align: right;
-    border-radius: 100px;
-    margin-top:5px; 
-    font-family: mynewFont, Sans-serif;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-family: "Arial Verdana", Sans-serif;
     padding: 8px 10px;
-    color: #fff;
-    margin-bottom: 5px;
-    margin-right: 2rem;
+    color: rgb(187, 187, 187);
   }
   
   input[type=text].inputSearch:focus {
-    background-color: rgb(75, 74, 74);
+    background-color: #ddd;
     outline: none;
     text-align: right;
   }
   div.search{
-    padding-top:17px; 
     float: right;
     display: inline-block;
     position: relative;
-    width: 150px;
+    width: 20vw;
+    top:40%;
+    padding-top:3vw; 
     
   }
 div.dropDownn{
   position: absolute;
-  margin-right: 2rem;
   background-color:  rgb(255, 255, 255);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding-left: 15px;
@@ -49,7 +40,7 @@ div.dropDownn{
   color: rgb(187, 187, 187);
   cursor: pointer;
   text-align: right;
-  width: 300%;
+  width: 180%;
   right: -55px;
   border-radius: 8px;
 }

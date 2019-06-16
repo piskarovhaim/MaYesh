@@ -12,7 +12,6 @@ import MainManagePage from "./Manage/MainManagePage.js";
 
 import ManageClass from "./Manage/ManageClass.js";
 
-import ContactForm from "./Footer/ContactForm.js";
 import redirectTemp from "./Login/redirectTemp.js"
 
 class App extends Component {
@@ -24,7 +23,6 @@ class App extends Component {
           <Route path="/NewClass" exact component={NewClass} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/Manage" exact component={MainManagePage} />
-          <Route path="/Contact" exact component={ContactForm} />
           <Route path="/RedirectTemp" exact component={redirectTemp}/>
           <Route path="/editProfile/:id" exact component={EditProfile} />
           <Route
