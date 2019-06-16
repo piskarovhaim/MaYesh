@@ -110,9 +110,6 @@ class MainManagePage extends Component {
         OldClass:[],
         showMessages:false,
         Messages:[],
-        navStyle: {
-          height: window.innerHeight / 10
-        }
         
     };
 
@@ -161,13 +158,10 @@ class MainManagePage extends Component {
 }
 
   render() {
-    const setNavHeight = {
-      height: this.state.navStyle.height
-    };  
     return (
         <div style={{display: 'block'}}>
         <Permissions/>
-        <div className="managenav" style={setNavHeight}>
+        <div className="managenav">
           <Link to="/"><img className="logo" src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"/></Link>
           <div style={{display:'-webkit-inline-box',paddingLeft:'15px',color:'black'}}>
           <Search manage={true}/>
