@@ -22,7 +22,7 @@ class Classs extends React.Component
             ifClassFull: false, 
             isJoinClicked: false, 
             isCancelClicked: false, 
-            isSighnIn: false, 
+            isSignIn: false, 
             category: props.match.params.nameC, 
             course: props.match.params.nameClass, 
             thisClass:{
@@ -48,6 +48,16 @@ class Classs extends React.Component
     
     componentDidMount()
     { 
+        let currUser = false
+        if(firebase.auth().currentUser)
+            currUser = true;
+        firebase.auth().onAuthStateChanged(user => {
+            if(!user)
+                currUser = false
+            else
+                currUser = true
+            this.setState({isSignIn: currUser})
+          })
         let ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course);
         ref.child("particiList").on('value', snapshot => {
             let tempParticiList = [];//will keep the list of participants for this class
@@ -116,10 +126,12 @@ class Classs extends React.Component
                 tempNumOfCurPart = snapshot.val() + 1;
             })
             ref.child("numOfCurrPartici").set(tempNumOfCurPart);
+            return(
+                <p>מעולה, שמחים שנרשמת! יום לפני המפגש תפתח קבוצת וואטספ זמנית שבה יעודכנו פרטי המפגש. אם אין באפשרותכם לבוא, עשו טובה, שלחו וואטסאפ למארגן, שלא יהיה פה "הקיץ של אביה".</p>
+            )
         }
         else
             this.setState({isJoinClicked: true})
-
     }
 
     whenCancelClicked()
@@ -160,7 +172,6 @@ class Classs extends React.Component
         if(window.innerWidth < 7)
         {
             smallSize = true;
-            alert("small")
         }
         let sendToLogin = false;
         if(!this.state.isLogin && this.state.isJoinClicked)
@@ -221,7 +232,7 @@ class Classs extends React.Component
 
                                     </ListGroup>
                                     <div className = "button">
-                                        <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isLogin = {isLogin}/>
+                                        <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isLogin = {isLogin} isSignIn = {this.state.isSignIn}/>
                                     </div>
                                 </CardBody>
                             </Card>
