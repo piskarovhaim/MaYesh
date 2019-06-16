@@ -3,6 +3,7 @@ import firebase from "../Firebase/FireBase.js";
 import "./NewClass.css";
 import FileUploader from "react-firebase-file-uploader";
 import NavBar from "../NavBar/NavBar";
+
 import {
   IonInput,
   IonItem,
@@ -85,7 +86,39 @@ class MobileForm extends React.Component {
     this.isValidForm = this.isValidForm.bind(this);
   }
   handleChange(e) {
-    if ([e.target.name] == "maxPartici" || [e.target.name] == "minPartici") {
+    if ([e.target.name] == "date") {
+      let date = new Date(e.target.value);
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let dt = date.getDate();
+      if (dt < 10) {
+        dt = "0" + dt;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      let dateAfterConvert = year + "-" + month + "-" + dt;
+      this.setState({ [e.target.name]: dateAfterConvert });
+    } else if ([e.target.name] == "hour") {
+      let time = new Date(e.target.value);
+      if (time == "Invalid Date") {
+        return;
+      }
+      let h = time.getHours();
+      let m = time.getMinutes();
+      if (h < 10) {
+        h = "0" + h;
+      }
+      if (m < 10) {
+        m = "0" + m;
+      }
+      let timeAfterConvert = h + ":" + m;
+      this.setState({ hour: timeAfterConvert });
+    } else if (
+      [e.target.name] == "maxPartici" ||
+      [e.target.name] == "minPartici"
+    ) {
       this.setState({ [e.target.name]: parseInt(e.target.value) });
     } else {
       this.setState({ [e.target.name]: e.target.value });
@@ -101,7 +134,7 @@ class MobileForm extends React.Component {
       alert("אנו נשמח לתמונה בבקשה");
       return false;
     } else if (this.state.hour == "" || this.state.date == "") {
-      alert("איך נדע מתי זה קורה? אנא מלא תאריך ושעה");
+      alert("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
       return false;
     }
     return true;
@@ -122,10 +155,8 @@ class MobileForm extends React.Component {
   }
 
   async handleSubmit(e) {
-    console.log(this.state);
     e.preventDefault();
     if (!this.isValidForm()) {
-      //alert("אנא מלא את כל הטופש בבקשה");
       return;
     }
 
@@ -189,7 +220,7 @@ class MobileForm extends React.Component {
           <IonContent class="ionContent">
             <form onSubmit={this.handleSubmit}>
               <div className="style">
-                <h1>כמה פרטים קטנים</h1>
+                <h1>נשמח לכמה פרטים</h1>
               </div>
               <IonItem text-right>
                 <IonInput
@@ -197,7 +228,7 @@ class MobileForm extends React.Component {
                   color="Secondary"
                   required={true}
                   name="name"
-                  placeholder="שם הקורס"
+                  placeholder="שם הסדנא"
                   type="text"
                   value={this.state.name}
                   onIonChange={this.handleChange}
@@ -271,8 +302,8 @@ class MobileForm extends React.Component {
                   <IonDatetime
                     class="ionrightinner"
                     placeholder="תאריך"
-                    display-format="DD/MM/YYYY"
-                    picker-format="DD-MMMM-YYYY"
+                    picker-format="YYYY-MM-DD"
+                    display-format="YYYY-MM-DD"
                     name="date"
                     min={2019}
                     value={this.state.date}
@@ -287,6 +318,7 @@ class MobileForm extends React.Component {
                     class="ionrightinner"
                     placeholder="שעה"
                     displayFormat="HH:mm "
+                    pickerFormat="HH:mm"
                     name="hour"
                     value={this.state.hour}
                     onIonChange={this.handleChange}
@@ -307,24 +339,26 @@ class MobileForm extends React.Component {
               </IonItem>
 
               <IonItem>
-                <label>
-                  <img
-                    alt="תמונה"
-                    style={{ width: 55, height: 55 }}
-                    src={this.state.imgUrl}
-                  />
-                  {this.state.progress}
-                  <FileUploader
-                    hidden
-                    accept="image/*"
-                    randomizeFilename
-                    storageRef={firebase.storage().ref("formImages")}
-                    onUploadError={this.handleUploadError}
-                    onUploadSuccess={this.handleUploadSuccess}
-                    onUploadStart={this.handleUploadStart}
-                    onProgress={this.handleProgress}
-                  />
-                </label>
+                <div class="ionright">
+                  <label>
+                    <img
+                      alt="תמונה"
+                      style={{ width: 55, height: 55 }}
+                      src={this.state.imgUrl}
+                    />
+                    {this.state.progress}
+                    <FileUploader
+                      hidden
+                      accept="image/*"
+                      randomizeFilename
+                      storageRef={firebase.storage().ref("formImages")}
+                      onUploadError={this.handleUploadError}
+                      onUploadSuccess={this.handleUploadSuccess}
+                      onUploadStart={this.handleUploadStart}
+                      onProgress={this.handleProgress}
+                    />
+                  </label>
+                </div>
               </IonItem>
 
               <IonButton class="fancy-button" expand="block" type={"submit"}>

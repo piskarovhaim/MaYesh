@@ -26,8 +26,15 @@
 .ionContent {
   --ion-background-color: #e2ffd4;
 }
+.ionContent h1 {
+  font-style: italic;
+  color: #a1a1a1;
+}
 .fancy-button {
   --background: #cfffb8;
+  color: #888787;
+  font-style: italic;
+  font-size: 15px;
 }
 
 ion-item {

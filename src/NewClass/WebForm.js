@@ -57,16 +57,17 @@ class WebForm extends Component {
     this.isValidForm = this.isValidForm.bind(this);
   }
   isValidForm() {
-    if (this.state.imgUrl == "") {
-      alert("אנו נשמח לתמונה בבקשה");
-      Object.values(this.state).forEach(function(val) {
-        if (val == "") {
-          return false;
-        }
-      });
+    if (this.state.category == "") {
+      alert("מה לא תבחר קטגוריה??");
       return false;
     }
-
+    if (this.state.imgUrl == "") {
+      alert("אנו נשמח לתמונה בבקשה");
+      return false;
+    } else if (this.state.hour == "" || this.state.date == "") {
+      alert("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
+      return false;
+    }
     return true;
   }
   componentDidMount() {
@@ -101,7 +102,6 @@ class WebForm extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     if (!this.isValidForm()) {
-      alert("אנא מלא את כל הפרטים בבקשה");
       return;
     }
     if (this.state.isUploading) {
@@ -165,7 +165,7 @@ class WebForm extends Component {
           <form onSubmit={this.handleSubmit}>
             <h1>נשמח לכמה פרטים</h1>
             <label>
-              שם הקורס
+              שם הסדנא
               <input
                 required
                 type="text"
@@ -187,6 +187,7 @@ class WebForm extends Component {
             <label>
               שם המארגן
               <input
+                required
                 type="text"
                 name="organizer"
                 value={this.state.organizer}
@@ -197,6 +198,7 @@ class WebForm extends Component {
             <label>
               מס' טלפון
               <input
+                required
                 minlength={9}
                 maxLength={10}
                 type="tel"
@@ -209,6 +211,7 @@ class WebForm extends Component {
             <label>
               מיקום
               <input
+                required
                 type="text"
                 name="location"
                 value={this.state.location}
@@ -219,7 +222,8 @@ class WebForm extends Component {
             <label>
               מינימום משתתפים
               <input
-                min="0"
+                required
+                min={0}
                 type="number"
                 name="minPartici"
                 value={this.state.minPartici}
@@ -230,7 +234,8 @@ class WebForm extends Component {
             <label>
               מקסימום משתתפים
               <input
-                min="0"
+                required
+                min={this.state.minPartici}
                 type="number"
                 name="maxPartici"
                 value={this.state.maxPartici}
@@ -241,8 +246,10 @@ class WebForm extends Component {
             <label>
               תאריך
               <input
+                required
                 type="date"
                 name="date"
+                min="2019-01-01"
                 value={this.state.date}
                 onChange={this.handleChange}
               />
@@ -251,6 +258,7 @@ class WebForm extends Component {
             <label>
               שעה
               <input
+                required
                 type="time"
                 name="hour"
                 value={this.state.hour}
@@ -261,7 +269,11 @@ class WebForm extends Component {
             <label>
               תיאור
               <textarea
+                rows="4"
+                cols="50"
+                required
                 name="description"
+                placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
                 value={this.state.description}
                 onChange={this.handleChange}
               />
@@ -286,14 +298,8 @@ class WebForm extends Component {
                 onProgress={this.handleProgress}
               />
             </label>
-            <br />
-            <input
-              required
-              className="registerbtn"
-              type="submit"
-              value="שמור"
-              onClick={this.handleSubmit}
-            />
+
+            <input required className="registerbtn" type="submit" value="שלח" />
           </form>
         </div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
