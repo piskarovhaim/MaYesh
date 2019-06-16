@@ -10,16 +10,21 @@
   
 
 .header{
-    height: 100vh;
+    height: 95vh;
     font-family: mynewFont;
+<<<<<<< HEAD
     transition: all .2s;
     behavior: smooth;
+=======
+    position: relative;
+    scroll-behavior: smooth;
+>>>>>>> d467d10c0f2954b3cbeb845380d0ed69b05ada24
 }
 
 .textBox{
     color: #fff;
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);  
     text-align: center; 
@@ -32,11 +37,16 @@
     margin-bottom: 120px;
     width: 50%;
     margin: auto; 
+    margin-bottom: 5px;
 }
 
 .headerTextPrimary{
     display: block;
+<<<<<<< HEAD
     font-size: 85px;
+=======
+    font-size: 10vh;
+>>>>>>> d467d10c0f2954b3cbeb845380d0ed69b05ada24
     font-weight: 400;
     letter-spacing: 7px;
     font-family: mynewestFont;

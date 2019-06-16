@@ -46,6 +46,7 @@ class Search extends Component {
           let style ={}
           if(window.innerWidth < 500){
             style.width = 100;
+            style.padding = 0;
           }
           
           

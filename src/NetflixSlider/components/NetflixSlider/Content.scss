@@ -1,7 +1,8 @@
 .content {
   position: relative;
   height: 40vw;
-  margin-top: -40px;
+  min-height: 200px;
+  margin-top: -30px;
   text-align: right;
 
   &__background,
@@ -51,23 +52,23 @@
     z-index: 3;
 
     &__container {
-      padding: 30px 70px;
+      padding: 5vw 6vw;
       color: wheat;
+      float:right;
+      width: 50%;
     }
   }
 
   &__title {
-    font-size: 6vw;
+    font-size:calc(12px + 3.5vw);
     color: #fff;
     font-weight: 700;
+    padding-bottom: 1vw;
   }
 
   &__description {
-    font-size: 18px;
+    font-size:calc(7px + 1vw);
     color: #999;
-    margin-top: 20px;
-    max-width: 500px;
-    float:right;
   }
 
   &__linktoclass {
@@ -78,14 +79,15 @@
 
   &__close {
     color: #fff;
-    width: 40px;
-    height: 40px;
+    width: 6vh;
+    height: 6vh;
     background: transparent;
     outline: none;
     border: none;
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: 3vw;
+    left: 3vw;
     cursor: pointer;
+    
   }
 }

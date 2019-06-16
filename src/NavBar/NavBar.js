@@ -97,13 +97,16 @@ class NavBar extends Component {
     if (this.state.edit) edit = true;
     
     let classNav = 'nav'
+<<<<<<< HEAD
     if(this.state.pageYOffset > 10){
       classNav = 'navScroll';
       
     }
+=======
+    if(this.state.pageYOffset > 0)
+      classNav = 'navScroll';  
+>>>>>>> d467d10c0f2954b3cbeb845380d0ed69b05ada24
     
-
-
     return (
       <div className="navtest">
       <div className={classNav}>
@@ -143,9 +146,6 @@ class NavBar extends Component {
                 <div className="navTextMenu">התחבר</div>
           </Link>
         )}
-          <Link to="/about" className="linkto">
-              <div className="navTextAbout">אודות</div>
-          </Link>
       </div>
       <div className="navRight">
       <Search/>
