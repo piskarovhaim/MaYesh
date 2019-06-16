@@ -12,7 +12,7 @@ The app supports the following functionality:
 * offer new course 
 * registration for a course
 * manage all the courses on the site - only manager can access the page
-## Tools & Practices
+## Tools 
 We're trying to use the best tools and practices in order to produce a quality enginneered product that is thoroughly tested.
 
 | Category      |  Tool|
