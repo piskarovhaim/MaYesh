@@ -36,3 +36,23 @@ Main Page bottom screen
 
 ![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPageButtom.PNG
 )
+
+
+Manage Category page
+
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/manageCategory.PNG
+
+)
+
+
+
+Class on the main page
+
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/class.PNG
+)
+
+
+
+
