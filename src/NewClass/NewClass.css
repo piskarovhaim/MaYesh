@@ -7,20 +7,39 @@
   color: rgb(80, 82, 82);
 }
 
-.ionright{
+.ionright {
   position: relative;
   text-align: right;
-  float:right;
+  float: right;
   right: 0;
   width: 100%;
-  
 }
 
-.ionrightinner{
+.ionrightinner {
   position: absolute;
   text-align: right;
-  float:right;
+  float: right;
   right: 0;
   z-index: 1;
   margin-right: 6px;
+}
+.ionContent {
+  --ion-background-color: #e2ffd4;
+}
+.ionContent h1 {
+  font-style: italic;
+  color: #a1a1a1;
+}
+.fancy-button {
+  --background: #cfffb8;
+  color: #888787;
+  font-style: italic;
+  font-size: 15px;
+}
+
+ion-item {
+  --ion-background-color: #e4ffd7;
+
+  --ion-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    "Roboto", sans-serif;
 }
