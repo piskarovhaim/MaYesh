@@ -41,9 +41,7 @@ Main Page bottom screen
 Manage Category page
 
 
-![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/manageCategory.PNG
-
-)
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/manageCategory.PNG)
 
 
 
