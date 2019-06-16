@@ -31,7 +31,8 @@ Main Page screen
 
 ![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPage.PNG)
 
-Main Page screen
+Main Page bottom screen
 
 
-![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPage.PNG)
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPageButtom.PNG
+)
