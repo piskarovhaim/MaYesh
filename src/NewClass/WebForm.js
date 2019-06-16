@@ -34,7 +34,6 @@ class WebForm extends Component {
       name: "",
       category: "",
       organizer: "",
-      organizerId: organizerId,
       phoneNumber: "",
       location: "",
       minPartici: "",
@@ -42,13 +41,35 @@ class WebForm extends Component {
       description: "",
       date: "",
       hour: "",
+      imgUrl: "",
+      numOfPartici: 0,
+      isUploading: false,
       isConfirmed: false,
+      organizerId: organizerId,
       categoryList: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
+    this.handleUploadError = this.handleUploadError.bind(this);
+    this.handleUploadStart = this.handleUploadStart.bind(this);
+    this.handleProgress = this.handleProgress.bind(this);
+    this.isValidForm = this.isValidForm.bind(this);
   }
-
+  isValidForm() {
+    if (this.state.category == "") {
+      alert("מה לא תבחר קטגוריה??");
+      return false;
+    }
+    if (this.state.imgUrl == "") {
+      alert("אנו נשמח לתמונה בבקשה");
+      return false;
+    } else if (this.state.hour == "" || this.state.date == "") {
+      alert("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
+      return false;
+    }
+    return true;
+  }
   componentDidMount() {
     let categories = [];
     let self = this;
@@ -72,14 +93,21 @@ class WebForm extends Component {
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    if ([e.target.name] == "maxPartici" || [e.target.name] == "minPartici") {
+      this.setState({ [e.target.name]: parseInt(e.target.value) });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   }
-  handleSubmit() {
-    // if (!this.isValidForm()) {
-    //   alert("מלא את כל הטופס בבקשה");
-    //   return;
-    // }
-
+  async handleSubmit(e) {
+    e.preventDefault();
+    if (!this.isValidForm()) {
+      return;
+    }
+    if (this.state.isUploading) {
+      return;
+    }
+    await this.setState({ isUploading: null });
     let ref = firebase
       .database()
       .ref(
@@ -102,20 +130,44 @@ class WebForm extends Component {
           "/categoryList"
       );
     ref.remove();
+    alert("תודה רבה! הטופס נשלח לאישור ההנהלה");
     this.endOfProcess = true;
+
     this.setState({});
   }
+
+  handleUploadStart() {
+    this.setState({ isUploading: true });
+  }
+  handleUploadError(error) {
+    console.error(error);
+  }
+  handleProgress = progress => this.setState({ progress: progress + "%" });
+  handleUploadError(error) {
+    alert("Upload Error: " + error);
+  }
+  handleUploadSuccess(filename) {
+    this.setState({ isUploading: false });
+    firebase
+      .storage()
+      .ref("formImages")
+      .child(filename)
+      .getDownloadURL()
+      .then(url => this.setState({ imgUrl: url, progress: [] }));
+  }
+
   render() {
     return (
       <div>
         <NavBar />
         <hr />
         <div className="completeReg">
-          <form>
-            <h1>טופס חוג חדש</h1>
+          <form onSubmit={this.handleSubmit}>
+            <h1>נשמח לכמה פרטים</h1>
             <label>
-              שם קורס
+              שם הסדנא
               <input
+                required
                 type="text"
                 name="name"
                 value={this.state.name}
@@ -135,6 +187,7 @@ class WebForm extends Component {
             <label>
               שם המארגן
               <input
+                required
                 type="text"
                 name="organizer"
                 value={this.state.organizer}
@@ -145,6 +198,9 @@ class WebForm extends Component {
             <label>
               מס' טלפון
               <input
+                required
+                minlength={9}
+                maxLength={10}
                 type="tel"
                 name="phoneNumber"
                 value={this.state.phoneNumber}
@@ -155,6 +211,7 @@ class WebForm extends Component {
             <label>
               מיקום
               <input
+                required
                 type="text"
                 name="location"
                 value={this.state.location}
@@ -165,6 +222,8 @@ class WebForm extends Component {
             <label>
               מינימום משתתפים
               <input
+                required
+                min={0}
                 type="number"
                 name="minPartici"
                 value={this.state.minPartici}
@@ -173,8 +232,10 @@ class WebForm extends Component {
             </label>
 
             <label>
-              מקסימום משתתים
+              מקסימום משתתפים
               <input
+                required
+                min={this.state.minPartici}
                 type="number"
                 name="maxPartici"
                 value={this.state.maxPartici}
@@ -185,8 +246,10 @@ class WebForm extends Component {
             <label>
               תאריך
               <input
+                required
                 type="date"
                 name="date"
+                min="2019-01-01"
                 value={this.state.date}
                 onChange={this.handleChange}
               />
@@ -195,6 +258,7 @@ class WebForm extends Component {
             <label>
               שעה
               <input
+                required
                 type="time"
                 name="hour"
                 value={this.state.hour}
@@ -205,18 +269,37 @@ class WebForm extends Component {
             <label>
               תיאור
               <textarea
+                rows="4"
+                cols="50"
+                required
                 name="description"
+                placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
                 value={this.state.description}
                 onChange={this.handleChange}
               />
             </label>
+            <label>
+              <br />
 
-            <input
-              className="registerbtn"
-              type="button"
-              value="שמור"
-              onClick={this.handleSubmit}
-            />
+              <img
+                alt="תמונה"
+                style={{ width: 55, height: 55 }}
+                src={this.state.imgUrl}
+              />
+              {this.state.progress}
+              <FileUploader
+                hidden
+                accept="image/*"
+                randomizeFilename
+                storageRef={firebase.storage().ref("formImages")}
+                onUploadError={this.handleUploadError}
+                onUploadSuccess={this.handleUploadSuccess}
+                onUploadStart={this.handleUploadStart}
+                onProgress={this.handleProgress}
+              />
+            </label>
+
+            <input required className="registerbtn" type="submit" value="שלח" />
           </form>
         </div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
