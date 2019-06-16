@@ -3,28 +3,15 @@
     src: url(../font/SecularOne-Regular.ttf);
 }
 
-@font-face {
-    font-family: mynewestFont;
-    src: url(../font/taamula-bold-aaa.otf);
-  }
-  
-
 .header{
-    height: 95vh;
+    height: 100vh;
     font-family: mynewFont;
-<<<<<<< HEAD
-    transition: all .2s;
-    behavior: smooth;
-=======
-    position: relative;
-    scroll-behavior: smooth;
->>>>>>> d467d10c0f2954b3cbeb845380d0ed69b05ada24
 }
 
 .textBox{
     color: #fff;
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);  
     text-align: center; 
@@ -37,19 +24,14 @@
     margin-bottom: 120px;
     width: 50%;
     margin: auto; 
-    margin-bottom: 5px;
 }
 
 .headerTextPrimary{
     display: block;
-<<<<<<< HEAD
-    font-size: 85px;
-=======
-    font-size: 10vh;
->>>>>>> d467d10c0f2954b3cbeb845380d0ed69b05ada24
+    font-size: 48px;
     font-weight: 400;
     letter-spacing: 7px;
-    font-family: mynewestFont;
+
     animation-name: moveInRight;
     animation-duration: 1s;
     animation-timing-function: ease-out;
@@ -98,8 +80,6 @@ button.greenBtn{
     margin: 3%;
     margin-bottom: 5%;
     outline:none;
-    overflow-y: scroll;
-    behavior: smooth;
 }
 
 button.pinkBtn{

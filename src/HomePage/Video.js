@@ -32,13 +32,9 @@ class Video extends Component {
                         <Link to="/NewClass">
                             <button className="btn pinkBtn">צור חוג חדש</button>
                         </Link>
-<<<<<<< HEAD
-                        <button className="btn greenBtn" onMouseDown="autoScrollTo(<ClassBy/>)">הצטרף לחוג</button>
-=======
                         <AnchorLink href='#joinToClass'>
                             <button className="btn greenBtn">הצטרפות לחוג</button>
                         </AnchorLink>
->>>>>>> d467d10c0f2954b3cbeb845380d0ed69b05ada24
                     </div>
                 </div>
         </div>

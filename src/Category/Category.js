@@ -79,7 +79,7 @@ class Category extends Component {
                    <span className="catTextPrimary">{this.state.category.name}</span>
                    <span className="catTextSub">{this.state.category.desc}</span>
               </div>
-              <div  className = {type}>
+              <div  className = "galleryBox">
                     {gallery} 
               </div>
           </div>

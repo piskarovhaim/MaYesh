@@ -96,16 +96,9 @@ class NavBar extends Component {
     if (this.state.isSignedInProsses) login = false;
     if (this.state.edit) edit = true;
     
-    let classNav = 'nav'
-<<<<<<< HEAD
-    if(this.state.pageYOffset > 10){
-      classNav = 'navScroll';
-      
-    }
-=======
+    let classNav = 'nav';
     if(this.state.pageYOffset > 0)
       classNav = 'navScroll';  
->>>>>>> d467d10c0f2954b3cbeb845380d0ed69b05ada24
     
     return (
       <div className="navtest">
