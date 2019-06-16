@@ -4,14 +4,16 @@
 }
 
 .header{
-    height: 100vh;
+    height: 95vh;
     font-family: mynewFont;
+    position: relative;
+    scroll-behavior: smooth;
 }
 
 .textBox{
     color: #fff;
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);  
     text-align: center; 
@@ -24,11 +26,12 @@
     margin-bottom: 120px;
     width: 50%;
     margin: auto; 
+    margin-bottom: 5px;
 }
 
 .headerTextPrimary{
     display: block;
-    font-size: 48px;
+    font-size: 10vh;
     font-weight: 400;
     letter-spacing: 7px;
 

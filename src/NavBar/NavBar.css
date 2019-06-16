@@ -4,14 +4,16 @@
 }
 
   img.user{
-    height: 4rem;
-    width: 4rem;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
+    
    
   }
 div.inline{
   display: inline-block;
-  float: right;
+  float: left;
+  padding-left: 1rem;
  
 }
 
@@ -24,8 +26,8 @@ div.inline{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position:relative;
-    height: 10%;
+    position: relative;
+    height: 10vh;
     width: 100%;
     z-index: 100;
     transition: background-color 0.4s ease-out;
@@ -38,7 +40,8 @@ div.inline{
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  height: 10%;
+  top:0;
+  height: 10vh;
   width: 100%;
   z-index: 100;
   background-color: rgb(56, 56, 56, .9);
@@ -47,15 +50,14 @@ div.inline{
   padding-bottom: 5px;
 }
 .logoBox{
-  width: auto;
+  width: 25vw;
   float: right;
-  right: 2rem;
-  padding-left: 3rem;
-  padding-right: 2rem;
+  right: 2vw;
+  margin-left: 3vw;
+  
 }
 div.loginText{
   font-family: mynewFont;
-  padding-top:15px; 
   padding-right: 15px;
   padding-left: 20px;
   display: inline-block;
@@ -74,7 +76,6 @@ div.navTextMenu{
   font-size: 1.5rem;
   cursor: pointer;
   text-align: right;
-  padding: 10px;
 }
 
 div.navTextAbout{
@@ -86,7 +87,6 @@ div.navTextAbout{
   font-size: 1.5rem;
   cursor: pointer;
   text-align: right;
-  padding: 10px;
   margin-left: 10px;
 
 }
@@ -99,7 +99,6 @@ div.navText{
   font-size: 1.5rem;
   cursor: pointer;
   text-align: right;
-  padding: 10px;
 }
 
 
@@ -125,13 +124,13 @@ div.dropDown p:hover {
 }
 
 .navRight{
-  margin-right: 3rem;
+  margin-right: 2vw;
   display: flex;
   justify-content: space-between;
 }
 
 .navLeft{
-  margin-left: 3rem;
+  margin-left: 2vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
