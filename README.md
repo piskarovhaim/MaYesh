@@ -26,6 +26,31 @@ We're trying to use the best tools and practices in order to produce a quality e
 This project is developed as part of the requirements for a software engineering course at the software engineering department -
 [ Azrieli College of Engineering-Jerusalem, Israel](https://www.jce.ac.il/) .
 ### Project pages
-![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/yeshiva.jpg)
+Main Page screen
+
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPage.PNG)
+
+Main Page bottom screen
+
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPageButtom.PNG
+)
+
+
+Manage Category page
+
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/manageCategory.PNG)
+
+
+
+Class on the main page
+
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/class.PNG
+)
+
+
 
 
