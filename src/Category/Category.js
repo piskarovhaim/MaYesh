@@ -41,7 +41,7 @@ class Category extends Component {
     
   }
   render() {
-  let a = this.state.category.classList;
+  let a = this.state.category.classList.filter(item => item.isConfirmed);
   let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} />)
   let styleImg = 
   {
@@ -51,6 +51,7 @@ class Category extends Component {
     minWidth:100+'%',
     minHight:100+'%',
   }
+  alert("Your file is being uploaded!")
   let type
   if(window.innerWidth < 500)
   {
@@ -60,7 +61,7 @@ class Category extends Component {
   {
     type = "pcCategory"
   }
-    return (
+    return (  
       <div className="gallery-container">
         <div className = "video" style = {styleImg}>
           <h1> {this.state.category.name} </h1>
