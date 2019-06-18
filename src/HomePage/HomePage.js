@@ -27,7 +27,7 @@ class HomePage extends Component {
   }
   render() {
     let padding = 0;
-    if(this.state.pageYOffset > 0)
+    if(this.state.pageYOffset > (window.innerHeight/10))
       padding=10;
     return (   
           <div className="home" style={{paddingTop:padding+'vh'}}>

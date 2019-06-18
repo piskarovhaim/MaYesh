@@ -30,7 +30,7 @@
     text-align: center;
 }
 
-p
+.mobilemainDiv p
 {
     text-align: center;
     font-size: large;
@@ -63,7 +63,7 @@ p
 
 
 
-.item
+.itemClass
 {
     padding: 2%;
     font-size: large;
