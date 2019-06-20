@@ -1,3 +1,9 @@
+@font-face {
+    font-family: mynewestFont;
+    src: url(../font/taamula-bold-aaa.otf);
+}
+
+
 .containerBox{
     height: 100vh;
     width: cover;
@@ -39,7 +45,6 @@ text-align: right;
 }
 
 .galleryBox{
-    margin-top: 25rem;
     position: relative;
 
 }
