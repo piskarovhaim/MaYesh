@@ -21,7 +21,7 @@ class JoinCancelButton extends React.Component
             if(this.props.isSignIn && firebase.auth().currentUser && firebase.auth().currentUser.uid === participant.id)
             {
 
-                button = <Button className = "joinButton greenBtn" variant="contained" color="primary"  onClick = {this.props.cancel}>ביטול רישום</Button>
+                button = <Button className = "joinButton greenBtn" variant="contained" color="primary"  onClick = {this.props.cancel}>ביטול</Button>
             }
         })
         if(button === null && ifFull)//class full and cuurent user is not in

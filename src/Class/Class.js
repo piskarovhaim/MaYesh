@@ -37,6 +37,7 @@ class Classs extends React.Component
                 phone:"",
                 img:"",
                 hour:"",
+                endTime:"",
                 description:"",
                 numOfCurrPartici: 0,
                 maxParti: 1,
@@ -85,6 +86,7 @@ class Classs extends React.Component
                                     description:snapshot.val().description,
                                     img:snapshot.val().imgUrl,
                                     location: snapshot.val().location,
+                                    endTime: snapshot.val().endTime,
                                     date: snapshot.val().date, 
                                     numOfCurrPartici: snapshot.val().numOfCurrPartici,
                                     maxParti: snapshot.val().maxPartici,
@@ -170,10 +172,6 @@ class Classs extends React.Component
    
     render()
     {
-<<<<<<< HEAD
-
-=======
->>>>>>> d3c6539a41e0c7ee13decb468d84fb36dcb25e42
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
@@ -256,10 +254,10 @@ class Classs extends React.Component
                             </Card>
                         </div> 
                     </div>  */
-                    <div className="classPage" style={styleImg}>
+                    <div className="classPage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
                         <div className="classPageSec" >
                             <div className="classRightTextBox">
-                                <div className="classText">
+                                <div className="classTextBox">
                                     <span className="dateTag">{this.dateFixer(this.state.thisClass.date)}</span>
                                     <span className="classTextPrimary">{this.state.thisClass.name}</span>
                                     <span className="classTextSub"> מועבר על ידי {this.state.thisClass.organizer}</span>
@@ -274,7 +272,7 @@ class Classs extends React.Component
                           </div>
                           <div className="classDetails">
                                     <div className="locationDiv"> 
-                                        <span className="classLocation">{this.state.thisClass.hour}</span>
+                                        <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.hour}</span>
                                         <span className="iconCont">
                                              <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                                                     <title>clock2</title>
