@@ -33,9 +33,7 @@ class App extends Component {
           <Route
             path="/Category/:name"
             exact
-            render={({ match }) => {
-              return <Category name={match.params.name} />;
-            }}
+            component={Category}
           />
           <Route
             path="/Category/:nameC/Class/:nameClass"

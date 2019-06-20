@@ -19,7 +19,7 @@ div.navAndvideo{
 
 div.videogradient{
     position: absolute;
-    height: 11vw;
+    height: calc(25px + 8vw);
     bottom: 0;
     background-image: linear-gradient(to top, rgb(56, 56, 56),rgb(56, 56, 56,0));
     width: 100%;
@@ -30,6 +30,17 @@ div.videogradient{
 div.titleClassesBy{
     font-size: 5vh;
     text-align: right;
-    padding-right: 1.5vw;
+    padding-right: 4vw;
     color: #fff;
+}
+
+div.footer{ 
+    padding-right: 4vw;
+    padding-left: 30vw;
+    padding-bottom: 2vw;
+    text-align: right;
+    position: relative;
+    right: 0;
+    color: #fff;
+    font-family: mynewFont;
 }

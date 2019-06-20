@@ -48,6 +48,11 @@ class Search extends Component {
             style.width = 100;
             style.padding = 0;
           }
+          let inputStyle = {}
+          if(this.props.manage){
+            inputStyle.borderColor = 'black'
+            inputStyle.background = 'black'
+          }
           
           
           let temp = this.state.classList;
@@ -72,7 +77,7 @@ class Search extends Component {
         return(
             <div className="search" style={style} >
                 {this.state.redirect ? <Redirect to={{pathname: "/RedirectTemp", location:{l:path}}}/> : null}
-                <input type="text" value={this.state.keyWord} className="inputSearch" placeholder="...חפש חוג" name="keyWord" onChange={this.handleChange} onBlur={this.handleBlur} autoComplete="off"/>
+                <input type="text" value={this.state.keyWord} className="inputSearch" placeholder="...חפש חוג" name="keyWord" onChange={this.handleChange} onBlur={this.handleBlur} autoComplete="off" style={inputStyle}/>
                 <div className="dropDownn" style={styleSearch}>
                     {classElements}
                     {notFound}

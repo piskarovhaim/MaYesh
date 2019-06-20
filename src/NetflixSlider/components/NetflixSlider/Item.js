@@ -23,7 +23,7 @@ const Item = ({ movie,type }) => (
         >
         {typeCategory ? (
             <div className="gallerynetflixCategory">
-            <Link to={"/Category/" + movie.name}>
+            <Link to={{pathname: "/Category/" + movie.name, state:{category:movie}}}>
               <img src={movie.img} className="classImg"/>
               <div className="textdivnetflixCategory">
                   {movie.name}

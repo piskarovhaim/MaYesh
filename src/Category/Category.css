@@ -2,34 +2,68 @@
     font-family: mynewestFont;
     src: url(../font/taamula-bold-aaa.otf);
 }
-
-
 .containerBox{
     height: 100vh;
     width: cover;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #000 60%);
+    background-color: black;
+    overflow: hidden;
 }
 
+.containerCategory{
+    background-size: cover;
+    background-position: top;
+
+}
+.categorycontentbackground{
+    background-color: black;
+    background-size: cover;
+    background-position: top;
+}
+
+.categorycontentbackgroundimage{
+    left: 0;
+    width: 55%;
+    height: 100%;
+    background-position: center 10%;
+    background-size: cover;
+    z-index: 0;
+    position: relative;
+    position: absolute;
+}
+
+.categorycontentbackgroundshadow{
+    right: 0;
+    z-index: 10;
+    width: 80%;
+    height: 100%;
+    background-image: linear-gradient(to left,rgb(0, 0, 0),transparent);
+    position: absolute;
+}
+
+
+
 .catTextBox{
-color: #fff;
-position: absolute;
-width: 40%;
-top: 20rem;
-left: 75%;
-transform: translate(-50%, -50%);  
-text-align: right;
+    color: #fff;
+    position: relative;
+    right: 0;
+    float: right;
+    text-align: right;
+    right: 5vw;
+    width: 60%;
+    height: 84vh;
+    display: inline-grid;
 }
 
 .catText{
     backface-visibility: hidden;
     margin-bottom: 120px;
+    margin: auto;
     width: 100%;
-    margin: auto; 
 }
 
 .catTextPrimary{
     display: block;
-    font-size: 150px;
+    font-size: calc(60px + 4vw);
     font-weight: 400;
     letter-spacing: 7px;
     font-family: mynewestFont;
@@ -37,7 +71,7 @@ text-align: right;
 
 .catTextSub{
     display: block;
-    font-size: 24px;
+    font-size: calc(16px + 1vw);
     font-weight: 400;
     letter-spacing: 7px;
     margin-bottom: 2rem;
@@ -45,6 +79,31 @@ text-align: right;
 }
 
 .galleryBox{
+    width: 100%;
     position: relative;
-
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: right;
+    justify-content: flex-end;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

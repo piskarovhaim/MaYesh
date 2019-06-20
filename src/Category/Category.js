@@ -1,80 +1,72 @@
 import React, { Component } from "react";
-import firebase from "../Firebase/FireBase.js";
 import Class from "../Category/Class.js"
 import './Category.css'
-import { elementType } from "prop-types";
-
+import NavBar from "../NavBar/NavBar"
+import { Redirect } from "react-router";
 
 
 class Category extends Component {
 
   constructor(props) {
-      
     super(props);
+    let redirect =false;
+    if(props.location.state == undefined || props.location.state.category== undefined){
+      redirect = true;
+    }
+
     this.state = 
     {
+        redirect:redirect,
         category:{
             classList: [],
-            desc: "",
-            img: "",
-            likesCounter: "",
-            name: props.name 
+            desc: '',
+            img: '',
+            likesCounter: '',
+            name: '' 
         }
     }
   }
   componentDidMount(){
-    let classArr;
-    let temp = this.state.category;
-    let cat = firebase.database().ref('CategoryList/' + this.state.category.name);
-    cat.on('value' ,snapshot => {
-      let obj = snapshot.val().classList;
-      if(obj == null)
-        classArr = [] ;
-      else
-        classArr = Object.values(obj)
-
-      temp.likesCounter = snapshot.val().likesCounter
-      temp.classList = classArr
-      temp.img = snapshot.val().img
-      temp.desc = snapshot.val().desc
-      this.setState({category:temp})
+    if(this.props.location.state == undefined || this.props.location.state.category== undefined){
+      return;
+    }
+    let tempClassList= [];
+    if(this.props.location.state.category.classList != null)
+      tempClassList = Object.values(this.props.location.state.category.classList);
+    this.setState({
+      category:{
+        classList: tempClassList,
+        desc: this.props.location.state.category.desc,
+        img: this.props.location.state.category.img,
+        likesCounter: this.props.location.state.category.likesCounter,
+        name: this.props.location.state.category.name 
+    }
     })
-    
   }
+
   render() {
   let a = this.state.category.classList;
-  let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} />)
-  let styleImg = 
-  {
-    backgroundImage : 'url('+this.state.category.img+')',
-    backgroundRepeat  : 'no-repeat',
-    backgroundPosition: 'center',
-    minWidth:100+'%',
-    minHight:100+'%',
+  //let a = this.state.category.classList.filter(item => item.isConfirmed);
+  let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} date={element.date}/>)
+  let style ={}
+  if(window.innerWidth < 500){
+      style.width = '93%';
+      style.right = '2vw';
+  } 
+  if(this.state.redirect){
+    return(
+      <Redirect to='/'/>
+    )
   }
-  let type
-  if(window.innerWidth < 500)
-  {
-    type = "phoneCategory"
-  }
-  else
-  {
-    type = "pcCategory"
-  }
-    return (
-    /*  <div className="gallery-container">
-        <div className = "video" style = {styleImg}>
-          <h1> {this.state.category.name} </h1>
-        </div>  
-        <div  className = {type}>
-             {gallery} 
-        </div>
-            
-      </div>
-      */
-     <div style={styleImg}>
+  return (
        <div className="containerBox">
-          <div className="catTextBox">
+          <div className="categorycontentbackground">
+              <div className="categorycontentbackgroundimage" style={{ 'background-image': `url(${this.state.category.img})` }}>
+              <div className="categorycontentbackgroundshadow" />
+              </div>
+          </div>
+          <NavBar/>
+          <div className="catTextBox" style={style}>
               <div className="catText">
                    <span className="catTextPrimary">{this.state.category.name}</span>
                    <span className="catTextSub">{this.state.category.desc}</span>
@@ -84,7 +76,6 @@ class Category extends Component {
               </div>
           </div>
        </div>
-     </div>
     )
   }
 }
