@@ -1,159 +1,172 @@
 
-.mainDiv
-{
-    margin-top: 10%;
-    width: 90%;
-    margin: auto;
-    padding-bottom: 5%;
-    margin-bottom: 2%;
+.classPage{
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-position: center 120%;
+    background-size: cover;
+    z-index: 0;
+
 }
 
-.leftSide
-{
-    padding-left: 5%;
-    padding-top: 2%;
+.classPageSec{
+    height: 100vh;
+    width: cover;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #000 70%);
+}
+
+.classRightTextBox{
+    color: #fff;
+    position: absolute;
     width: 40%;
-    height: 100%;
-    display: inline-block;
-}
-
-.rightSide
-{
-    padding-top: 2%;
-    margin: auto;
-    float: right;
-    height: 100%;
-    display: inline-block;
-    width: 40%;
-    font-size: 30px;
-    padding-right: 5%;
-}
-
-.title
-{
-    font-size: larger;
-    text-align: center;
-}
-
-.mainDiv p
-{
-    text-align: center;
-    font-size: large;
-    margin-bottom: 10%;
-}
-
-
-.button1
-{
-    background-color: #4CAF50;
-    border: groove;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    margin-left: 40%;
-    margin-right: 40px;
-}
-
-.button
-{
-    border: 1px;
-    margin: auto;
-    left: 50%;
-}
-
-
-
-.itemClass
-{
-    padding: 2%;
-    font-size: large;
+    height: 50vh;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);  
     text-align: right;
-}
-
-.itemunittext
-{
-    margin-right: 2%;
-    margin-bottom: 1%;
-    display: inline-block;
-}
-
-.itemuniticon
-{
-    display: inline-block;
-}
-
-
-
-.classImg
-{
-    width: 99%;
-    display: inline-block;
-    height: 30%;
-    padding-bottom: 4%;
-    margin: auto;
-}
-
-.classFull
-{
-    font-size: larger;
-    text-align: center;
-}
-
-
-
-
-.tabs
-{
-    width: 100%;
-}
-
-.tab
-{
-    width: 100%;
-}
-
-.particiListDiv
-{
-    margin: auto;
-    margin-top: 5%;
-    width: 90%;
-    padding-bottom: 5%;
-}
-
-.participant
-{
-    margin: auto;
-    text-align: center;
-}
-
-.participantDetails
-{
-    font-size: large;
-    text-align: center;
-    display: inline-block;
-    margin-left: 1%;
-    margin: auto;
+    direction: rtl;
+    opacity: 1;
+    }
     
-}
+    .classLeftTextBox{
+        color: #fff;
+        background-color: rgba(0, 0, 0, .2);
+        padding: 1rem;
+        position: absolute;
+        width: 30%;
+        top: 55%;
+        left: 25%;
+        letter-spacing: 1px;
+        transform: translate(-50%, -50%);  
+        text-align: right;
+        direction: rtl;
+        }
 
-.partimg
-{
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right:  3%;
-    border: solid 1px black;
-}
+    .classTextBox{
+        backface-visibility: hidden;
+        margin-bottom: 120px;
+        width: 60%;
+        margin: auto; 
+    }
+    
+    .classTextPrimary{
+        display: block;
+        color: #E80A79;
+        font-size: 90px;
+        font-weight: 400;
+        letter-spacing: 7px;
+        font-family: mynewestFont;
+        line-height: 4.5rem;
+    }
+    
+    .classTextSub{
+        display: block;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 7px;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 30px  #171717;
+        font-family: mynewFont;
 
-.prtiItem
-{
-    font-size: medium;
-    text-align: center;
-    margin: auto;
-}
+    }
+
+    .classDetails{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 3px;
+        margin-bottom: 2rem;
+        left: 50%;
+        top: 85%;
+        width: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+    
+    }
+    .classLocation{
+        color: #fff;
+    }
+
+    .dateTag{
+        text-shadow: 0 0 30px  #171717;
+        display: block;
+        color: #fff;
+        font-size: 50px;
+        font-weight: 400;
+        letter-spacing: 7px;
+        font-family: mynewestFont;
+    }
+
+    .joinButton{
+        width: 100%;
+        margin:auto; 
+    }
+    
+    
+    
+    .joinButton:hover{
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgb(0, 0, 0, .7);
+    }
+    
+    .joinButton:active{
+        transform: translateY(-1px);
+        box-shadow: 0 5px 10px rgb(0, 0, 0, .7);
+    }
+    
+    .joinButton.greenBtn{
+        background-color:#258916;
+        color: #fff;
+        text-decoration: none;
+        padding: 5% 20%;
+        font-size: 2rem;
+        display: inline-block;
+        border-radius: 100px;
+        transition: all .2s;
+        font-family: mynewFont;
+        border: none;
+        cursor: pointer;
+        margin: 3%;
+        margin-bottom: 5%;
+        outline:none;
+    }
+
+    .jBtnCont{
+        align-items: center;
+        width: 70%;
+        position: relative;
+        margin-left: 6rem;
+    }
+
+    .iconCont{
+        display: inline-block;
+        color: #fff;
+        float: right;
+        fill: #fff; 
+    }
+
+    .iconSvg{
+        color: #fff;
+        fill: #fff; 
+    }
+
+    .locationDiv{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .eno{
+        display: block;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 7px;
+        margin-bottom: 2rem;
+        color: orangered;
+        text-shadow: 0 0 30px  #171717;
+        font-family: mynewFont;
+        text-align: right;
+        transition: all .2s;
+    }

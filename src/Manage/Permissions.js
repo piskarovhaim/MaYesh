@@ -7,7 +7,7 @@ class Permissions extends Component {
     super(props);
     this.state = {
       getPermisiions: true,
-      allowed: ["t12qDCEN4LVVTDV4Z5qdw71SBGf1", "kMmWgpltVdMhhNgBfwxUH4lG4KQ2"]
+      allowed: ["t12qDCEN4LVVTDV4Z5qdw71SBGf1", "kMmWgpltVdMhhNgBfwxUH4lG4KQ2","eklmVTxcHAR7NaoF8vTXJMXHl5x1"]
     };
   }
 

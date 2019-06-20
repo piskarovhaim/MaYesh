@@ -39,6 +39,7 @@ class HomePage extends Component {
                 
                 <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
+              <Contact/>
               <AllCategories/>
               <div className="footer">
               <h2 style={{marginTop:'0'}}>קצת על נפגשים</h2>

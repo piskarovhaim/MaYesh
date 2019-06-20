@@ -2,6 +2,7 @@ import React from "react"
 import JoinCancelButton from "./JoinCancelButton.js"
 import ClassTabs from "./ClassTabs.js"
 import MobileClass from "./MobileClass.js"
+import locIcon from "./SVG/location.svg"
 import firebase from "../Firebase/FireBase.js";
 import "./Class.css"
 import NavBar from "../NavBar/NavBar"
@@ -36,9 +37,11 @@ class Classs extends React.Component
                 phone:"",
                 img:"",
                 hour:"",
+                endTime:"",
                 description:"",
                 numOfCurrPartici: 0,
                 maxParti: 1,
+                minPartici:0,
                 partiList:[] }};
 
         this.whenJoinClicked = this.whenJoinClicked.bind(this)
@@ -78,9 +81,12 @@ class Classs extends React.Component
                                     organizer: snapshot.val().organizer,
                                     category:snapshot.val().category,
                                     name:snapshot.val().name,
+                                    hour:snapshot.val().hour,
+                                    minPartici:snapshot.val().minPartici,
                                     description:snapshot.val().description,
                                     img:snapshot.val().imgUrl,
                                     location: snapshot.val().location,
+                                    endTime: snapshot.val().endTime,
                                     date: snapshot.val().date, 
                                     numOfCurrPartici: snapshot.val().numOfCurrPartici,
                                     maxParti: snapshot.val().maxPartici,
@@ -148,6 +154,21 @@ class Classs extends React.Component
         ref.child("numOfCurrPartici").set(tempNumOfCurPart);
     }
 
+    dateFixer(oldDate){
+        let dateFixed = oldDate.slice(8)+"."+oldDate.slice(-5,-3)+"."+oldDate.slice(-12,-6);
+        return dateFixed;
+    }
+    
+    notEnPar(curPar,minPar){
+        if(minPar>curPar){
+            return "אין כרגע מספיק נרשמים לקורס זה."
+        } 
+        else {
+          return "";
+        }      
+    }
+
+
    
     render()
     {
@@ -164,6 +185,15 @@ class Classs extends React.Component
             sendToLogin = true;
 
         let location1 = '/Category/' + this.state.category + '/Class/' + this.state.course;
+
+        let styleImg = 
+  {
+    backgroundImage : 'url('+this.state.thisClass.img+')',
+    height : 100+'vh',
+    width : 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat  : 'no-repeat',
+  }
         return(
             <div>
                 {smallSize ? <MobileClass/> : 
@@ -171,7 +201,7 @@ class Classs extends React.Component
                 {this.state.loading ? <div>
                     {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
                     <NavBar/>
-                    <div  className = "mainDiv">
+                    {/* <div  className = "mainDiv">
                         <div className = "leftSide">
                             <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
                             <div className = "tabs">
@@ -223,7 +253,56 @@ class Classs extends React.Component
                                 </CardBody>
                             </Card>
                         </div> 
-                    </div> 
+                    </div>  */
+                    <div className="classPage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
+                        <div className="classPageSec" >
+                            <div className="classRightTextBox">
+                                <div className="classTextBox">
+                                    <span className="dateTag">{this.dateFixer(this.state.thisClass.date)}</span>
+                                    <span className="classTextPrimary">{this.state.thisClass.name}</span>
+                                    <span className="classTextSub"> מועבר על ידי {this.state.thisClass.organizer}</span>
+                                    <div className = "jBtnCont">
+                                        <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
+                                    </div>
+                                    <span className="eno" id="partici">{this.notEnPar(this.state.thisClass.numOfCurrPartici,this.state.thisClass.minPartici)}</span>
+                                </div>
+                          </div>
+                          <div className="classLeftTextBox">
+                                 <span className="classTextSub">{this.state.thisClass.description}</span>
+                          </div>
+                          <div className="classDetails">
+                                    <div className="locationDiv"> 
+                                        <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.hour}</span>
+                                        <span className="iconCont">
+                                             <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                    <title>clock2</title>
+                                                    <path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM20.586 23.414l-6.586-6.586v-8.828h4v7.172l5.414 5.414-2.829 2.829z"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div className="locationDiv">
+                                         <span className="classLocation">{this.numOfPart()}</span>
+                                         <span className="iconCont">
+                                             <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32">
+                                                    <title>users</title>
+                                                          <path d="M24 24.082v-1.649c2.203-1.241 4-4.337 4-7.432 0-4.971 0-9-6-9s-6 4.029-6 9c0 3.096 1.797 6.191 4 7.432v1.649c-6.784 0.555-12 3.888-12 7.918h28c0-4.030-5.216-7.364-12-7.918z"></path>
+                                                          <path d="M10.225 24.854c1.728-1.13 3.877-1.989 6.243-2.513-0.47-0.556-0.897-1.176-1.265-1.844-0.95-1.726-1.453-3.627-1.453-5.497 0-2.689 0-5.228 0.956-7.305 0.928-2.016 2.598-3.265 4.976-3.734-0.529-2.39-1.936-3.961-5.682-3.961-6 0-6 4.029-6 9 0 3.096 1.797 6.191 4 7.432v1.649c-6.784 0.555-12 3.888-12 7.918h8.719c0.454-0.403 0.956-0.787 1.506-1.146z"></path>
+                                                    </svg>
+                                        </span>
+                                    </div>
+                                    <div className="locationDiv">
+                                        <span className="classLocation">{this.state.thisClass.location}</span>
+                                        <span className="iconCont">
+                                             <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                <title>location</title>
+                                                <path d="M16 0c-5.523 0-10 4.477-10 10 0 10 10 22 10 22s10-12 10-22c0-5.523-4.477-10-10-10zM16 16c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
                 </div> : null}
 
             </div>}
