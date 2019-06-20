@@ -65,7 +65,7 @@ class ShowClass extends Component{
       return(
         <div>
         <div className="titleClassesBy">{this.state.title}</div>
-        <NetflixSlider classList={this.state.classList}/>
+        <NetflixSlider classList={this.state.classList} title={this.state.title}/>
         </div>
       )
     }

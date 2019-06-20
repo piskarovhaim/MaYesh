@@ -45,8 +45,8 @@ class Category extends Component {
   }
 
   render() {
-  let a = this.state.category.classList;
-  //let a = this.state.category.classList.filter(item => item.isConfirmed);
+  //let a = this.state.category.classList;
+  let a = this.state.category.classList.filter(item => item.isConfirmed);
   let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} date={element.date}/>)
   let style ={}
   if(window.innerWidth < 500){

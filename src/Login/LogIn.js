@@ -31,14 +31,19 @@ class LogIn extends Component {
   }
 
   uiConfig = {
+    
     signInFlow: 'popup',
     signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      {
+        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        buttonColor: '#0048ff',
+      },
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
       signInSuccess: () => false
     }
+
     
 }
   componentDidMount = () => {
