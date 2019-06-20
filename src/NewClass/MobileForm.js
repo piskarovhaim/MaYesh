@@ -55,6 +55,20 @@ function CategeorySelector(props) {
 class MobileForm extends React.Component {
   constructor(props) {
     super(props);
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    let yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    today = yyyy + "/" + mm + "/" + dd;
     let endOfProcess = false;
     let organizerId = "";
     if (props.user != undefined) organizerId = props.user.id;
@@ -67,8 +81,9 @@ class MobileForm extends React.Component {
       minPartici: "",
       maxPartici: "",
       description: "",
-      date: "",
+      date: today,
       hour: "",
+      endTime: "",
       imgUrl: "",
       numOfPartici: 0,
       isUploading: false,
@@ -100,11 +115,12 @@ class MobileForm extends React.Component {
 
       let dateAfterConvert = year + "-" + month + "-" + dt;
       this.setState({ [e.target.name]: dateAfterConvert });
-    } else if ([e.target.name] == "hour") {
+    } else if ([e.target.name] == "hour" || [e.target.name] == "endTime") {
       let time = new Date(e.target.value);
       if (time == "Invalid Date") {
         return;
       }
+
       let h = time.getHours();
       let m = time.getMinutes();
       if (h < 10) {
@@ -114,7 +130,7 @@ class MobileForm extends React.Component {
         m = "0" + m;
       }
       let timeAfterConvert = h + ":" + m;
-      this.setState({ hour: timeAfterConvert });
+      this.setState({ [e.target.name]: timeAfterConvert });
     } else if (
       [e.target.name] == "maxPartici" ||
       [e.target.name] == "minPartici"
@@ -155,6 +171,7 @@ class MobileForm extends React.Component {
   }
 
   async handleSubmit(e) {
+    console.log(this.state);
     e.preventDefault();
     if (!this.isValidForm()) {
       return;
@@ -316,11 +333,25 @@ class MobileForm extends React.Component {
                 <IonItem>
                   <IonDatetime
                     class="ionrightinner"
-                    placeholder="שעה"
+                    placeholder="שעת התחלה"
                     displayFormat="HH:mm "
                     pickerFormat="HH:mm"
                     name="hour"
                     value={this.state.hour}
+                    onIonChange={this.handleChange}
+                  />
+                </IonItem>
+              </div>
+              <div class="ionright">
+                <IonItem>
+                  <IonDatetime
+                    class="ionrightinner"
+                    placeholder="שעת סיום משוערת"
+                    displayFormat="HH:mm "
+                    pickerFormat="HH:mm"
+                    name="endTime"
+                    min={this.state.hour}
+                    value={this.state.endTime}
                     onIonChange={this.handleChange}
                   />
                 </IonItem>
