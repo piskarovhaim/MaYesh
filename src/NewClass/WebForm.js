@@ -4,6 +4,7 @@ import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.co
 import NavBar from "../NavBar/NavBar";
 import firebase from "../Firebase/FireBase.js";
 import { Redirect } from "react-router";
+import bgImg from './formBG.jpg';
 
 function CategeorySelector(props) {
   // get the real category json from the DB
@@ -177,6 +178,7 @@ class WebForm extends Component {
       <div>
         <NavBar />
         <hr />
+        <div className="formPage" style={{ 'background-image': `url(${bgImg})` }}>
         <div className="completeReg">
           <form onSubmit={this.handleSubmit}>
             <h1>נשמח לכמה פרטים</h1>
@@ -330,6 +332,7 @@ class WebForm extends Component {
           </form>
         </div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
+      </div>
       </div>
     );
   }

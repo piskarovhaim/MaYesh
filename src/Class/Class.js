@@ -168,6 +168,12 @@ class Classs extends React.Component
         }      
     }
 
+    getDayOf(date){
+        var d = new Date(date);
+        var days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+        return days[d.getDay()];
+    }
+
 
    
     render()
@@ -258,7 +264,7 @@ class Classs extends React.Component
                         <div className="classPageSec" >
                             <div className="classRightTextBox">
                                 <div className="classTextBox">
-                                    <span className="dateTag">{this.dateFixer(this.state.thisClass.date)}</span>
+                                    <span className="dateTag">{this.getDayOf(this.state.thisClass.date)} {this.dateFixer(this.state.thisClass.date)}</span>
                                     <span className="classTextPrimary">{this.state.thisClass.name}</span>
                                     <span className="classTextSub"> מועבר על ידי {this.state.thisClass.organizer}</span>
                                     <div className = "jBtnCont">

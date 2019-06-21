@@ -36,6 +36,7 @@
         width: 30%;
         top: 55%;
         left: 25%;
+        font-size: 20px;
         letter-spacing: 1px;
         transform: translate(-50%, -50%);  
         text-align: right;
@@ -80,7 +81,7 @@
         margin-bottom: 2rem;
         left: 50%;
         top: 85%;
-        width: 50%;
+        width: 70%;
         transform: translate(-50%, -50%);
         position: absolute;
     
@@ -93,7 +94,7 @@
         text-shadow: 0 0 30px  #171717;
         display: block;
         color: #fff;
-        font-size: 50px;
+        font-size: 36px;
         font-weight: 400;
         letter-spacing: 7px;
         font-family: mynewestFont;
