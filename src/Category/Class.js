@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
 import './Class.css'
-import Category from "./Category";
+
+/*
+    Class element - get specific class in props,
+    return div element: class image in background, name and date of the class,
+    and link to the class page
+*/
 
 
 class Class extends Component {

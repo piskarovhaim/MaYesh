@@ -62,6 +62,7 @@ class ManageClass extends Component {
       date: "",
       numOfCurrPartici: "",
       hour: "",
+      endTime:"",
       description: "",
       imgUrl: "",
 
@@ -297,7 +298,17 @@ class ManageClass extends Component {
                 onChange={this.handleChange}
               />
             </label>
-
+            <label>
+              שעת סיום משוערת
+              <input
+                required
+                type="time"
+                name="endTime"
+                value={this.state.endTime}
+                onChange={this.handleChange}
+                min={this.state.hour}
+              />
+            </label>
             <label>
               תיאור
               <textarea

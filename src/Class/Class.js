@@ -1,14 +1,11 @@
 import React from "react"
 import JoinCancelButton from "./JoinCancelButton.js"
 import ClassTabs from "./ClassTabs.js"
-import MobileClass from "./MobileClass.js"
-import locIcon from "./SVG/location.svg"
 import firebase from "../Firebase/FireBase.js";
 import "./Class.css"
 import NavBar from "../NavBar/NavBar"
 import { Redirect } from 'react-router';
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, ListGroup, ListGroupItem} from 'reactstrap';
+import ParticipantList from "./ParticipantList.js"
 
 
 
@@ -24,6 +21,7 @@ class Classs extends React.Component
             isJoinClicked: false, 
             isCancelClicked: false, 
             isSignIn: false, 
+            displayPartici:false,
             category: props.match.params.nameC, 
             course: props.match.params.nameClass, 
             thisClass:{
@@ -46,6 +44,7 @@ class Classs extends React.Component
 
         this.whenJoinClicked = this.whenJoinClicked.bind(this)
         this.whenCancelClicked = this.whenCancelClicked.bind(this)
+        this.displayPartici = this.displayPartici.bind(this);
     }
 
     
@@ -95,7 +94,9 @@ class Classs extends React.Component
                                 ,loading: true})})
     }
 
-
+    displayPartici(){ // show/hide Partici List
+        this.setState({displayPartici:!this.state.displayPartici})
+    }
     
     numOfPart() //returns the number of participants in this class.. if there is not, returns that there is not yet
     {
@@ -181,10 +182,12 @@ class Classs extends React.Component
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
-        let smallSize = false;
-        if(window.innerWidth < 7)
+        let stylePhone ={}
+        if(window.innerWidth < 500)
         {
-            smallSize = true;
+            stylePhone.width = '85%';
+            stylePhone.letterSpacing='0';
+            stylePhone.float = 'right'
         }
         let sendToLogin = false;
         if(this.state.isJoinClicked && !this.state.isSignIn)
@@ -192,21 +195,10 @@ class Classs extends React.Component
 
         let location1 = '/Category/' + this.state.category + '/Class/' + this.state.course;
 
-        let styleImg = 
-  {
-    backgroundImage : 'url('+this.state.thisClass.img+')',
-    height : 100+'vh',
-    width : 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat  : 'no-repeat',
-  }
         return(
             <div>
-                {smallSize ? <MobileClass/> : 
-            <div  className = "all">
                 {this.state.loading ? <div>
                     {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
-                    <NavBar/>
                     {/* <div  className = "mainDiv">
                         <div className = "leftSide">
                             <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
@@ -262,8 +254,9 @@ class Classs extends React.Component
                     </div>  */
                     <div className="classPage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
                         <div className="classPageSec" >
-                            <div className="classRightTextBox">
-                                <div className="classTextBox">
+                        <NavBar/>
+                            <div className="topdivclass">
+                                <div className="classRightTextBox" style={stylePhone}>
                                     <span className="dateTag">{this.getDayOf(this.state.thisClass.date)} {this.dateFixer(this.state.thisClass.date)}</span>
                                     <span className="classTextPrimary">{this.state.thisClass.name}</span>
                                     <span className="classTextSub"> מועבר על ידי {this.state.thisClass.organizer}</span>
@@ -271,14 +264,17 @@ class Classs extends React.Component
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
                                     </div>
                                     <span className="eno" id="partici">{this.notEnPar(this.state.thisClass.numOfCurrPartici,this.state.thisClass.minPartici)}</span>
+                                    
                                 </div>
-                          </div>
-                          <div className="classLeftTextBox">
-                                 <span className="classTextSub">{this.state.thisClass.description}</span>
+                                <div className="classLeftTextBox" style={stylePhone}>
+                                 <span className="classTextDesc">{this.state.thisClass.description}</span>
+                                 </div>       
                           </div>
                           <div className="classDetails">
-                                    <div className="locationDiv"> 
-                                        <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.hour}</span>
+                                    <div className="locationDiv" style={stylePhone}> 
+                                    <div className="iconclasstoright">
+                                        <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.endTime}</span>
+                                    </div>
                                         <span className="iconCont">
                                              <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                                                     <title>clock2</title>
@@ -286,8 +282,11 @@ class Classs extends React.Component
                                             </svg>
                                         </span>
                                     </div>
-                                    <div className="locationDiv">
-                                         <span className="classLocation">{this.numOfPart()}</span>
+                                    <div className="locationDiv" style={stylePhone}>
+                                    <div className="iconclasstoright" style={{cursor: 'pointer'}} onClick={this.displayPartici}>
+                                        <span className="classLocation">{this.numOfPart()}</span>
+                                    </div>
+                                    {this.state.displayPartici ? <ParticipantList list = {this.state.thisClass.partiList} manager = {isManager} func={this.displayPartici}/>: null}
                                          <span className="iconCont">
                                              <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32">
                                                     <title>users</title>
@@ -296,8 +295,10 @@ class Classs extends React.Component
                                                     </svg>
                                         </span>
                                     </div>
-                                    <div className="locationDiv">
+                                    <div className="locationDiv" style={stylePhone}>
+                                    <div className="iconclasstoright">
                                         <span className="classLocation">{this.state.thisClass.location}</span>
+                                    </div>
                                         <span className="iconCont">
                                              <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                                                 <title>location</title>
@@ -306,12 +307,10 @@ class Classs extends React.Component
                                         </span>
                                     </div>
                             </div>
-                        </div>
+                            </div>
                     </div>
                     }
                 </div> : null}
-
-            </div>}
             </div>
         )
     }

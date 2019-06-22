@@ -1,5 +1,6 @@
 import React from "react"
 import "./Class.css"
+import IconCross from "../NetflixSlider/components/Icons/IconCross";
 
 class ParticipantList extends React.Component
 {
@@ -11,22 +12,23 @@ class ParticipantList extends React.Component
             return(
                 <div>
                     <div className = "participant">
-                        <span><img  className = "partimg" src = {participant.img}/></span>
                         <div className = "participantDetails" key = {participant.id}>
                             <div className = "prtiItem">{participant.name}</div>
                         </div>
-                    </div>
-                    <hr/>
+                        <img  className = "partimg" src = {participant.img}/>
+                    </div>   
                 </div>
 
             ) 
         })
         return(
             <div>
-                <ul className="list-group-flush">
-                    <p>:רשימת משתתפים</p>
+                    <p>:רשימת משתתפים
+                    <button className="closeParticiList" onClick={this.props.func}>
+                        <IconCross/>
+                    </button>
+                    </p>
                     {list}
-                </ul>
                 
             </div>
         )
@@ -41,26 +43,23 @@ class ParticipantList extends React.Component
             return(
                 <div>
                     <div className = "participant">
-                        <span><img  className = "partimg" src = {participant.img}/></span>
                         <div className = "participantDetails" key = {participant.id}>
                             <div className = "prtiItem">
                                 <div>{participant.name}</div> 
                                 <div>{participant.phone}</div>
                                 <div>{participant.email}</div>
                             </div>
+                            <img  className = "partimg" src = {participant.img}/>
                         </div>
                     </div>
-                    <hr/>
                 </div>
             ) 
         })
         return(
             <div>
-                <ul className="list-group-flush">
                     <p>:רשימת משתתפים</p>
                     <hr/>
                     <div>{list}</div>
-                </ul>
             </div>
         )
     }

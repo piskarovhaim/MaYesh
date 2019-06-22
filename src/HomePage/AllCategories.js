@@ -4,6 +4,11 @@ import firebase from "../Firebase/FireBase.js";
 import './HomePage.css'
 import NetflixSlider from "../NetflixSlider/NetflixSlider.js";
 
+/*
+  AllCategories - read from the database all the categories,
+  
+*/
+
 class AllCategories extends Component {
 
   constructor(props){

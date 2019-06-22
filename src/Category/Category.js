@@ -4,12 +4,15 @@ import './Category.css'
 import NavBar from "../NavBar/NavBar"
 import { Redirect } from "react-router";
 
-
+/*
+    Category page - show all data about specific category:
+     name , description , image , all classes that confirmed
+*/
 class Category extends Component {
 
   constructor(props) {
     super(props);
-    let redirect =false;
+    let redirect =false; // if some error in props => redirect to the main page
     if(props.location.state == undefined || props.location.state.category== undefined){
       redirect = true;
     }
@@ -27,10 +30,12 @@ class Category extends Component {
     }
   }
   componentDidMount(){
+    // if some error in props => redirect to the main page
     if(this.props.location.state == undefined || this.props.location.state.category== undefined){
       return;
     }
-    let tempClassList= [];
+
+    let tempClassList= []; // read all class list from ths props
     if(this.props.location.state.category.classList != null)
       tempClassList = Object.values(this.props.location.state.category.classList);
     this.setState({
@@ -45,15 +50,19 @@ class Category extends Component {
   }
 
   render() {
-  let a = this.state.category.classList;
-  //let a = this.state.category.classList.filter(item => item.isConfirmed);
+  //let a = this.state.category.classList;
+
+  // filter the classes that confirmed
+  let a = this.state.category.classList.filter(item => item.isConfirmed);
+  // map the classes to gallery object
   let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} date={element.date}/>)
   let style ={}
+  // resize if it run on phonescreen
   if(window.innerWidth < 500){
       style.width = '93%';
       style.right = '2vw';
   } 
-  if(this.state.redirect){
+  if(this.state.redirect){ // if some error in props => redirect to the main page
     return(
       <Redirect to='/'/>
     )
