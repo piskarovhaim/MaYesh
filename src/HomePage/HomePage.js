@@ -34,7 +34,7 @@ class HomePage extends Component {
               <div className="navAndvideo">
                 <NavBar homePage={true}/>
                 <Video/>
-                <div id="joinToClass" className="videogradient"/>
+                <div id="joinToClass" className="videogradient" style={{bottom:-padding+'vh'}}/>
               </div>
                 
                 <ClassBy sortBy="thebestforme"/>
