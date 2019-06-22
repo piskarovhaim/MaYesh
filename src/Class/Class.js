@@ -263,7 +263,6 @@ class Classs extends React.Component
                                     <div className = "jBtnCont">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
                                     </div>
-                                    <span className="eno" id="partici">{this.notEnPar(this.state.thisClass.numOfCurrPartici,this.state.thisClass.minPartici)}</span>
                                     
                                 </div>
                                 <div className="classLeftTextBox" style={stylePhone}>
@@ -306,7 +305,8 @@ class Classs extends React.Component
                                             </svg>
                                         </span>
                                     </div>
-                            </div>
+                                    <span className="eno" id="partici">{this.notEnPar(this.state.thisClass.numOfCurrPartici,this.state.thisClass.minPartici)}</span>
+                                </div>
                             </div>
                     </div>
                     }
