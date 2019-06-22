@@ -155,6 +155,20 @@ class MobileForm extends React.Component {
     }
     return true;
   }
+  // componentDidMount() {
+  //   let categories = [];
+
+  //   firebase
+  //     .database()
+  //     .ref("/CategoryList/")
+  //     .once("value")
+  //     .then(function(snapshot) {
+  //       Object.keys(snapshot.val()).forEach(function(value) {
+  //         categories.push({ type: value });
+  //       });
+  //       this.setState({ categoryList: categories });
+  //     });
+  // }
   componentDidMount() {
     let categories = [];
     let self = this;
@@ -166,10 +180,16 @@ class MobileForm extends React.Component {
         Object.keys(snapshot.val()).forEach(function(value) {
           categories.push({ type: value });
         });
-        self.setState({ categoryList: categories });
+        if (self.state.category == "" && categories.length > 0) {
+          self.setState({
+            categoryList: categories,
+            category: categories[0].type
+          });
+        } else {
+          self.setState({ categoryList: categories });
+        }
       });
   }
-
   async handleSubmit(e) {
     console.log(this.state);
     e.preventDefault();
@@ -315,6 +335,7 @@ class MobileForm extends React.Component {
               </IonItem>
 
               <div class="ionright">
+                <ion-label>תאריך</ion-label>
                 <IonItem>
                   <IonDatetime
                     class="ionrightinner"
