@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import NavBar from "../NavBar/NavBar";
 import AllCategories from './AllCategories.js'
 import './HomePage.css'
-import './Contact.css'
 import Video from './Video.js'
 import ClassBy from'./ClassBy.js';
 
