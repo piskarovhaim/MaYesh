@@ -1,6 +1,5 @@
 div.home{
     display: block;
-    scroll-behavior: smooth;
     background: rgb(56, 56, 56);
     background-size: cover;
     background-position: top;

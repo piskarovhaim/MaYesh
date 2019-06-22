@@ -97,7 +97,7 @@ class NavBar extends Component {
     if (this.state.edit) edit = true;
     
     let classNav = 'nav'
-    if(this.state.pageYOffset > (window.innerHeight/10))
+    if(this.props.homePage && this.state.pageYOffset > (window.innerHeight/10))
       classNav = 'navScroll';  
     
     return (
