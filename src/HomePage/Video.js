@@ -19,11 +19,12 @@ class Video extends Component {
         let style ={}
         if(window.innerWidth < 500){
           style.width = '90%';
+          style.top = '0';
         }
         return (
         <div className="header">
-                    <div className="textBox">
-                        <div className="headerText" style={style}>
+                    <div className="textBox" style={style}>
+                        <div className="headerText">
                             <span className="headerTextPrimary">אנשים פוגשים אנשים</span>
                             <span className="headerTextSub">הצטרפו למגוון חוגים בכל נושא שמעניין אתכם</span>
                             </div>

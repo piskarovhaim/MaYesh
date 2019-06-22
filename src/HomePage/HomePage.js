@@ -4,6 +4,7 @@ import AllCategories from './AllCategories.js'
 import './HomePage.css'
 import Video from './Video.js'
 import ClassBy from'./ClassBy.js';
+import Contact from './Contact.js'
 
 class HomePage extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class HomePage extends Component {
     return (   
           <div className="home" style={{paddingTop:padding+'vh'}}>
               <div className="navAndvideo">
-                <NavBar />
+                <NavBar homePage={true}/>
                 <Video/>
                 <div id="joinToClass" className="videogradient" style={{bottom:-padding+'vh'}}/>
               </div>
