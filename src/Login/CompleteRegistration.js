@@ -103,7 +103,7 @@ firebase
     return (
         <div className="completeReg" style ={divWidth}>
         <form>
-        <h1>ברוכים הבאים לנפגשים</h1>
+        <h1>ברוכים הבאים למה יש</h1>
         <h4>לפני שנתחיל נשמח לכמה פרטים קטנים</h4>
         <label>   
         <div className="imguserc">
