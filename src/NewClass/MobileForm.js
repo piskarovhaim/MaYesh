@@ -161,7 +161,9 @@ class MobileForm extends React.Component {
 
     return true;
   }
+
   // fetch all the categories from the db and display in the category selector label
+
   componentDidMount() {
     let categories = [];
     let self = this;
@@ -176,7 +178,6 @@ class MobileForm extends React.Component {
         self.setState({ categoryList: categories });
       });
   }
-  //check for valid ,wait if still in upload ,redirect to main page
   async handleSubmit(e) {
     console.log(this.state);
     e.preventDefault();
