@@ -7,7 +7,12 @@ class ParticipantList extends React.Component
     partiList()
     {
         if(this.props.list.length <= 0)
-            return <p>אין עדיין משתתפים בקורס זה</p>
+            return <p>     
+                    <button className="closeParticiList" onClick={this.props.func}>
+                        <IconCross/>
+                    </button>
+                    אין עדיין משתתפים בקורס זה
+                 </p>
         const list = this.props.list.map((participant, key) => {
             return(
                 <div>
@@ -38,7 +43,12 @@ class ParticipantList extends React.Component
     partiListForManager()
     {
         if(this.props.list.length <= 0)
-            return <p>אין עדיין משתתפים בקורס זה</p>
+            return <p>     
+            <button className="closeParticiList" onClick={this.props.func}>
+                <IconCross/>
+            </button>
+            אין עדיין משתתפים בקורס זה
+         </p>
         const list = this.props.list.map((participant, key) => {
             return(
                 <div>
@@ -47,19 +57,22 @@ class ParticipantList extends React.Component
                             <div className = "prtiItem">
                                 <div>{participant.name}</div> 
                                 <div>{participant.phone}</div>
-                                <div>{participant.email}</div>
+                                <div><a href={"https://mail.google.com/mail/?view=cm&fs=1&to=" + participant.email + "&tf=1"}>{participant.email}</a></div>
                             </div>
                             <img  className = "partimg" src = {participant.img}/>
                         </div>
                     </div>
                 </div>
-            ) 
+            ) //links to gmail and whatsapp
         })
         return(
             <div>
-                    <p>:רשימת משתתפים</p>
-                    <hr/>
-                    <div>{list}</div>
+                    <p>:רשימת משתתפים
+                    <button className="closeParticiList" onClick={this.props.func}>
+                        <IconCross/>
+                    </button>
+                    </p>
+                    {list}
             </div>
         )
     }

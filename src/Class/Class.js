@@ -6,7 +6,8 @@ import "./Class.css"
 import NavBar from "../NavBar/NavBar"
 import { Redirect } from 'react-router';
 import ParticipantList from "./ParticipantList.js"
-
+import IconCross from "../NetflixSlider/components/Icons/IconCross";
+import { Link } from 'react-router-dom'
 
 
 class Classs extends React.Component
@@ -22,8 +23,11 @@ class Classs extends React.Component
             isCancelClicked: false, 
             isSignIn: false, 
             displayPartici:false,
+            displayThanksForJoin: false,
+            displayOrgenizerDetails: false,
             category: props.match.params.nameC, 
             course: props.match.params.nameClass, 
+            categoryObject: {},
             thisClass:{
                 organizerId: "",
                 organizer: "",
@@ -45,6 +49,9 @@ class Classs extends React.Component
         this.whenJoinClicked = this.whenJoinClicked.bind(this)
         this.whenCancelClicked = this.whenCancelClicked.bind(this)
         this.displayPartici = this.displayPartici.bind(this);
+        this.displayThanksForJoin = this.displayThanksForJoin.bind(this);
+        this.displayOrgenizerDetails = this.displayOrgenizerDetails.bind(this);
+        this.organizerDetails = this.organizerDetails.bind(this);
     }
 
     
@@ -92,12 +99,41 @@ class Classs extends React.Component
                                     partiList:this.state.thisClass.partiList
                                 }
                                 ,loading: true})})
+        //getting the object of this category for "לעוד קורסים בקטגוריה זאת"
+        ref = firebase.database().ref('/CategoryList')
+        ref.once('value', snapshot => {snapshot.forEach(element =>{
+            if(this.state.category === element.val().name)
+                this.setState({categoryObject: element.val()})
+        })})
     }
 
     displayPartici(){ // show/hide Partici List
         this.setState({displayPartici:!this.state.displayPartici})
     }
+
+    displayThanksForJoin(){ // show/hide Partici List
+        this.setState({displayThanksForJoin:!this.state.displayThanksForJoin})
+    }
+
+    displayOrgenizerDetails(){ // show/hide Partici List
+        this.setState({displayOrgenizerDetails:!this.state.displayOrgenizerDetails})
+    }
+
+    organizerDetails()
+    {
+        let email, phone
+        let ref = firebase.database().ref('/Users/' + this.state.thisClass.organizerId)
+        ref.once('value', snapshot => {
+                email = snapshot.val().email
+                phone = snapshot.val().phone
+        })
+        return (<div>
+            <div><a href={"https://mail.google.com/mail/?view=cm&fs=1&to=" + email + "&tf=1"}>{email}</a></div>
+            <div>{phone}</div>
+        </div>)
+    }
     
+
     numOfPart() //returns the number of participants in this class.. if there is not, returns that there is not yet
     {
         let howManyPart = ""
@@ -127,6 +163,7 @@ class Classs extends React.Component
                 tempNumOfCurPart = snapshot.val() + 1;
             })
             ref.child("numOfCurrPartici").set(tempNumOfCurPart);
+            this.displayThanksForJoin()
         }
         else
             this.setState({isJoinClicked: true})
@@ -134,6 +171,8 @@ class Classs extends React.Component
 
     whenCancelClicked()
     {
+        if(this.state.displayThanksForJoin)//if the "thanks for joining" massage is still displayed
+            return
         this.setState({isCancelClicked: true})
         let tempNumOfCurPart;
         const uid = firebase.auth().currentUser.uid
@@ -194,64 +233,11 @@ class Classs extends React.Component
             sendToLogin = true;
 
         let location1 = '/Category/' + this.state.category + '/Class/' + this.state.course;
-
         return(
             <div>
                 {this.state.loading ? <div>
                     {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
-                    {/* <div  className = "mainDiv">
-                        <div className = "leftSide">
-                            <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
-                            <div className = "tabs">
-                                <ClassTabs  list = {this.state.thisClass.partiList} manager = {isManager} description = {this.state.thisClass.description} date = {this.state.thisClass.date}/>
-                            </div>
-                        </div>
-                        <div className = "rightSide">
-                            <Card style={{ width: '30rem' }}>
-                                <CardBody>
-                                    <CardTitle className = "title">{this.state.thisClass.name}</CardTitle>
-                                    <hr/>
-                                    <ListGroup className="list-group-flush">
-
-
-                                        <div className = "itemClass">
-                                            <div className = "itemunittext">  מועבר על ידי - {this.state.thisClass.organizer}</div>
-                                            <div className = "itemuniticon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"/></svg>
-                                            </div>																
-                                        </div>
-
-                                        <div className = "itemClass">
-                                            <div className = "itemunittext">{this.state.thisClass.category}</div>
-                                            <div className = "itemuniticon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>
-                                            </div>						
-                                        </div>
-
-                                        <div className = "itemClass">
-                                            <div className = "itemunittext">{this.state.thisClass.location}</div>
-                                            <div className = "itemuniticon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                            </div>								
-                                        </div>
-
-                                        {this.state.loading ? 
-                                            <div className = "itemClass">
-                                                <div className = "itemunittext">{this.numOfPart()}</div>
-                                                <div className = "itemuniticon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M6 8c1.11 0 2-.9 2-2s-.89-2-2-2c-1.1 0-2 .9-2 2s.9 2 2 2zm6 0c1.11 0 2-.9 2-2s-.89-2-2-2c-1.11 0-2 .9-2 2s.9 2 2 2zM6 9.2c-1.67 0-5 .83-5 2.5V13h10v-1.3c0-1.67-3.33-2.5-5-2.5zm6 0c-.25 0-.54.02-.84.06.79.6 1.34 1.4 1.34 2.44V13H17v-1.3c0-1.67-3.33-2.5-5-2.5z"/></svg>
-                                                </div>								
-                                            </div>
-                                        : null}
-
-                                    </ListGroup>
-                                    <div className = "button">
-                                        <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
-                                    </div>
-                                </CardBody>
-                            </Card>
-                        </div> 
-                    </div>  */
+                    {
                     <div className="classPage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
                         <div className="classPageSec" >
                         <NavBar/>
@@ -259,11 +245,32 @@ class Classs extends React.Component
                                 <div className="classRightTextBox" style={stylePhone}>
                                     <span className="dateTag">{this.getDayOf(this.state.thisClass.date)} {this.dateFixer(this.state.thisClass.date)}</span>
                                     <span className="classTextPrimary">{this.state.thisClass.name}</span>
-                                    <span className="classTextSub"> מועבר על ידי {this.state.thisClass.organizer}</span>
+                                    <div className="iconclasstoright" style={{cursor: 'pointer'}} onClick={this.displayOrgenizerDetails}>
+                                        <span className="classTextSub"> מועבר על ידי {this.state.thisClass.organizer}</span>
+                                    </div>
+                                    {this.state.displayOrgenizerDetails ? 
+                                        <div>
+                                             <p>
+                                            <button className="closeParticiList" onClick={this.displayOrgenizerDetails}>
+                                                <IconCross/>
+                                            </button>
+                                                {this.organizerDetails()}
+                                            </p>
+                                        </div>
+                                    : null}
                                     <div className = "jBtnCont">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
                                     </div>
-                                    
+                                    {this.state.displayThanksForJoin ? 
+                                    <div>
+                                            <p>
+                                            <button className="closeParticiList" onClick={this.displayThanksForJoin}>
+                                                <IconCross/>
+                                            </button>
+                                             מעולה, שמחים שנרשמת! יום לפני המפגש תפתח קבוצת וואטספ זמנית שבה יעודכנו פרטי המפגש. אם אין באפשרותכם לבוא, עשו טובה, שלחו וואטסאפ למארגן, שלא יהיה פה "הקיץ של אביה"
+                                            </p>
+                                    </div>
+                                     : null}
                                 </div>
                                 <div className="classLeftTextBox" style={stylePhone}>
                                  <span className="classTextDesc">{this.state.thisClass.description}</span>
@@ -306,6 +313,11 @@ class Classs extends React.Component
                                         </span>
                                     </div>
                                     <span className="eno" id="partici">{this.notEnPar(this.state.thisClass.numOfCurrPartici,this.state.thisClass.minPartici)}</span>
+                                </div>
+                                <div>
+                                    <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
+                                        <span>קורסים נוספים בקטגוריית {this.state.thisClass.category}</span>
+                                    </Link>
                                 </div>
                             </div>
                     </div>
