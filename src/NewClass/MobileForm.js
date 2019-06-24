@@ -384,7 +384,7 @@ class MobileForm extends React.Component {
                 <div class="ionright">
                   <label>
                     <img
-                      alt="תמונה"
+                      alt="הוספת תמונה"
                       style={{ width: 55, height: 55 }}
                       src={this.state.imgUrl}
                     />

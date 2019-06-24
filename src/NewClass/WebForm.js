@@ -325,7 +325,7 @@ class WebForm extends Component {
               </label>
 
               <label>
-                תיאור
+                תיאור החוג
                 <textarea
                   rows="4"
                   cols="50"
@@ -341,7 +341,7 @@ class WebForm extends Component {
                 <br />
 
                 <img
-                  alt="תמונה"
+                  alt="הוספת תמונה"
                   style={{ width: 55, height: 55 }}
                   src={this.state.imgUrl}
                 />
