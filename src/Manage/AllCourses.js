@@ -1,3 +1,8 @@
+/*
+--ALL CATEGORIES COMPONENT--
+map all the courses in the category and display each image in a square
+when click on a image to edit the course --> redirect to manage class page
+ */
 import React, { Component } from "react";
 import "./AllCourses.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
@@ -7,7 +12,7 @@ class AllCourses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryName: props.categoryName,
+      categoryName: props.categoryName, // get the category name pass by the props
       classList: props.list
     };
   }

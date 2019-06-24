@@ -20,6 +20,7 @@ class NavBar extends Component {
         height: window.innerHeight / 10,
       },
       pageYOffset : 0,
+      windowH:window.innerHeight,
       categoryList:[],
       user: {
         id: "",
@@ -32,6 +33,14 @@ class NavBar extends Component {
       }
     };
     this.listenToScroll = this.listenToScroll.bind(this)
+    this.updateWindows = this.updateWindows.bind(this)
+  }
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.updateWindows);
+    window.removeEventListener('scroll', this.listenToScroll);
+  }
+  updateWindows(){
+    this.setState({windowH:window.innerHeight})
   }
 
   listenToScroll(){
@@ -40,6 +49,7 @@ class NavBar extends Component {
 
   componentDidMount = () => {
     window.addEventListener('scroll', this.listenToScroll)
+    window.addEventListener("resize", this.updateWindows);
     let ref = firebase.database().ref('/CategoryList');
     ref.on('value', snapshot => {
       let categories = [];
@@ -95,14 +105,14 @@ class NavBar extends Component {
     let edit = false;
     if (this.state.isSignedInProsses) login = false;
     if (this.state.edit) edit = true;
-    
+    let navH = {height: (this.state.windowH/10) + 'px'}
     let classNav = 'nav'
-    if(this.props.homePage && this.state.pageYOffset > (window.innerHeight/10))
+    if(this.props.homePage && this.state.pageYOffset > (this.state.windowH/10))
       classNav = 'navScroll';  
     
     return (
-      <div className="navtest">
-      <div className={classNav}>
+      <div className="navtest" >
+      <div className={classNav} style={navH}>
       <div className="navLeft">
       {login ? (
           <div className="inline">
