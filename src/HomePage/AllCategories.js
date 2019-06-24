@@ -6,7 +6,7 @@ import NetflixSlider from "../NetflixSlider/NetflixSlider.js";
 
 /*
   AllCategories - read from the database all the categories,
-  
+  show in "netflix style"
 */
 
 class AllCategories extends Component {
@@ -30,9 +30,10 @@ class AllCategories extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.updateWindows);
 
+    // read from the database all the categories
     let ref = firebase.database().ref("/CategoryList");
     ref.on("value", snapshot => {
-      let arrTemp = [];
+      let arrTemp = []; // array temp for ths categories list
       snapshot.forEach(child => {
             arrTemp.push(child.val());
       });
