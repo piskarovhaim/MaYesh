@@ -48,7 +48,7 @@ class NavBar extends Component {
   }
 
   componentDidMount = () => {
-    window.addEventListener('scroll', this.listenToScroll)
+    window.addEventListener('scroll', this.listenToScroll);
     window.addEventListener("resize", this.updateWindows);
     let ref = firebase.database().ref('/CategoryList');
     ref.on('value', snapshot => {
@@ -105,10 +105,16 @@ class NavBar extends Component {
     let edit = false;
     if (this.state.isSignedInProsses) login = false;
     if (this.state.edit) edit = true;
-    let navH = {height: (this.state.windowH/10) + 'px'}
+    let navH = {height: (this.state.windowH/10)}
     let classNav = 'nav'
-    if(this.props.homePage && this.state.pageYOffset > (this.state.windowH/10))
+    if(this.props.homePage){
       classNav = 'navScroll';  
+      navH.display='none';
+    }
+    if(this.props.homePage && this.state.pageYOffset > (this.state.windowH/10)){
+      classNav = 'navScroll';  
+      navH.display='flex';
+    }
     
     return (
       <div className="navtest" >

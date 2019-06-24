@@ -215,8 +215,8 @@ class MobileForm extends React.Component {
     ref.remove();
     alert(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
     this.endOfProcess = true;
-
     this.setState({});
+    window.scrollTo(0, 0);
   }
   //upload image func
   handleUploadStart() {

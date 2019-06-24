@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import "../Login/FormStyle.css";
 import Permissions from "./Permissions.js";
 import Search from "../NavBar/Search.js";
+import logo from '../NavBar/logoN.png'
 
 function AllCategory(props) {
   let categories = [];
@@ -179,8 +180,7 @@ class MainManagePage extends Component {
           <Link to="/">
             <img
               className="logo"
-              src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"
-            />
+              alt="logo" src={logo}/>
           </Link>
           <div
             style={{

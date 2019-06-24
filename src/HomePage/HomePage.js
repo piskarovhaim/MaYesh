@@ -36,22 +36,23 @@ class HomePage extends Component {
 
   componentDidMount = () => {
     window.addEventListener('scroll', this.listenToScroll);
-    window.addEventListener("resize", this.updateWindows);
+
   }
   render() {
-    let nAv = {height: this.state.windowH + 'px'}
+    let nAv = {height: this.state.windowH}
     let padding = 0;
     if(this.state.pageYOffset > (this.state.windowH/10))
       padding=(this.state.windowH/10);
-    let styleGradient = {bottom:-padding+'px'};
-    if(window.innerWidth < 500)
-        styleGradient.backgroundImage = 'none';
+    let styleGradient = {bottom:-padding};
+    //if(window.innerWidth < 500)
+        //styleGradient.backgroundImage = 'none';
     return (   
-          <div className="home" style={{paddingTop:padding+'px'}}>
+          <div className="home">
               <div className="navAndvideo" style={nAv}>
+                <NavBar/>
                 <NavBar homePage={true}/>
                 <Video/>
-                <div id="joinToClass" className="videogradient" style={styleGradient}/>
+                <div id="joinToClass" className="videogradient"/>
               </div>
                 
                 <ClassBy sortBy="thebestforme"/>

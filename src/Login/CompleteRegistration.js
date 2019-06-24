@@ -79,6 +79,7 @@ class CompleteRegistration extends Component {
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
     this.endProses =true;
     this.setState({});
+    window.scrollTo(0, 0);
   }
 
   handleUploadError (error) {

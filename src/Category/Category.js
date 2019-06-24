@@ -20,6 +20,7 @@ class Category extends Component {
     this.state = 
     {
         redirect:redirect,
+        windowH:window.innerHeight,
         category:{
             classList: [],
             desc: '',
@@ -28,8 +29,18 @@ class Category extends Component {
             name: '' 
         }
     }
+    this.updateWindows = this.updateWindows.bind(this)
+  }
+
+  updateWindows(){
+    this.setState({windowH:window.innerHeight})
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.updateWindows);
   }
   componentDidMount(){
+    window.addEventListener("resize", this.updateWindows);
     // if some error in props => redirect to the main page
     if(this.props.location.state == undefined || this.props.location.state.category== undefined){
       return;
@@ -57,11 +68,13 @@ class Category extends Component {
   // map the classes to gallery object
   let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} date={element.date}/>)
   let style ={}
+  let styleBox = {}
   // resize if it run on phonescreen
   if(window.innerWidth < 500){
       style.width = '93%';
       style.right = '2vw';
-      style.maxHeight = (window.innerHeight/100)*84 + 'px';
+      style.maxHeight = (window.innerHeight/100)*84;
+      styleBox.height = window.innerHeight;
   } 
   if(this.state.redirect){ // if some error in props => redirect to the main page
     return(
@@ -69,7 +82,7 @@ class Category extends Component {
     )
   }
   return (
-       <div className="containerBox">
+       <div className="containerBox" style={styleBox}>
           <div className="categorycontentbackground">
               <div className="categorycontentbackgroundimage" style={{ 'background-image': `url(${this.state.category.img})` }}>
               <div className="categorycontentbackgroundshadow" />

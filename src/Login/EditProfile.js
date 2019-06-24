@@ -71,6 +71,7 @@ class EditProfile extends Component {
         firebase.database().ref('/Users/' + this.state.id).set(this.state);
         this.end = true;
         this.setState({});
+        window.scrollTo(0, 0);
       }
 
     handleChange(e) {
