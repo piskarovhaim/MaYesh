@@ -61,6 +61,7 @@ class Category extends Component {
   if(window.innerWidth < 500){
       style.width = '93%';
       style.right = '2vw';
+      style.maxHeight = (window.innerHeight/100)*84 + 'px';
   } 
   if(this.state.redirect){ // if some error in props => redirect to the main page
     return(
