@@ -42,6 +42,7 @@ class EditProfile extends Component {
         super(props);
         
         let end = false;
+        let whyPhone = false;
         this.state =  {
           id:props.location.state.user.id,
           email:props.location.state.user.email,
@@ -62,6 +63,11 @@ class EditProfile extends Component {
     }
 
     SetUser(){
+      if(this.state.name == "" || this.state.phone == ""){
+        alert("חובה למלא את שם ופלאפון");
+        return;
+      }
+      
         firebase.database().ref('/Users/' + this.state.id).set(this.state);
         this.end = true;
         this.setState({});
@@ -133,9 +139,20 @@ class EditProfile extends Component {
           </label>
           <br/>
         <label>
-        :השם שלך
+        שם מלא
         <input type="text" name="name" value={this.state.name} onChange={this.handleChange}></input>
         </label>
+
+        <span className="whyPhone" onClick={()=>{this.whyPhone = !this.whyPhone;this.setState({})}}>?</span>
+        {this.whyPhone? (<div className="whyPhone">
+          אנחנו לא רוצים את הפרטים שלך סתם, אל חשש
+          אנחנו רוצים שלמארגני המפגש יהיה דרך לוודא שכולם מגיעים
+          ולעדכן בפרטים
+          <br/>
+          <span className="whyPhoneGetIt"  onClick={()=>{this.whyPhone = false;this.setState({})}}>הבנתי</span>
+        </div>)
+        :null}
+
         <label>
         :הפלאפון שלך
         <input type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input> 
@@ -143,6 +160,10 @@ class EditProfile extends Component {
         <hr/>
         <label>
         קטגוריות מועדפות
+        <br/>
+        <span className="spanfavoriteCat">
+        לפי זה נדע להראות את החוגים שהכי מתאימים לך
+        </span>
         <FavoritesCategeory func={this.handleChange} categories={this.props.location.state.categoryList} favoriteCat={this.state.favoriteCat}/>
         </label>
         <br/>
