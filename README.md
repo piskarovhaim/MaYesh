@@ -27,10 +27,16 @@ We're trying to use the best tools and practices in order to produce a quality e
 This project is developed as part of the requirements for a software engineering course at the software engineering department -
 [ Azrieli College of Engineering-Jerusalem, Israel](https://www.jce.ac.il/) .
 ### Project pages
-Main Page screen
+Main Page screen mobile display
 
 
 ![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPage.PNG)
+
+Main page screen pc display 
+
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/mainPageNew.PNG)
+
 
 Main Page bottom screen
 
