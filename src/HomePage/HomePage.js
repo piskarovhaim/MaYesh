@@ -45,6 +45,7 @@ class HomePage extends Component {
               <div className="navAndvideo" style={nAv}>
                 <NavBar about={true}/>
                 <NavBar homePage={true}/>
+                <Contact/>
                 <Video/>
                 <div id="joinToClass" className="videogradient"/>
               </div>
@@ -52,13 +53,8 @@ class HomePage extends Component {
                 <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
               <AllCategories/>
-<<<<<<< HEAD
               <div className="footer">
               <h2 style={{marginTop:'0'}}>קצת על MaYesh</h2>
-=======
-              <div className="footer" id="About">
-              <h2 style={{marginTop:'0'}}>קצת על מה יש</h2>
->>>>>>> 42ed61b03894435c093959d84c77ec9f4e9ad4c7
               <p>
               אנחנו בMaYesh שמנו לעצמינו למטרה ליצור מקום מפגש לצעירות וצעירים ירושלמים שמאפשר לימוד, חוויה, תרבות, קהילה ויצירה משותפת. הדגש שלנו הוא על חיבור בין אנשים בעלי תחומי עניין משותפים באמצעות הצטרפות או יצירה של חוג שיהווה מסגרת חברתית ואינטלקטואלית
                 </p>
