@@ -3,6 +3,7 @@ import MobileForm from "./MobileForm";
 import WebForm from "./WebForm.js";
 import { Redirect } from "react-router";
 
+
 class NewClass extends Component {
   render() {
     let isLogin = false;

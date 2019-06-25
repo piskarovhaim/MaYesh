@@ -404,7 +404,7 @@ class MobileForm extends React.Component {
                 </div>
               </IonItem>
 
-              <IonButton class="fancy-button" expand="block" type={"submit"}>
+              <IonButton class="fancyButton pinkBtn" expand="block" type={"submit"}>
                 שלח
               </IonButton>
             </form>

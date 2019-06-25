@@ -21,12 +21,15 @@ import Alert from "react-s-alert";
 //display the categories in the selector
 function CategeorySelector(props) {
   // get the real category json from the DB
-
+  let selectCat = {
+    width:300,
+  };
   let categories = [];
   categories = props.categories;
 
   return (
-    <select value={props.value} onChange={props.func} name="category">
+    <div class="custom-select" style={{ 'width': `300px`}}>
+   <select  value={props.value} onChange={props.func} name="category">
       {categories.map((object, i) => {
         return (
           <option key={i} value={object.type}>
@@ -34,8 +37,10 @@ function CategeorySelector(props) {
           </option>
         );
       })}
-    </select>
+    </select> 
+    </div>
   );
+
 }
 
 class WebForm extends Component {
@@ -203,168 +208,216 @@ class WebForm extends Component {
         <NavBar />
         <hr />
         <div
-          className="formPage"
-          style={{ "background-image": `url(${bgImg})` }}
-        >
+          className="formPage" style={{ "background-image": `url(${bgImg})` }}>
           <div className="completeReg">
-            <form onSubmit={this.handleSubmit}>
-              <h1>נשמח לכמה פרטים</h1>
-              <label>
-                שם החוג
-                <input
+          <h1 className="headLineForm">טופס רישום חוג חדש</h1>
+            <div className="theFormBox">
+              <div className="formEx">
+              <h1 className="fillDetLab">אנא מלא פרטים</h1>
+              <form onSubmit={this.handleSubmit}>
+                <div className="formLine">
+                  <label>
+                   <span className="labl"> שם החוג </span>
+                    <input className="inpt"
+                      required
+                      type="text"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.handleChange}
+                    />
+                  </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  קטגוריה
+                  </span>
+                  <CategeorySelector 
+                    value={this.state.category}
+                    func={this.handleChange}
+                    categories={this.state.categoryList}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  שם המארגן
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="text"
+                    name="organizer"
+                    value={this.state.organizer}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  מס' טלפון
+                  </span>
+                  <input className="inpt"
+                    required
+                    minlength={9}
+                    maxLength={10}
+                    type="tel"
+                    name="phoneNumber"
+                    value={this.state.phoneNumber}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  מיקום המפגש{" "}
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="text"
+                    name="location"
+                    value={this.state.location}
+                    onChange={this.handleChange}
+                    placeholder={"לדוגמא: רחוב אבן ספיר 15,קומה ב"}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  מינימום משתתפים
+                  </span>
+                  <input className="inpt"
+                    required
+                    min={0}
+                    type="number"
+                    name="minPartici"
+                    value={this.state.minPartici}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  מקסימום משתתפים
+                  </span>
+                  <input className="inpt"
+                    required
+                    min={this.state.minPartici}
+                    type="number"
+                    name="maxPartici"
+                    value={this.state.maxPartici}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  תאריך
+                  </span>
+                  <input className="inpt"
+                    placeholder={this.state.date}
+                    required
+                    type="date"
+                    name="date"
+                    min="2019-01-01"
+                    value={this.state.date}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  שעת התחלה
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="time"
+                    name="hour"
+                    value={this.state.hour}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  שעת סיום משוערת
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="time"
+                    name="endTime"
+                    value={this.state.endTime}
+                    onChange={this.handleChange}
+                    min={this.state.hour}
+                  />
+                </label>
+                </div>
+
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  תיאור החוג
+                  </span>
+                  <textarea className="inpt"
+                    rows="4"
+                    cols="50"
+                    required
+                    name="description"
+                    placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                    style={{ color: "black" }}
+                  />
+                </label>
+                </div>
+
+                
+                <label>
+                  <br />
+
+                  <img
+                    alt="הוספת תמונה"
+                    style={{ width: 55, height: 55 }}
+                    src={this.state.imgUrl}
+                  />
+                  {this.state.progress}
+                  <FileUploader
+                    hidden
+                    accept="image/*"
+                    randomizeFilename
+                    storageRef={firebase.storage().ref("formImages")}
+                    onUploadError={this.handleUploadError}
+                    onUploadSuccess={this.handleUploadSuccess}
+                    onUploadStart={this.handleUploadStart}
+                    onProgress={this.handleProgress}
+                  />
+                </label>
+
+                <input className="fancyButton pinkBtn"
                   required
-                  type="text"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.handleChange}
+                  className="registerbtn"
+                  type="submit"
+                  value="שלח"
                 />
-              </label>
-
-              <label>
-                קטגוריה
-                <CategeorySelector
-                  value={this.state.category}
-                  func={this.handleChange}
-                  categories={this.state.categoryList}
-                />
-              </label>
-
-              <label>
-                שם המארגן
-                <input
-                  required
-                  type="text"
-                  name="organizer"
-                  value={this.state.organizer}
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <label>
-                מס' טלפון
-                <input
-                  required
-                  minlength={9}
-                  maxLength={10}
-                  type="tel"
-                  name="phoneNumber"
-                  value={this.state.phoneNumber}
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <label>
-                מיקום המפגש{" "}
-                <input
-                  required
-                  type="text"
-                  name="location"
-                  value={this.state.location}
-                  onChange={this.handleChange}
-                  placeholder={"לדוגמא: רחוב אבן ספיר 15,קומה ב"}
-                />
-              </label>
-
-              <label>
-                מינימום משתתפים
-                <input
-                  required
-                  min={0}
-                  type="number"
-                  name="minPartici"
-                  value={this.state.minPartici}
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <label>
-                מקסימום משתתפים
-                <input
-                  required
-                  min={this.state.minPartici}
-                  type="number"
-                  name="maxPartici"
-                  value={this.state.maxPartici}
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <label>
-                תאריך
-                <input
-                  placeholder={this.state.date}
-                  required
-                  type="date"
-                  name="date"
-                  min="2019-01-01"
-                  value={this.state.date}
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <label>
-                שעת התחלה
-                <input
-                  required
-                  type="time"
-                  name="hour"
-                  value={this.state.hour}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <label>
-                שעת סיום משוערת
-                <input
-                  required
-                  type="time"
-                  name="endTime"
-                  value={this.state.endTime}
-                  onChange={this.handleChange}
-                  min={this.state.hour}
-                />
-              </label>
-
-              <label>
-                תיאור החוג
-                <textarea
-                  rows="4"
-                  cols="50"
-                  required
-                  name="description"
-                  placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                  style={{ color: "black" }}
-                />
-              </label>
-              <label>
-                <br />
-
-                <img
-                  alt="הוספת תמונה"
-                  style={{ width: 55, height: 55 }}
-                  src={this.state.imgUrl}
-                />
-                {this.state.progress}
-                <FileUploader
-                  hidden
-                  accept="image/*"
-                  randomizeFilename
-                  storageRef={firebase.storage().ref("formImages")}
-                  onUploadError={this.handleUploadError}
-                  onUploadSuccess={this.handleUploadSuccess}
-                  onUploadStart={this.handleUploadStart}
-                  onProgress={this.handleProgress}
-                />
-              </label>
-
-              <input
-                required
-                className="registerbtn"
-                type="submit"
-                value="שלח"
-              />
-            </form>
+              </form>
+              </div>
+             </div>
           </div>
           {this.endOfProcess ? <Redirect to="/" /> : null}
         </div>
