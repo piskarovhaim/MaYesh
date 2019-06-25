@@ -29,7 +29,7 @@ input[type=text].inputSearch:focus {
   }
 div.dropDownn{
   position: absolute;
-  background-color:  rgb(255, 255, 255);
+  background-color:  rgb(56, 56, 56,0.8);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding-left: 15px;
   padding-right: 15px;
@@ -38,15 +38,15 @@ div.dropDownn{
   z-index: 1;
   font-family: "Arial Verdana", Sans-serif;
   font-weight: bold;
-  color: rgb(187, 187, 187);
+  color: #fff;
   cursor: pointer;
   text-align: right;
-  width: 180%;
+  width: 80vw;
   right: -55px;
   border-radius: 8px;
 }
 div.classFound{
-  background-color:  rgb(255, 255, 255);
+  background-color:  rgb(0,0,0,0);
   padding: 6px;
 }
   
