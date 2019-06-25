@@ -36,29 +36,29 @@ class HomePage extends Component {
 
   componentDidMount = () => {
     window.addEventListener('scroll', this.listenToScroll);
-    window.addEventListener("resize", this.updateWindows);
+
   }
   render() {
-    let nAv = {height: this.state.windowH + 'px'}
-    let padding = 0;
-    if(this.state.pageYOffset > (this.state.windowH/10))
-      padding=(this.state.windowH/10);
-    let styleGradient = {bottom:-padding+'px'};
-    if(window.innerWidth < 500)
-        styleGradient.backgroundImage = 'none';
+    let nAv = {height: this.state.windowH}
     return (   
-          <div className="home" style={{paddingTop:padding+'px'}}>
+          <div className="home">
               <div className="navAndvideo" style={nAv}>
+                <NavBar about={true}/>
                 <NavBar homePage={true}/>
                 <Video/>
-                <div id="joinToClass" className="videogradient" style={styleGradient}/>
+                <div id="joinToClass" className="videogradient"/>
               </div>
                 
                 <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
               <AllCategories/>
+<<<<<<< HEAD
               <div className="footer">
               <h2 style={{marginTop:'0'}}>קצת על MaYesh</h2>
+=======
+              <div className="footer" id="About">
+              <h2 style={{marginTop:'0'}}>קצת על מה יש</h2>
+>>>>>>> 42ed61b03894435c093959d84c77ec9f4e9ad4c7
               <p>
               אנחנו בMaYesh שמנו לעצמינו למטרה ליצור מקום מפגש לצעירות וצעירים ירושלמים שמאפשר לימוד, חוויה, תרבות, קהילה ויצירה משותפת. הדגש שלנו הוא על חיבור בין אנשים בעלי תחומי עניין משותפים באמצעות הצטרפות או יצירה של חוג שיהווה מסגרת חברתית ואינטלקטואלית
                 </p>

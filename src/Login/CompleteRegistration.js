@@ -3,6 +3,7 @@ import firebase from "../Firebase/FireBase.js";
 import './FormStyle.css'
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 import { Redirect } from 'react-router';
+import Alert from 'react-s-alert';
 
 function FavoritesCategeory(props) {
   // get the real category json from the DB
@@ -72,13 +73,15 @@ class CompleteRegistration extends Component {
 
   AddUser(){
     if(this.state.name == "" || this.state.phone == ""){
-      alert("חובה למלא את שם ופלאפון");
+      Alert.warning("חובה להזין שם ומספר פלאפון");
       return;
     }
     
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
     this.endProses =true;
     this.setState({});
+    window.scrollTo(0, 0);
+    Alert.success("הרישום בוצע בהצלחה");
   }
 
   handleUploadError (error) {

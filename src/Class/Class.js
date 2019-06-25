@@ -8,7 +8,7 @@ import { Redirect } from 'react-router';
 import ParticipantList from "./ParticipantList.js"
 import IconCross from "../NetflixSlider/components/Icons/IconCross";
 import { Link } from 'react-router-dom'
-
+import Alert from 'react-s-alert';
 
 class Classs extends React.Component
 {
@@ -121,15 +121,18 @@ class Classs extends React.Component
 
     organizerDetails()
     {
-        let email, phone
+        let email, phone,url
         let ref = firebase.database().ref('/Users/' + this.state.thisClass.organizerId)
         ref.once('value', snapshot => {
                 email = snapshot.val().email
                 phone = snapshot.val().phone
+                url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + email + "&tf=1"
         })
         return (<div>
-            <div><a href={"https://mail.google.com/mail/?view=cm&fs=1&to=" + email + "&tf=1"}>{email}</a></div>
+            <div className="divSendEmail" onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}>{email}</div>
+            <br/>
             <div>{phone}</div>
+            <br/>
         </div>)
     }
     
@@ -163,7 +166,12 @@ class Classs extends React.Component
                 tempNumOfCurPart = snapshot.val() + 1;
             })
             ref.child("numOfCurrPartici").set(tempNumOfCurPart);
-            this.displayThanksForJoin()
+            Alert.success("<p align=\"right\"> מעולה, שמחים שנרשמת! יום לפני המפגש תפתח קבוצת וואטספ זמנית שבה יעודכנו פרטי המפגש. אם אין באפשרותכם לבוא, עשו טובה, שלחו וואטסאפ למארגן, שלא יהיה פה הקיץ של אביה </p>",{
+                html:true,
+                onShow: this.displayThanksForJoin,
+                onClose: this.displayThanksForJoin
+              });
+            
         }
         else
             this.setState({isJoinClicked: true})
@@ -183,6 +191,9 @@ class Classs extends React.Component
                 {
                     let refChild = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course + '/particiList/' + participant.key);
                     refChild.remove();
+                    Alert.error("<p align=\"right\"> ביטלת את הרישום לחוג, אל תשכח להוריד זאת גם למארגן החוג.     נתראה בחוג אחר :)</p>",{
+                        html:true,
+                      });
                 }
                 
         })})
@@ -238,8 +249,13 @@ class Classs extends React.Component
                 {this.state.loading ? <div>
                     {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
                     {
-                    <div className="classPage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
-                        <div className="classPageSec" >
+                    <div className="containerBox">
+                        <div className="classcontentbackground">
+                            <div className="classcontentbackgroundimage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
+                            <div className="classcontentbackgroundshadow" />
+                            </div>
+                        </div>
+                        <div className="classPageSec">
                         <NavBar/>
                             <div className="topdivclass">
                                 <div className="classRightTextBox" style={stylePhone}>
@@ -250,33 +266,21 @@ class Classs extends React.Component
                                     </div>
                                     {this.state.displayOrgenizerDetails ? 
                                         <div>
-                                             <p>
-                                            <button className="closeParticiList" onClick={this.displayOrgenizerDetails}>
-                                                <IconCross/>
-                                            </button>
                                                 {this.organizerDetails()}
-                                            </p>
                                         </div>
                                     : null}
                                     <div className = "jBtnCont">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
                                     </div>
-                                    {this.state.displayThanksForJoin ? 
-                                    <div>
-                                            <p>
-                                            <button className="closeParticiList" onClick={this.displayThanksForJoin}>
-                                                <IconCross/>
-                                            </button>
-                                             מעולה, שמחים שנרשמת! יום לפני המפגש תפתח קבוצת וואטספ זמנית שבה יעודכנו פרטי המפגש. אם אין באפשרותכם לבוא, עשו טובה, שלחו וואטסאפ למארגן, שלא יהיה פה "הקיץ של אביה"
-                                            </p>
-                                    </div>
-                                     : null}
                                 </div>
                                 <div className="classLeftTextBox" style={stylePhone}>
                                  <span className="classTextDesc">{this.state.thisClass.description}</span>
                                  </div>       
                           </div>
                           <div className="classDetails">
+                          <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
+                                        <div className="morefromthiscategory">חוגים נוספים בקטגוריית {this.state.thisClass.category}</div>
+                                </Link>
                                     <div className="locationDiv" style={stylePhone}> 
                                     <div className="iconclasstoright">
                                         <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.endTime}</span>
@@ -314,13 +318,8 @@ class Classs extends React.Component
                                     </div>
                                     <span className="eno" id="partici">{this.notEnPar(this.state.thisClass.numOfCurrPartici,this.state.thisClass.minPartici)}</span>
                                 </div>
-                                <div>
-                                    <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
-                                        <span>קורסים נוספים בקטגוריית {this.state.thisClass.category}</span>
-                                    </Link>
-                                </div>
                             </div>
-                    </div>
+                        </div>
                     }
                 </div> : null}
             </div>

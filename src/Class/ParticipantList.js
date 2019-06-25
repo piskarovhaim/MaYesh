@@ -50,6 +50,7 @@ class ParticipantList extends React.Component
             אין עדיין משתתפים בקורס זה
          </p>
         const list = this.props.list.map((participant, key) => {
+            let url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + participant.email + "&tf=1"
             return(
                 <div>
                     <div className = "participant">
@@ -57,7 +58,7 @@ class ParticipantList extends React.Component
                             <div className = "prtiItem">
                                 <div>{participant.name}</div> 
                                 <div>{participant.phone}</div>
-                                <div><a href={"https://mail.google.com/mail/?view=cm&fs=1&to=" + participant.email + "&tf=1"}>{participant.email}</a></div>
+                                <div className="divSendEmail" onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}>{participant.email}</div>
                             </div>
                             <img  className = "partimg" src = {participant.img}/>
                         </div>
