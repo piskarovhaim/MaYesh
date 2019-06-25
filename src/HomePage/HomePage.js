@@ -40,16 +40,10 @@ class HomePage extends Component {
   }
   render() {
     let nAv = {height: this.state.windowH}
-    let padding = 0;
-    if(this.state.pageYOffset > (this.state.windowH/10))
-      padding=(this.state.windowH/10);
-    let styleGradient = {bottom:-padding};
-    //if(window.innerWidth < 500)
-        //styleGradient.backgroundImage = 'none';
     return (   
           <div className="home">
               <div className="navAndvideo" style={nAv}>
-                <NavBar/>
+                <NavBar about={true}/>
                 <NavBar homePage={true}/>
                 <Video/>
                 <div id="joinToClass" className="videogradient"/>
@@ -58,7 +52,7 @@ class HomePage extends Component {
                 <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
               <AllCategories/>
-              <div className="footer">
+              <div className="footer" id="About">
               <h2 style={{marginTop:'0'}}>קצת על מה יש</h2>
               <p>
               אנחנו ב"מה יש" שמנו לעצמינו למטרה ליצור מקום מפגש לצעירות וצעירים ירושלמים שמאפשר לימוד, חוויה, תרבות, קהילה ויצירה משותפת. הדגש שלנו הוא על חיבור בין אנשים בעלי תחומי עניין משותפים באמצעות הצטרפות או יצירה של חוג שיהווה מסגרת חברתית ואינטלקטואלית

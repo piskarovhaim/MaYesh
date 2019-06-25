@@ -18,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Alert stack={{ limit: 1 }} timeout={5000} html={true} position={'top-right'}/>
         <Router>
           <Switch>
             <Route path="/" exact component={HomePage} />
@@ -55,7 +56,6 @@ class App extends Component {
             />
           </Switch>
         </Router>
-        <Alert stack={{ limit: 1 }} />
       </div>
     );
   }

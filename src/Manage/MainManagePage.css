@@ -30,7 +30,7 @@ div.message{
     margin: 5px;
     border: 1px solid black;
     border-style: dashed;
-
+    direction: rtl;
 }
 
 div.manageCat {

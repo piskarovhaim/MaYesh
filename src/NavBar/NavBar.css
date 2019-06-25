@@ -18,7 +18,8 @@ div.inline{
 }
 
 .navtest{
-  display: block
+  display: block;
+  width: 100%;
 }
 
 .nav{
@@ -88,7 +89,8 @@ div.navTextAbout{
   font-size: 1.5rem;
   cursor: pointer;
   text-align: right;
-  margin-left: 10px;
+  margin-left: 10vw;
+  display: -webkit-inline-box;
 
 }
 

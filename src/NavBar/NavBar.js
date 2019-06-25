@@ -4,6 +4,7 @@ import firebase from "../Firebase/FireBase.js";
 import "./NavBar.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './logoN.png'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 class NavBar extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class NavBar extends Component {
         height: window.innerHeight / 10,
       },
       pageYOffset : 0,
+      showNav:false,
       windowH:window.innerHeight,
       categoryList:[],
       user: {
@@ -44,8 +46,12 @@ class NavBar extends Component {
   }
 
   listenToScroll(){
-    this.setState({pageYOffset:window.pageYOffset})
+    if(window.pageYOffset < this.state.pageYOffset)
+      this.setState({pageYOffset:window.pageYOffset,showNav:true})
+    else
+      this.setState({pageYOffset:window.pageYOffset,showNav:false})
   }
+
 
   componentDidMount = () => {
     window.addEventListener('scroll', this.listenToScroll);
@@ -111,10 +117,13 @@ class NavBar extends Component {
       classNav = 'navScroll';  
       navH.display='none';
     }
-    if(this.props.homePage && this.state.pageYOffset > (this.state.windowH/10)){
+    if(this.props.homePage && this.state.pageYOffset > (this.state.windowH/10) && this.state.showNav){
       classNav = 'navScroll';  
       navH.display='flex';
     }
+    let about = false;
+    if(this.props.about && window.innerWidth > 500)
+        about =true;
     
     return (
       <div className="navtest" >
@@ -155,6 +164,12 @@ class NavBar extends Component {
                 <div className="navTextMenu">התחבר</div>
           </Link>
         )}
+        {about?
+        <AnchorLink href='#About'>
+            <div className="navTextAbout">אודות</div>
+        </AnchorLink>
+        :
+        null}
       </div>
       <div className="navRight">
       <Search/>

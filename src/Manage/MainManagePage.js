@@ -38,17 +38,23 @@ function Messages(props) {
     <div className="messages">
       <h1>פניות ממשתמשים</h1>
       {messages.map((object, i) => {
+        let url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + object.email + "&tf=1"
         return (
           <div className="message" key={i}>
-            <h4>{object.name} :שם</h4>
-            <h4>{object.email} :איימיל</h4>
-            <h4>{object.message} :הודעה</h4>
+            <h4> שם: {object.name}</h4>
+            <h4> איימיל: {object.email}</h4>
+            <h4> הודעה: {object.message}</h4>
             <h3
               style={{ color: "red", cursor: "pointer" }}
               onClick={() => props.del(object.key)}
             >
               מחק
             </h3>
+            <h4 
+            style={{ cursor: "pointer" }}
+            onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}> 
+                השב לפנייה
+            </h4>
           </div>
         );
       })}
