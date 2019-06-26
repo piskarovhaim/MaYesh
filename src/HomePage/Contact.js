@@ -26,6 +26,9 @@ class Contact extends Component {
       this.setState({name:'',email:'',message:''})
   }
       render() {
+        let phoneW = {};
+        if(window.innerWidth < 500)
+            phoneW.width = '90vw'
           return(
             <div className="contact">
                 <input type="checkbox" className="contCB" id="butTog"/>
@@ -38,16 +41,17 @@ class Contact extends Component {
                   <span className="navIconLeshLeft">&nbsp;</span>
                 </label>
 
-              <div className="contBG"></div>
-              <nav className="contNav">
+              <div className="contBG">
+                <h1 className="headLine">צור קשר</h1>
+                  <div className="contBoxdiv" style={phoneW}>
                   <form className="contBox" onSubmit={this.sendMassage}>
-                        <h1 className="headLine">צור קשר</h1>
-                        <input name="name" value={this.state.name} type="text" className="formCont" placeholder ="הכנס שם מלא" required onChange={this.handleChange}/><br/>
-                        <input name="email" value={this.state.email} type="email" className="formCont" placeholder = "הכנס כתובת דואר אלקטרוני" required onChange={this.handleChange}/><br/>
-                        <textarea name="message" value={this.state.message} className="formCont" placeholder="הכנס הודעתך" row="4" required onChange={this.handleChange}/><br/>
-                        <input type="submit" className= "btnForm" value="שלח הודעה"/>
+                        <input name="name" value={this.state.name} type="text" placeholder ="הכנס שם מלא" required onChange={this.handleChange}/><br/>
+                        <input name="email" value={this.state.email} type="email"  placeholder = "הכנס כתובת דואר אלקטרוני" required onChange={this.handleChange}/><br/>
+                        <textarea name="message" value={this.state.message}  placeholder="הכנס הודעתך" row="4" required onChange={this.handleChange}/><br/>
+                        <input type="submit" value="שלח הודעה"/>
                     </form>
-              </nav>
+                    </div>
+              </div>
             </div>
       );
 }
