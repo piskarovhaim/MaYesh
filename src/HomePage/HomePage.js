@@ -45,6 +45,7 @@ class HomePage extends Component {
               <div className="navAndvideo" style={nAv}>
                 <NavBar about={true}/>
                 <NavBar homePage={true}/>
+                <Contact/>
                 <Video/>
                 <div id="joinToClass" className="videogradient"/>
               </div>
@@ -55,7 +56,7 @@ class HomePage extends Component {
               <div className="footer" id="About">
               <h2 style={{marginTop:'0'}}>קצת על מה יש</h2>
               <p>
-              אנחנו ב"מה יש" שמנו לעצמינו למטרה ליצור מקום מפגש לצעירות וצעירים ירושלמים שמאפשר לימוד, חוויה, תרבות, קהילה ויצירה משותפת. הדגש שלנו הוא על חיבור בין אנשים בעלי תחומי עניין משותפים באמצעות הצטרפות או יצירה של חוג שיהווה מסגרת חברתית ואינטלקטואלית
+              אנחנו בMaYesh שמנו לעצמינו למטרה ליצור מקום מפגש לצעירות וצעירים ירושלמים שמאפשר לימוד, חוויה, תרבות, קהילה ויצירה משותפת. הדגש שלנו הוא על חיבור בין אנשים בעלי תחומי עניין משותפים באמצעות הצטרפות או יצירה של חוג שיהווה מסגרת חברתית ואינטלקטואלית
                 </p>
               </div>
               <div className="footer">
