@@ -86,25 +86,17 @@ class WebForm extends Component {
     this.handleUploadStart = this.handleUploadStart.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.isValidForm = this.isValidForm.bind(this);
-    this.alertMessage = this.alertMessage.bind(this);
-  }
-  alertMessage(message) {
-    Alert.info(message, {
-      position: "top-right",
-      effect: "slide",
-      timeout: "none"
-    });
   }
   isValidForm() {
     if (this.state.category == "") {
-      this.alertMessage("אנא בחר קטגוריה");
+      Alert.info("אנא בחר קטגוריה");
 
       return false;
     } else if (this.state.imgUrl == "") {
-      this.alertMessage("נשמח לתמונה בבקשה");
+      Alert.info("נשמח לתמונה בבקשה");
       return false;
     } else if (this.state.hour == "" || this.state.date == "") {
-      this.alertMessage("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
+      Alert.info("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
       return false;
     }
 
@@ -172,7 +164,6 @@ class WebForm extends Component {
           "/categoryList"
       );
     ref.remove();
-    alert();
     this.endOfProcess = true;
     this.setState({});
     window.scrollTo(0, 0);

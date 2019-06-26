@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./Contact.css";
+import Alert from "react-s-alert";
 
 class Contact extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Contact extends Component {
   sendMassage(){
       let data = this.state;
       firebase.database().ref('/Messages').push(data);
-      alert("ההודעה נשלחה למערכת תקבל מענה בהקדם");
+      Alert.success("ההודעה נשלחה למערכת תקבל מענה בהקדם");
       this.setState({name:'',email:'',message:''})
   }
       render() {

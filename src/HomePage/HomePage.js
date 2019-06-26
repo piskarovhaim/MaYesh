@@ -45,6 +45,7 @@ class HomePage extends Component {
               <div className="navAndvideo" style={nAv}>
                 <NavBar about={true}/>
                 <NavBar homePage={true}/>
+                <Contact/>
                 <Video/>
                 <div id="joinToClass" className="videogradient"/>
               </div>
