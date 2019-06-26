@@ -1,3 +1,9 @@
+/*
+--PERMISSION COMPONENT--
+add or remove admin to the site
+check for auth
+ */
+
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import { Redirect } from "react-router";
@@ -7,7 +13,12 @@ class Permissions extends Component {
     super(props);
     this.state = {
       getPermisiions: true,
-      allowed: ["t12qDCEN4LVVTDV4Z5qdw71SBGf1", "kMmWgpltVdMhhNgBfwxUH4lG4KQ2","eklmVTxcHAR7NaoF8vTXJMXHl5x1"]
+      //allowed --> get permissions to redirect to manage section
+      allowed: [
+        "t12qDCEN4LVVTDV4Z5qdw71SBGf1",
+        "kMmWgpltVdMhhNgBfwxUH4lG4KQ2",
+        "eklmVTxcHAR7NaoF8vTXJMXHl5x1"
+      ]
     };
   }
 
