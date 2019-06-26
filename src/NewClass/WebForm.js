@@ -21,24 +21,20 @@ import Alert from "react-s-alert";
 //display the categories in the selector
 function CategeorySelector(props) {
   // get the real category json from the DB
-  let selectCat = {
-    width:300,
-  };
+
   let categories = [];
   categories = props.categories;
 
   return (
-    <div class="custom-select" style={{ 'width': `300px`}}>
-   <select  value={props.value} onChange={props.func} name="category">
+   <select value={props.value} onChange={props.func} name="category" dir="rtl">
       {categories.map((object, i) => {
         return (
-          <option key={i} value={object.type}>
+          <option  key={i} value={object.type}>
             {object.type}
           </option>
         );
       })}
     </select> 
-    </div>
   );
 
 }
@@ -176,10 +172,11 @@ class WebForm extends Component {
           "/categoryList"
       );
     ref.remove();
-    alert(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
+    alert();
     this.endOfProcess = true;
     this.setState({});
     window.scrollTo(0, 0);
+    Alert.success("תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר שיאושר");
   }
   //upload image funcs
   handleUploadStart() {
@@ -203,19 +200,19 @@ class WebForm extends Component {
   }
 
   render() {
+    let selectImg = false;
+    if(this.state.imgUrl != "")
+          selectImg= true;
     return (
       <div>
-        <NavBar />
-        <hr />
         <div
           className="formPage" style={{ "background-image": `url(${bgImg})` }}>
+                  <NavBar />
           <div className="completeReg">
           <h1 className="headLineForm">טופס רישום חוג חדש</h1>
-            <div className="theFormBox">
               <div className="formEx">
               <h1 className="fillDetLab">אנא מלא פרטים</h1>
               <form onSubmit={this.handleSubmit}>
-                <div className="formLine">
                   <label>
                    <span className="labl"> שם החוג </span>
                     <input className="inpt"
@@ -226,9 +223,7 @@ class WebForm extends Component {
                       onChange={this.handleChange}
                     />
                   </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   קטגוריה
@@ -239,9 +234,7 @@ class WebForm extends Component {
                     categories={this.state.categoryList}
                   />
                 </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   שם המארגן
@@ -254,9 +247,6 @@ class WebForm extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
-                </div>
-
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   מס' טלפון
@@ -271,7 +261,6 @@ class WebForm extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
-                </div>
 
                 <div className="formLine">
                 <label>
@@ -287,9 +276,7 @@ class WebForm extends Component {
                     placeholder={"לדוגמא: רחוב אבן ספיר 15,קומה ב"}
                   />
                 </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   מינימום משתתפים
@@ -303,9 +290,7 @@ class WebForm extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   מקסימום משתתפים
@@ -319,9 +304,7 @@ class WebForm extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   תאריך
@@ -336,9 +319,7 @@ class WebForm extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   שעת התחלה
@@ -351,9 +332,7 @@ class WebForm extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   שעת סיום משוערת
@@ -367,9 +346,7 @@ class WebForm extends Component {
                     min={this.state.hour}
                   />
                 </label>
-                </div>
 
-                <div className="formLine">
                 <label>
                 <span className="labl">
                   תיאור החוג
@@ -390,13 +367,21 @@ class WebForm extends Component {
                 
                 <label>
                   <br />
-
-                  <img
-                    alt="הוספת תמונה"
-                    style={{ width: 55, height: 55 }}
-                    src={this.state.imgUrl}
-                  />
-                  {this.state.progress}
+                  
+                  {selectImg ?
+                <div className="imgusercWebForm">
+                    <img className="imgWebForm"
+                      alt="החלף תמונה"
+                      src={this.state.imgUrl}
+                    />
+                    <div className="useretWebForm">
+                    {this.state.progress}שנה תמונה
+                    </div>
+              </div> 
+                  :
+                  <div className="pinkBtnWebForm">תוסיף תמונה {this.state.progress}</div>      
+                 }
+                  
                   <FileUploader
                     hidden
                     accept="image/*"
@@ -408,10 +393,10 @@ class WebForm extends Component {
                     onProgress={this.handleProgress}
                   />
                 </label>
-
-                <input className="fancyButton pinkBtn"
+                
+                <input
                   required
-                  className="registerbtn"
+                  className="greenBtnWebForm"
                   type="submit"
                   value="שלח"
                 />
@@ -421,7 +406,6 @@ class WebForm extends Component {
           </div>
           {this.endOfProcess ? <Redirect to="/" /> : null}
         </div>
-      </div>
     );
   }
 }
