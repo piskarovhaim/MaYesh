@@ -5,6 +5,8 @@ import NavBar from "../NavBar/NavBar";
 import { Redirect } from 'react-router';
 import CompleteRegistration from './CompleteRegistration.js';
 import './FormStyle.css'
+import bgImg from './loginBG.jpg';
+import { red } from "@material-ui/core/colors";
 
 class LogIn extends Component {
     
@@ -37,6 +39,8 @@ class LogIn extends Component {
       {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         buttonColor: '#0048ff',
+        borderRadius: '100px',
+        color:red,
       },
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
     ],
@@ -95,7 +99,7 @@ class LogIn extends Component {
     if(!this.state.isSignedIn)
       signin =true;
     return (
-      <div className="login">
+      <div className="loginBg" style={{ "background-image": `url(${bgImg})` }}>
           <NavBar login={!endProcess}/>
           <hr/>
           {signin ? (
