@@ -32,6 +32,7 @@ import {
 import "@ionic/core/css/core.css";
 import "@ionic/core/css/text-alignment.css";
 import { Redirect } from "react-router";
+import NavBar from "../NavBar/NavBar.js";
 //display the categories in the selector
 function CategeorySelector(props) {
   let categories = [];
@@ -215,8 +216,8 @@ class MobileForm extends React.Component {
     ref.remove();
     alert(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
     this.endOfProcess = true;
-
     this.setState({});
+    window.scrollTo(0, 0);
   }
   //upload image func
   handleUploadStart() {
@@ -242,12 +243,12 @@ class MobileForm extends React.Component {
   render() {
     return (
       <div>
-        {}
         {this.endOfProcess ? <Redirect to="/" /> : null}
         <IonApp>
           <IonContent class="ionContent">
             <form onSubmit={this.handleSubmit}>
               <div className="style">
+                <NavBar/>
                 <h1>נשמח לכמה פרטים</h1>
               </div>
               <IonItem text-right>
@@ -403,7 +404,7 @@ class MobileForm extends React.Component {
                 </div>
               </IonItem>
 
-              <IonButton class="fancy-button" expand="block" type={"submit"}>
+              <IonButton class="fancyButton pinkBtn" expand="block" type={"submit"}>
                 שלח
               </IonButton>
             </form>

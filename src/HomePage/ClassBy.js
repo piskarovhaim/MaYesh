@@ -4,6 +4,13 @@ import firebase from "../Firebase/FireBase.js";
 import NetflixSlider from "../NetflixSlider/NetflixSlider.js";
 import './HomePage.css'
 
+/*
+    ClassBy - return all the classes sorted.
+    for now 2 options: sort by Date and "best for me"
+    the calss get the name of the sort option
+*/
+
+
 class ShowClass extends Component{
     constructor(props){
       super(props)

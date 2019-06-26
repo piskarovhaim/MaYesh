@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import "../Login/FormStyle.css";
 import Permissions from "./Permissions.js";
 import Search from "../NavBar/Search.js";
+import logo from '../NavBar/logoN.png'
 
 function AllCategory(props) {
   let categories = [];
@@ -37,17 +38,23 @@ function Messages(props) {
     <div className="messages">
       <h1>פניות ממשתמשים</h1>
       {messages.map((object, i) => {
+        let url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + object.email + "&tf=1"
         return (
           <div className="message" key={i}>
-            <h4>{object.name} :שם</h4>
-            <h4>{object.email} :איימיל</h4>
-            <h4>{object.message} :הודעה</h4>
+            <h4> שם: {object.name}</h4>
+            <h4> איימיל: {object.email}</h4>
+            <h4> הודעה: {object.message}</h4>
             <h3
               style={{ color: "red", cursor: "pointer" }}
               onClick={() => props.del(object.key)}
             >
               מחק
             </h3>
+            <h4 
+            style={{ cursor: "pointer" }}
+            onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}> 
+                השב לפנייה
+            </h4>
           </div>
         );
       })}
@@ -179,8 +186,7 @@ class MainManagePage extends Component {
           <Link to="/">
             <img
               className="logo"
-              src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"
-            />
+              alt="logo" src={logo}/>
           </Link>
           <div
             style={{

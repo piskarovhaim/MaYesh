@@ -4,6 +4,7 @@ import firebase from "../Firebase/FireBase.js";
 import "./FormStyle.css";
 import NavBar from "../NavBar/NavBar";
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
+import Alert from "react-s-alert";
 
 function FavoritesCategeory(props) {
   // get the real category json from the DB
@@ -66,9 +67,19 @@ class EditProfile extends Component {
 
   SetUser() {
     if (this.state.name == "" || this.state.phone == "") {
-      alert("חובה למלא את השם והפלאפון");
+      Alert.warning("חובה להזין שם ומספר פלאפון");
       return;
     }
+
+    firebase
+      .database()
+      .ref("/Users/" + this.state.id)
+      .set(this.state);
+
+    this.setState({});
+    window.scrollTo(0, 0);
+    this.end = true;
+    Alert.success("הפרטים נשמרו בהצלחה");
 
     firebase
       .database()
@@ -118,6 +129,16 @@ class EditProfile extends Component {
       divWidth.maxWidth = "100%";
     return (
       <div>
+        <button
+          onClick={() => {
+            Alert.warning("<h1>Test message 1</h1>", {
+              position: "top-right",
+              beep: false
+            });
+          }}
+        >
+          jlhasdfhjkds
+        </button>
         {this.end ? <Redirect to="/" /> : null}
         <NavBar edit="edit" location={this.props.location.pathname} />
         <hr />

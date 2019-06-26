@@ -13,11 +13,13 @@ class Permissions extends Component {
     super(props);
     this.state = {
       getPermisiions: true,
-      //allowed --> get permissions to redirect to manage section
       allowed: [
         "t12qDCEN4LVVTDV4Z5qdw71SBGf1",
         "kMmWgpltVdMhhNgBfwxUH4lG4KQ2",
-        "eklmVTxcHAR7NaoF8vTXJMXHl5x1"
+        "eklmVTxcHAR7NaoF8vTXJMXHl5x1",
+        "zXMDC7zx3ee3mcfqJuwpg3ljlPD3",
+        "j61cw4ZHqbMWGzNztrsnvgmYuXw2",
+        "AoHGFItORiPhLFdaVemqoFMZwqI2"
       ]
     };
   }
