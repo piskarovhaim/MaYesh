@@ -1,12 +1,10 @@
 import React from "react"
 import JoinCancelButton from "./JoinCancelButton.js"
-import ClassTabs from "./ClassTabs.js"
 import firebase from "../Firebase/FireBase.js";
 import "./Class.css"
 import NavBar from "../NavBar/NavBar"
 import { Redirect } from 'react-router';
 import ParticipantList from "./ParticipantList.js"
-import IconCross from "../NetflixSlider/components/Icons/IconCross";
 import { Link } from 'react-router-dom'
 import Alert from 'react-s-alert';
 
@@ -22,11 +20,12 @@ class Classs extends React.Component
             isJoinClicked: false, 
             isCancelClicked: false, 
             isSignIn: false, 
-            displayPartici:false,
+            displayPartici:false, 
             displayThanksForJoin: false,
             displayOrgenizerDetails: false,
             category: props.match.params.nameC, 
-            course: props.match.params.nameClass, 
+            course: props.match.params.nameClass,
+            ListOfSignInClassesForThisUser: [], 
             categoryObject: {},
             thisClass:{
                 organizerId: "",
@@ -79,6 +78,8 @@ class Classs extends React.Component
             tempClass.partiList = tempParticiList
             this.setState({thisClass:tempClass})      
         });
+        // ref = firebase.database().ref('/Users/' + this.state.course)
+        // if()
         //update the class details
         ref.on('value', snapshot => {
             this.setState({
@@ -156,8 +157,12 @@ class Classs extends React.Component
             let tempNumOfCurPart;
             const uid = firebase.auth().currentUser.uid
             let user;
+            let thisClass;
             let ref = firebase.database().ref('/Users/' + uid)
             ref.once('value', snapshot => {user = snapshot.val()})
+            let refToClass = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course); 
+            refToClass.once('value', snapshot => {thisClass = snapshot.val()})
+            ref.child('ListOfSignInClasses').push(thisClass)
             
             ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course);
             ref.child('particiList').push(user)
@@ -184,14 +189,23 @@ class Classs extends React.Component
         this.setState({isCancelClicked: true})
         let tempNumOfCurPart;
         const uid = firebase.auth().currentUser.uid
-        let ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course + '/particiList');
+        let ref = firebase.database().ref('/Users/' + uid + '/ListOfSignInClasses')
+        ref.once('value', snapshot => {snapshot.forEach(
+            participant => {
+                if(participant.val().name === this.state.course)
+                {
+                    let classToRemove = firebase.database().ref('/Users/' + uid + '/ListOfSignInClasses/' + participant.key);
+                    classToRemove.remove();
+                }
+        })})
+        ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course + '/particiList');
         ref.once('value', snapshot => {snapshot.forEach(
             participant => {
                 if(participant.val().id === uid)
                 {
                     let refChild = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course + '/particiList/' + participant.key);
                     refChild.remove();
-                    Alert.error("<p align=\"right\"> ביטלת את הרישום לחוג, אל תשכח להוריד זאת גם למארגן החוג.     נתראה בחוג אחר :)</p>",{
+                    Alert.error("<p align=\"right\"> ביטלת את הרישום לחוג, אל תשכח להודיע זאת גם למארגן החוג.     נתראה בחוג אחר :)</p>",{
                         html:true,
                       });
                 }
