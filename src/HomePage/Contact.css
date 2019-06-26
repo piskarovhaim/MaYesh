@@ -19,7 +19,7 @@
     font-size: 5rem;
     font-weight: 400;
     margin-bottom: -2px;
-
+    margin: auto;
 }
 
 .contButt{
@@ -27,8 +27,8 @@
     height: 4.5rem;
     width: 4.5rem;
     border-radius: 50%;
-    left: 5rem;
-    bottom: 5rem;
+    left: 6vw;
+    bottom: 6vw;
     z-index: 202;
     position: fixed;
     box-shadow: 0 1rem 3rem rgb(0, 0, 0, .5);
@@ -42,34 +42,33 @@
 
 }
 
-.contBox{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);  
-
+.contBoxdiv{
+    margin: auto;
+    width: 50vw;
+    max-width: 900px;
 }
 
-.formCont{
+.contBox input,textarea{
     font-family: mynewFont;
     font-size: 1.5rem;
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.5rem;
     background-color: transparent;
     border: 4px solid #fff;
-    width: 20rem;
+    width: -webkit-fill-available;
     margin: 10px;
+    text-align: right;
 
 }
 
-.btnForm{
+.contBox input[type=submit]{
     background-color:#258916;
     color: #fff;
-    width: 24.5rem;
+    width: -webkit-fill-available;
     border: 4px solid #fff;
     margin: 10px;
-    ont-family: mynewFont;
+    font-family: mynewFont;
     font-size: 1.5rem;
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.5rem;
     cursor: pointer;
 }
 
@@ -80,33 +79,16 @@
 
 .contCB:checked ~ .contBG{
     display: block;
-    transform: scale(100);
-    height: 4.5rem;
-    width: 4.5rem;
-    border-radius: 50%;
+    transform: scale(1);
     position: fixed;
-    background-image: radial-gradient(#FF0060, #ed6ffd);
-    left: 5rem;
-    bottom: 5rem;
+    background-color: #FF0060;
     z-index: 200;
     transition: transform .8s;
-}
-
-
-
-.contCB:checked ~ .contNav{
-    display: block;
     width: 100%;
     height: 100vh;
-    opacity: 1;
-    height: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 201;
-    width: 0; 
-    transition: all .8s;
+    top:0;
 }
+
 
 .navIconUP{
     width: 3rem;
