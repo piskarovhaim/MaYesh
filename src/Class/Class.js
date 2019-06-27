@@ -184,8 +184,6 @@ class Classs extends React.Component
 
     whenCancelClicked()
     {
-        if(this.state.displayThanksForJoin)//if the "thanks for joining" massage is still displayed
-            return
         this.setState({isCancelClicked: true})
         let tempNumOfCurPart;
         const uid = firebase.auth().currentUser.uid
