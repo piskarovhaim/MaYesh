@@ -370,7 +370,7 @@ class WebForm extends Component {
                     </div>
               </div> 
                   :
-                  <div className="pinkBtnWebForm">תוסיף תמונה {this.state.progress}</div>      
+                  <div className="pinkBtnWebForm">הוספת תמונה תמונה {this.state.progress}</div>      
                  }
                   
                   <FileUploader

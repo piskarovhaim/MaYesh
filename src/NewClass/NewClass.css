@@ -32,7 +32,7 @@
   --ion-background-color: rgb(102, 102, 102, 1);
 }
 .ionContent h1 {
-  font-style: italic;
+  font-family: myFont;
   color: #E80A79;
   margin-top: 0;
 }

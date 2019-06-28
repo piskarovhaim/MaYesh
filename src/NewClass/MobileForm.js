@@ -214,7 +214,7 @@ class MobileForm extends React.Component {
           "/categoryList"
       );
     ref.remove();
-    alert(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
+    Alert.success(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
     this.endOfProcess = true;
     this.setState({});
     window.scrollTo(0, 0);
@@ -398,7 +398,7 @@ class MobileForm extends React.Component {
                     </div>
               </div> 
                   :
-                  <div className="pinkBtnWebForm">תוסיף תמונה {this.state.progress}</div>      
+                  <div className="pinkBtnWebForm">הוספת תמונה {this.state.progress}</div>      
                  }
                     {this.state.progress}
                     <FileUploader

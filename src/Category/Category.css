@@ -49,32 +49,35 @@
     float: right;
     text-align: right;
     right: 5vw;
-    width: 60%;
+    width: 62%;
     height: 84vh;
     display: inline-grid;
 }
 
 .catText{
     backface-visibility: hidden;
-    margin-bottom: 120px;
+    margin-bottom: 50px;
     margin: auto;
     width: 100%;
 }
 
 .catTextPrimary{
     display: block;
-    font-size: calc(60px + 4vw);
+    font-size: calc(45px + 4vw);
     font-weight: 400;
-    letter-spacing: 7px;
+    letter-spacing: 5px;
     font-family: mynewestFont;
 }
 
 .catTextSub{
     display: block;
-    font-size: calc(16px + 1vw);
+    font-size: calc(5px + 1vw);
     font-weight: 400;
-    letter-spacing: 7px;
-    margin-bottom: 2rem;
+    letter-spacing: 1.6px;
+    max-height: 20vh;
+    margin-bottom: 5px;
+    text-align: right;
+    overflow: auto;
 
 }
 

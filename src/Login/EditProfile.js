@@ -110,29 +110,30 @@ class EditProfile extends Component {
     };
 
     render() {
-        const divWidth = {
-            maxWidth: '30%'
+        let divWidth = {
+            maxWidth: '35%'
           };
+        let inputWidth ={};
         if(window.innerWidth < 500){ // if it is phone set the width to 100%
             divWidth.maxWidth = '100%';
-            divWidth.width = '90%';
+            divWidth.width = '95%';
+            divWidth.minWidth = '10%';
+            inputWidth.width ='50%';
         }
         return (
-        <div>
+        <div className="mainEditDiv">
 
         {this.end ? (<Redirect to="/" />):null}  
         <NavBar edit="edit" location={this.props.location.pathname}/>
-        <hr/>
         <div className="completeReg" style ={divWidth}>
-        <form className="formStyle">
+        <form className="edit">
         <h1>עריכת פרופיל</h1>
         <label>
-        
         <div className="imguserc">
           <img className="user_e" src={this.state.img}/>
           <div className="useret">
               {this.state.progress}שנה תמונה
-          </div> 
+          </div>
         </div>
           <FileUploader
             hidden
@@ -144,12 +145,17 @@ class EditProfile extends Component {
             onProgress={this.handleProgress}
           />
           </label>
-          <br/>
         <label>
-        שם מלא
-        <input type="text" name="name" value={this.state.name} onChange={this.handleChange}></input>
+        <span className="labl">
+        :שם מלא
+        </span>
+        <input style={inputWidth} type="tel" pattern="[0-9]{9}" name="name" value={this.state.name} onChange={this.handleChange}></input>
         </label>
 
+        
+
+        <label>
+        <span className="labl">
         <span className="whyPhone" onClick={()=>{this.whyPhone = !this.whyPhone;this.setState({})}}>?</span>
         {this.whyPhone? (<div className="whyPhone">
           אנחנו לא רוצים את הפרטים שלך סתם, אל חשש
@@ -159,23 +165,22 @@ class EditProfile extends Component {
           <span className="whyPhoneGetIt"  onClick={()=>{this.whyPhone = false;this.setState({})}}>הבנתי</span>
         </div>)
         :null}
-
-        <label>
         :הפלאפון שלך
-        <input type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input> 
+        </span>
+        <input style={inputWidth} type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input> 
         </label>
-        <hr/>
+          <br/>
         <label>
+        <span className="lablfav">
         קטגוריות מועדפות
         <br/>
         <span className="spanfavoriteCat">
         לפי זה נדע להראות את החוגים שהכי מתאימים לך
-        </span>
+        </span> </span>
         <FavoritesCategeory func={this.handleChange} categories={this.props.location.state.categoryList} favoriteCat={this.state.favoriteCat}/>
         </label>
         <br/>
-        <h3></h3>
-        <input className="registerbtn" type="button" value="שמור" onClick={this.SetUser}/>
+        <input className="greenBtnEditForm" type="button" value="שמור" onClick={this.SetUser}/>
       </form>
         </div>
         </div>

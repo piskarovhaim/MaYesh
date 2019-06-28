@@ -98,14 +98,19 @@ firebase
 };
 
   render() {
-    const divWidth = {
+    let divWidth = {
       maxWidth: '35%'
     };
-    if(window.innerWidth < 500) // if it is phone set the width to 100%
-        divWidth.maxWidth = '100%';
+  let inputWidth ={};
+  if(window.innerWidth < 500){ // if it is phone set the width to 100%
+      divWidth.maxWidth = '100%';
+      divWidth.width = '95%';
+      divWidth.minWidth = '10%';
+      inputWidth.width ='50%';
+  }
     return (
         <div className="completeReg" style ={divWidth}>
-        <form>
+        <form className="edit">
         <h1>ברוכים הבאים למה יש</h1>
         <h4>לפני שנתחיל נשמח לכמה פרטים קטנים</h4>
         <label>   
@@ -127,10 +132,14 @@ firebase
           </label>
 
         <label>
-        שם מלא
-        <input type="text" name="name" value={this.state.name} onChange={this.handleChange}></input>
+        <span className="labl">
+        :שם מלא
+        </span>
+        <input style={inputWidth} type="text" name="name" value={this.state.name} onChange={this.handleChange}></input>
         </label>
-
+          
+        <label>
+        <span className="labl">
         <span className="whyPhone" onClick={()=>{this.whyPhone = !this.whyPhone;this.setState({})}}>?</span>
         {this.whyPhone? (<div className="whyPhone">
           אנחנו לא רוצים את הפרטים שלך סתם, אל חשש
@@ -140,25 +149,21 @@ firebase
           <span className="whyPhoneGetIt"  onClick={()=>{this.whyPhone = false;this.setState({})}}>הבנתי</span>
         </div>)
         :null}
-
-          
-        <label for="phone">
-        פלאפון      
+        :הפלאפון שלך
+        </span>
+        <input style={inputWidth} type="tel" pattern="[0-9]{9}" name="phone" value={this.state.phone} onChange={this.handleChange}></input>
         </label>
-        <input type="text" name="phone" id="phone" value={this.state.phone} onChange={this.handleChange}></input>
-        
-
+        <br/>
         <label>
+        <span className="lablfav">
         בחר קטגוריות מעדפות
         <br/>
         <span className="spanfavoriteCat">
         לפי זה נדע להראות את החוגים שהכי מתאימים לך
-        </span>
+        </span></span>
         <FavoritesCategeory func={this.handleChange} categories={this.props.categoryList}/>
         </label>
-        <br/>
-        <hr/>
-        <input className="registerbtn" type="button" value="המשך" onClick={this.AddUser}/>
+        <input className="greenBtnEditForm" type="button" value="המשך" onClick={this.AddUser}/>
       </form>
       {this.endProses  ? (
             <Redirect to={{pathname: this.props.location, state:{isLogin:true,user:this.state.user}}}/>
