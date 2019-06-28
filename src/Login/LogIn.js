@@ -101,7 +101,6 @@ class LogIn extends Component {
     return (
       <div className="loginBg" style={{ "background-image": `url(${bgImg})` }}>
           <NavBar login={!endProcess}/>
-          <hr/>
           {signin ? (
           <div>
             <h3>{this.state.title}</h3>

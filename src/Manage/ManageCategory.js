@@ -207,8 +207,7 @@ class ManageCategory extends Component {
             </label>
             <label>
               תיאור
-              <input
-                type="text"
+              <textarea
                 name="desc"
                 value={this.state.desc}
                 onChange={this.handleChange}
