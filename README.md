@@ -64,4 +64,28 @@ Category Page
 
 
 
+Web Form page 
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA%20%D7%9C%D7%92%D7%99%D7%98%20%D7%94%D7%90%D7%91/webForm.PNG
+)
+
+Mobile Form page 
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA%20%D7%9C%D7%92%D7%99%D7%98%20%D7%94%D7%90%D7%91/webForm.PNG
+)
+
+
+Mange profile Page
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA%20%D7%9C%D7%92%D7%99%D7%98%20%D7%94%D7%90%D7%91/webForm.PNG
+)
+
+
+Manage Page
+
+![alt text](https://github.com/piskarovhaim/MaYesh/blob/master/wiki%20files/%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA%20%D7%9C%D7%92%D7%99%D7%98%20%D7%94%D7%90%D7%91/webForm.PNG
+)
+
+
+
 
