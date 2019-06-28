@@ -74,14 +74,14 @@ class MobileForm extends React.Component {
       organizer: "",
       phoneNumber: "",
       location: "",
-      minPartici: "",
-      maxPartici: "",
+      minPartici: 0,
+      maxPartici: 0,
       description: "",
       date: "",
       hour: "",
       endTime: "",
       imgUrl: "",
-      numOfPartici: 0,
+      numOfCurrPartici: 0,
       isUploading: false,
       isConfirmed: false,
       organizerId: organizerId,
@@ -248,7 +248,7 @@ class MobileForm extends React.Component {
           <IonContent class="ionContent">
             <form onSubmit={this.handleSubmit}>
               <div className="style">
-                <NavBar/>
+                <NavBar />
                 <h1>נשמח לכמה פרטים</h1>
               </div>
               <IonItem text-right>
@@ -404,7 +404,11 @@ class MobileForm extends React.Component {
                 </div>
               </IonItem>
 
-              <IonButton class="fancyButton pinkBtn" expand="block" type={"submit"}>
+              <IonButton
+                class="fancyButton pinkBtn"
+                expand="block"
+                type={"submit"}
+              >
                 שלח
               </IonButton>
             </form>

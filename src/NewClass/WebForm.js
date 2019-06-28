@@ -26,17 +26,16 @@ function CategeorySelector(props) {
   categories = props.categories;
 
   return (
-   <select value={props.value} onChange={props.func} name="category" dir="rtl">
+    <select value={props.value} onChange={props.func} name="category" dir="rtl">
       {categories.map((object, i) => {
         return (
-          <option  key={i} value={object.type}>
+          <option key={i} value={object.type}>
             {object.type}
           </option>
         );
       })}
-    </select> 
+    </select>
   );
-
 }
 
 class WebForm extends Component {
@@ -73,7 +72,7 @@ class WebForm extends Component {
       hour: "",
       endTime: "",
       imgUrl: "",
-      numOfPartici: 0,
+      numOfCurrPartici: 0,
       isUploading: false,
       isConfirmed: false,
       organizerId: organizerId,
@@ -192,34 +191,34 @@ class WebForm extends Component {
 
   render() {
     let selectImg = false;
-    if(this.state.imgUrl != "")
-          selectImg= true;
+    if (this.state.imgUrl != "") selectImg = true;
     return (
       <div>
         <div
-          className="formPage" style={{ "background-image": `url(${bgImg})` }}>
-                  <NavBar />
+          className="formPage"
+          style={{ "background-image": `url(${bgImg})` }}
+        >
+          <NavBar />
           <div className="completeReg">
-          <h1 className="headLineForm">טופס רישום חוג חדש</h1>
-              <div className="formEx">
+            <h1 className="headLineForm">טופס רישום חוג חדש</h1>
+            <div className="formEx">
               <h1 className="fillDetLab">אנא מלא פרטים</h1>
               <form onSubmit={this.handleSubmit}>
-                  <label>
-                   <span className="labl"> שם החוג </span>
-                    <input className="inpt"
-                      required
-                      type="text"
-                      name="name"
-                      value={this.state.name}
-                      onChange={this.handleChange}
-                    />
-                  </label>
+                <label>
+                  <span className="labl"> שם החוג </span>
+                  <input
+                    className="inpt"
+                    required
+                    type="text"
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
                 <label>
-                <span className="labl">
-                  קטגוריה
-                  </span>
-                  <CategeorySelector 
+                  <span className="labl">קטגוריה</span>
+                  <CategeorySelector
                     value={this.state.category}
                     func={this.handleChange}
                     categories={this.state.categoryList}
@@ -227,10 +226,9 @@ class WebForm extends Component {
                 </label>
 
                 <label>
-                <span className="labl">
-                  שם המארגן
-                  </span>
-                  <input className="inpt"
+                  <span className="labl">שם המארגן</span>
+                  <input
+                    className="inpt"
                     required
                     type="text"
                     name="organizer"
@@ -239,14 +237,14 @@ class WebForm extends Component {
                   />
                 </label>
                 <label>
-                <span className="labl">
-                  מס' טלפון
-                  </span>
-                  <input className="inpt"
+                  <span className="labl">מס' טלפון</span>
+                  <input
+                    className="inpt"
                     required
                     minlength={9}
                     maxLength={10}
                     type="tel"
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                     name="phoneNumber"
                     value={this.state.phoneNumber}
                     onChange={this.handleChange}
@@ -254,125 +252,120 @@ class WebForm extends Component {
                 </label>
 
                 <div className="formLine">
-                <label>
-                <span className="labl">
-                  מיקום המפגש{" "}
-                  </span>
-                  <input className="inpt"
-                    required
-                    type="text"
-                    name="location"
-                    value={this.state.location}
-                    onChange={this.handleChange}
-                    placeholder={"לדוגמא: רחוב אבן ספיר 15,קומה ב"}
-                  />
-                </label>
+                  <label>
+                    <span className="labl">מיקום המפגש </span>
+                    <input
+                      className="inpt"
+                      required
+                      type="text"
+                      name="location"
+                      value={this.state.location}
+                      onChange={this.handleChange}
+                      placeholder={"לדוגמא: רחוב אבן ספיר 15,קומה ב"}
+                    />
+                  </label>
 
-                <label>
-                <span className="labl">
-                  מינימום משתתפים
-                  </span>
-                  <input className="inpt"
-                    required
-                    min={0}
-                    type="number"
-                    name="minPartici"
-                    value={this.state.minPartici}
-                    onChange={this.handleChange}
-                  />
-                </label>
+                  <label>
+                    <span className="labl">מינימום משתתפים</span>
+                    <input
+                      className="inpt"
+                      required
+                      min={0}
+                      type="number"
+                      name="minPartici"
+                      value={this.state.minPartici}
+                      onChange={this.handleChange}
+                    />
+                  </label>
 
-                <label>
-                <span className="labl">
-                  מקסימום משתתפים
-                  </span>
-                  <input className="inpt"
-                    required
-                    min={this.state.minPartici}
-                    type="number"
-                    name="maxPartici"
-                    value={this.state.maxPartici}
-                    onChange={this.handleChange}
-                  />
-                </label>
+                  <label>
+                    <span className="labl">מקסימום משתתפים</span>
+                    <input
+                      className="inpt"
+                      required
+                      min={this.state.minPartici}
+                      type="number"
+                      name="maxPartici"
+                      value={this.state.maxPartici}
+                      onChange={this.handleChange}
+                    />
+                  </label>
 
-                <label>
-                <span className="labl">
-                  תאריך
-                  </span>
-                  <input className="inpt"
-                    placeholder={this.state.date}
-                    required
-                    type="date"
-                    name="date"
-                    min="2019-01-01"
-                    value={this.state.date}
-                    onChange={this.handleChange}
-                  />
-                </label>
+                  <label>
+                    <span className="labl">תאריך</span>
+                    <input
+                      className="inpt"
+                      placeholder={this.state.date}
+                      required
+                      type="date"
+                      name="date"
+                      min="2019-01-01"
+                      value={this.state.date}
+                      onChange={this.handleChange}
+                    />
+                  </label>
 
-                <label>
-                <span className="labl">
-                  שעת התחלה
-                  </span>
-                  <input className="inpt"
-                    required
-                    type="time"
-                    name="hour"
-                    value={this.state.hour}
-                    onChange={this.handleChange}
-                  />
-                </label>
+                  <label>
+                    <span className="labl">שעת התחלה</span>
+                    <input
+                      className="inpt"
+                      required
+                      type="time"
+                      name="hour"
+                      value={this.state.hour}
+                      onChange={this.handleChange}
+                    />
+                  </label>
 
-                <label>
-                <span className="labl">
-                  שעת סיום משוערת
-                  </span>
-                  <input className="inpt"
-                    required
-                    type="time"
-                    name="endTime"
-                    value={this.state.endTime}
-                    onChange={this.handleChange}
-                    min={this.state.hour}
-                  />
-                </label>
+                  <label>
+                    <span className="labl">שעת סיום משוערת</span>
+                    <input
+                      className="inpt"
+                      required
+                      type="time"
+                      name="endTime"
+                      value={this.state.endTime}
+                      onChange={this.handleChange}
+                      min={this.state.hour}
+                    />
+                  </label>
 
-                <label>
-                <span className="labl">
-                  תיאור החוג
-                  </span>
-                  <textarea className="inpt"
-                    rows="4"
-                    cols="50"
-                    required
-                    name="description"
-                    placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
-                    value={this.state.description}
-                    onChange={this.handleChange}
-                    style={{ color: "black" }}
-                  />
-                </label>
+                  <label>
+                    <span className="labl">תיאור החוג</span>
+                    <textarea
+                      className="inpt"
+                      rows="4"
+                      cols="50"
+                      required
+                      name="description"
+                      placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
+                      value={this.state.description}
+                      onChange={this.handleChange}
+                      style={{ color: "black" }}
+                    />
+                  </label>
                 </div>
 
-                
                 <label>
                   <br />
-                  
-                  {selectImg ?
-                <div className="imgusercWebForm">
-                    <img className="imgWebForm"
-                      alt="החלף תמונה"
-                      src={this.state.imgUrl}
-                    />
-                    <div className="useretWebForm">
-                    {this.state.progress}שנה תמונה
+
+                  {selectImg ? (
+                    <div className="imgusercWebForm">
+                      <img
+                        className="imgWebForm"
+                        alt="החלף תמונה"
+                        src={this.state.imgUrl}
+                      />
+                      <div className="useretWebForm">
+                        {this.state.progress}שנה תמונה
+                      </div>
                     </div>
-              </div> 
-                  :
-                  <div className="pinkBtnWebForm">תוסיף תמונה {this.state.progress}</div>      
-                 }
-                  
+                  ) : (
+                    <div className="pinkBtnWebForm">
+                      תוסיף תמונה {this.state.progress}
+                    </div>
+                  )}
+
                   <FileUploader
                     hidden
                     accept="image/*"
@@ -384,7 +377,7 @@ class WebForm extends Component {
                     onProgress={this.handleProgress}
                   />
                 </label>
-                
+
                 <input
                   required
                   className="greenBtnWebForm"
@@ -392,11 +385,11 @@ class WebForm extends Component {
                   value="שלח"
                 />
               </form>
-              </div>
-             </div>
+            </div>
           </div>
-          {this.endOfProcess ? <Redirect to="/" /> : null}
         </div>
+        {this.endOfProcess ? <Redirect to="/" /> : null}
+      </div>
     );
   }
 }
