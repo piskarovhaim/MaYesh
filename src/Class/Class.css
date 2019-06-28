@@ -1,22 +1,32 @@
 
 .mainDiv
 {
-    background-color:gold;
+    margin-top: 10%;
+    width: 90%;
+    margin: auto;
+    padding-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .leftSide
 {
-    float: left;
-    margin-left: 50px;
-    margin-top: 30px;
+    padding-left: 5%;
+    padding-top: 2%;
+    width: 40%;
+    height: 100%;
+    display: inline-block;
 }
 
 .rightSide
 {
+    padding-top: 2%;
+    margin: auto;
     float: right;
-    margin-right: 120px;
-    margin-top: 60px;
+    height: 100%;
+    display: inline-block;
+    width: 40%;
     font-size: 30px;
+    padding-right: 5%;
 }
 
 .title
@@ -25,18 +35,13 @@
     text-align: center;
 }
 
-h2
-{
-    font-size: 40px;
-    color: blue;
-}
-
-p
+.mainDiv p
 {
     text-align: center;
     font-size: large;
-    margin-bottom: 60px;
+    margin-bottom: 10%;
 }
+
 
 .button1
 {
@@ -54,37 +59,101 @@ p
     margin-right: 40px;
 }
 
-.button2
+.button
 {
-    background-color: #4CAF50;
-    border: groove;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
+    border: 1px;
+    margin: auto;
+    left: 50%;
+}
+
+
+
+.itemClass
+{
+    padding: 2%;
+    font-size: large;
+    text-align: right;
+}
+
+.itemunittext
+{
+    margin-right: 2%;
+    margin-bottom: 1%;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    margin-left: 40px;
 }
 
-
-
-.location
+.itemuniticon
 {
-    font-size: large;
+    display: inline-block;
 }
 
-.numOfCurrPartici
-{
-    font-size: large;
-}
+
 
 .classImg
 {
-    width: 600px;
+    width: 99%;
     display: inline-block;
-    margin-bottom: 50px;
-    border: 0.5px solid black;
+    height: 30%;
+    padding-bottom: 4%;
+    margin: auto;
+}
+
+.classFull
+{
+    font-size: larger;
+    text-align: center;
+}
+
+
+
+
+.tabs
+{
+    width: 100%;
+}
+
+.tab
+{
+    width: 100%;
+}
+
+.particiListDiv
+{
+    margin: auto;
+    margin-top: 5%;
+    width: 90%;
+    padding-bottom: 5%;
+}
+
+.participant
+{
+    margin: auto;
+    text-align: center;
+}
+
+.participantDetails
+{
+    font-size: large;
+    text-align: center;
+    display: inline-block;
+    margin-left: 1%;
+    margin: auto;
+    
+}
+
+.partimg
+{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right:  3%;
+    border: solid 1px black;
+}
+
+.prtiItem
+{
+    font-size: medium;
+    text-align: center;
+    margin: auto;
 }

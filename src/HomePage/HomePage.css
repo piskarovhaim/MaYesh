@@ -1,4 +1,46 @@
 div.home{
     display: block;
     scroll-behavior: smooth;
+    background: rgb(56, 56, 56);
+    background-size: cover;
+    background-position: top;
+    font-family: mynewFont;
+    scroll-behavior: smooth;
+}
+
+
+div.navAndvideo{
+    height: 100vh;
+    background-size: cover;
+    background-image: url(../imgs/design.jpg);
+    background-position: top;
+    font-family: mynewFont;
+}
+
+div.videogradient{
+    position: absolute;
+    height: calc(25px + 8vw);
+    bottom: 0;
+    background-image: linear-gradient(to top, rgb(56, 56, 56),rgb(56, 56, 56,0));
+    width: 100%;
+    z-index: 30;
+    
+}
+
+div.titleClassesBy{
+    font-size: 5vh;
+    text-align: right;
+    padding-right: 4vw;
+    color: #fff;
+}
+
+div.footer{ 
+    padding-right: 4vw;
+    padding-left: 30vw;
+    padding-bottom: 2vw;
+    text-align: right;
+    position: relative;
+    right: 0;
+    color: #fff;
+    font-family: mynewFont;
 }

@@ -1,60 +1,118 @@
-
+@font-face {
+  font-family: mynewFont;
+  src: url(../font/taamula-bold-aaa.otf);
+}
 
   img.user{
-    height: 45px;
-    width: 45;
-    display: inline-block;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
+    
    
   }
 div.inline{
   display: inline-block;
-  float: right;
-  padding-right: 8px;
-  padding-left: 8px;
-  padding-top: 10px;
+  float: left;
+  padding-left: 1rem;
+ 
 }
+
+.navtest{
+  display: block
+}
+
 .nav{
-    height: 15%;
-    background-color: rgb(255, 255, 255);
-    border: 3px solid none;
-    padding: 5px;
+    padding-top:  1rem; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 10vh;
+    width: 100%;
+    z-index: 100;
+    transition: background-color 0.4s ease-out;
+    padding-bottom: 5px;
 }
-img.logo{
-  height: 100%;
-  width: auto;
-  padding: 5px;
+
+.navScroll{
+  padding-top:  1rem; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top:0;
+  height: 10vh;
+  width: 100%;
+  z-index: 100;
+  background-color: rgb(56, 56, 56, .9);
+  transition: background-color 0.4s ease-out;
+  box-shadow: 0px 5px 5px rgb(0, 0, 0, .3);
+  padding-bottom: 5px;
+}
+.logoBox{
+  width: calc(65px + 10vw);
+  float: right;
+  margin-left: 3vw;
+  margin-right: 3vw;
+  position: relative;
+  
 }
 div.loginText{
-  padding-top:15px; 
+  font-family: mynewFont;
   padding-right: 15px;
   padding-left: 20px;
   display: inline-block;
-  float: right;
+  float: left;
 }
-div.edit{
-  display: inline-block;
-  float: right;
+.linkto{
+  text-decoration: none;
 }
-p.navText{
+
+div.navTextMenu{
+  text-decoration: none;
   vertical-align: middle;
-  font-family: "Arial Verdana", Sans-serif;
+  font-family: mynewFont;
   font-weight: bold;
-  color: rgba(187, 187, 187, 0.842);
+  color: #727170;
+  font-size: 1.5rem;
   cursor: pointer;
   text-align: right;
 }
 
+div.navTextAbout{
+  text-decoration: none;
+  vertical-align: middle;
+  font-family: mynewFont;
+  font-weight: bold;
+  color: #727170;
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-align: right;
+  margin-left: 10px;
+
+}
+
+div.navText{
+  vertical-align: middle;
+  font-family: mynewFont;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-align: right;
+}
+
+
 div.dropDown {
   display: none;
-  position: absolute;
-  float: right;
+  position: fixed;
+  left: 2rem;
   background-color:  rgb(255, 255, 255);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding-left: 15px;
   padding-right: 15px;
   z-index: 1;
-  right:0;
+  
 }
 
 
@@ -64,4 +122,17 @@ div.dropDown p:hover {
 }
 .inline:hover div.dropDown {
   display: block;
+}
+
+.navRight{
+  margin-right: 2vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navLeft{
+  margin-left: 2vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -1,0 +1,154 @@
+
+.mobilemainDiv
+{
+    margin-top: 10%;
+    width: 90%;
+    margin: auto;
+    padding-bottom: 5%;
+    margin-bottom: 2%;
+}
+
+.upSide
+{
+    padding-top: 2%;
+    width: 90%;
+    height: 100%;
+}
+
+.downSide
+{
+    padding-top: 2%;
+    margin: auto;
+    height: 100%;
+    width: 90%;
+    font-size: 30px;
+}
+
+.title
+{
+    font-size: larger;
+    text-align: center;
+}
+
+.mobilemainDiv p
+{
+    text-align: center;
+    font-size: large;
+    margin-bottom: 10%;
+}
+
+
+.button1
+{
+    background-color: #4CAF50;
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 40%;
+    margin-right: 40px;
+}
+
+.mobilebutton
+{
+    border: 1px;
+    margin: auto;
+    left: 50%;
+}
+
+
+
+.itemClass
+{
+    padding: 2%;
+    font-size: large;
+    text-align: right;
+}
+
+.itemunittext
+{
+    margin-right: 2%;
+    margin-bottom: 1%;
+    display: inline-block;
+}
+
+.itemuniticon
+{
+    display: inline-block;
+}
+
+
+
+.classImg
+{
+    width: 99%;
+    display: inline-block;
+    height: 30%;
+    padding-bottom: 4%;
+    margin: auto;
+}
+
+.classFull
+{
+    font-size: larger;
+    text-align: center;
+}
+
+
+
+
+.mobiletabs
+{
+    width: 100%;
+}
+
+.tab
+{
+    width: 100%;
+}
+
+.particiListDiv
+{
+    margin: auto;
+    margin-top: 5%;
+    width: 90%;
+    padding-bottom: 5%;
+}
+
+.participant
+{
+    margin: auto;
+    text-align: center;
+}
+
+.participantDetails
+{
+    font-size: large;
+    text-align: center;
+    display: inline-block;
+    margin-left: 1%;
+    margin: auto;
+    
+}
+
+.partimg
+{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right:  3%;
+    border: solid 1px black;
+}
+
+.prtiItem
+{
+    font-size: medium;
+    text-align: center;
+    margin: auto;
+}

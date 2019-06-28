@@ -1,31 +1,31 @@
 input[type=text].inputSearch {
-    width: 100%;
-    box-sizing: border-box;
-    box-sizing: border-box;
-    display: block;
-    border: none;
-    background: #f1f1f17c;
-    text-align: right;
-    border-radius: 8px;
-    margin-top:5px; 
-    font-family: "Arial Verdana", Sans-serif;
-    padding: 8px 10px;
-    color: rgb(187, 187, 187);
-    margin-bottom: 5px;
-  }
-  
-  input[type=text].inputSearch:focus {
-    background-color: #ddd;
-    outline: none;
-    text-align: right;
-  }
+  width: 100%;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  border: 2px solid #fff;
+  background: none;
+  text-align: right;
+  border-radius: 100px;
+  margin-top:5px; 
+  font-family: mynewFont, Sans-serif;
+  font-size: 1rem;
+  padding: 8px 10px;
+  color: #fff;
+  margin-bottom: 5px;
+  margin-right: 2rem;
+}
+
+input[type=text].inputSearch:focus {
+  background-color: rgb(75, 74, 74);
+  outline: none;
+  text-align: right;
+}
   div.search{
-    padding-top:17px; 
     float: right;
     display: inline-block;
     position: relative;
-    width: 150px;
-    
+    width: 15vw;    
   }
 div.dropDownn{
   position: absolute;
@@ -41,7 +41,7 @@ div.dropDownn{
   color: rgb(187, 187, 187);
   cursor: pointer;
   text-align: right;
-  width: 300%;
+  width: 180%;
   right: -55px;
   border-radius: 8px;
 }

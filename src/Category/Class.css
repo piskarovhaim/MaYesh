@@ -1,99 +1,32 @@
+@font-face {
+  font-family: mynewestFont;
+  src: url(../font/taamula-bold-aaa.otf);
+}
+
 .rcorners {
-    border-radius: 25px;
-    padding: 20px;
-    width: 200px;
-    height: 150px;
-    font-family: "Arial Verdana", Sans-serif;
-    position: relative;
-    overflow: hidden;
-    margin: auto;
-    
-  }
-img.imgC{
-  top:0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  position: absolute;
+  position: relative;
+  cursor: pointer;
+  width: 15vw;
+  height: 12vw;
+  font-size: calc(7px + 1vw);
+  padding: 5px;
+  float: right;
   
 }
-  .container {
-    margin-top: 15px;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    border: 2px solid;
-  }
-div.classText{
-  z-index: 1;
-  position: absolute;
-  margin: auto;
-  width: 50%;
-  top:0;
-  padding: 10px;
+img.imgC{
+  height: 100%;
+  width: 100%;  
 }
-  .gallery-container {
-    padding: .9375rem 0;
-  }
+div.classText{
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 60%;
+  padding: 2%;
+  border-radius: 3px;
+  background-color: black;
+  color: white;
+  opacity: 0.6;
+}
 
-  .gallery-container h1 {
-    margin: 2rem 0;
-    padding: 0;
-    text-align: center;
-    color: rgb(51, 15, 153);
-    text-transform: uppercase;
-    font-size: 6.5vw;
-    font-weight: lighter;
-  }
 
-  div.className{
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    color: rgb(247, 241, 241);
-    font-family: "Times New Roman", Times, serif;
-    font-size: 200%;
-    text-shadow: 2px 2px rgb(3, 3, 3);
-    font-weight: bold;
-  }
-
-  div.classLocation{
-    top: 80px;
-    right: 0;
-    width: 200%;
-    height: 100px;
-    text-align: center;
-    color: rgb(247, 241, 241);
-    font-family: "Times New Roman", Times, serif;
-    font-size: 130%;
-    text-shadow: 2px 2px rgb(3, 3, 3);
-    font-weight: bold;
-  }
-
-  div.pcCategory {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 8px;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    
-    @include bp( x-small ) {
-      grid-template-columns: repeat(1, 1fr);
-    }	  
-    @include bp( small ) {
-      grid-template-columns: repeat(2, 1fr);
-    }	
-    
-    @include bp( large ) {
-      grid-template-columns: repeat(3, 1fr);
-    }	
-  }
-
-  div.phoneCategory {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    border: 2px solid;
-    border-color: gray;
-  }
