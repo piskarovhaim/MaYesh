@@ -2,8 +2,19 @@ import React from "react"
 import "./Class.css"
 import IconCross from "../NetflixSlider/components/Icons/IconCross";
 
+
+/*
+    ParticipantList - return the button display.
+    ParticipantList used by 'Class' component.
+    there is 3 options of displays:
+    1. list for who isnot the manager - just the names of participants
+    2. list for the manager - includeing the phone numbers and the mail adressses of participants
+    3. There are no participants in this course yet 
+*/
+
 class ParticipantList extends React.Component
 {
+    //participant list for user that is not the maneger of this class
     partiList()
     {
         if(this.props.list.length <= 0)
@@ -39,7 +50,7 @@ class ParticipantList extends React.Component
         )
     }
 
-
+    //participant list for user that is the maneger of this class
     partiListForManager()
     {
         if(this.props.list.length <= 0)
