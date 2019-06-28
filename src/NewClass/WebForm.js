@@ -244,7 +244,7 @@ class WebForm extends Component {
                     minlength={9}
                     maxLength={10}
                     type="tel"
-                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    pattern="[0-9]{9-10}"
                     name="phoneNumber"
                     value={this.state.phoneNumber}
                     onChange={this.handleChange}
