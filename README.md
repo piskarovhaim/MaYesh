@@ -21,7 +21,7 @@ We're trying to use the best tools and practices in order to produce a quality e
 | Version Control System| [git](https://github.com/user/repo/blob/branch/other_file.md) & [github](https://github.com)  |
 | Front Technology  | [React.js](https://reactjs.org/docs/getting-started.html)  |
 | Back Technology | [Firebase](https://firebase.google.com/)  |
-| Style | [Sass](https://sass-lang.com/guide)  |
+| Style | [Sass & CSS](https://sass-lang.com/guide)  |
 
 ## Disclaimer
 This project is developed as part of the requirements for a software engineering course at the software engineering department -
