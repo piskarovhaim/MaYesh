@@ -17,16 +17,13 @@ class HomePage extends Component {
       pageYOffset : 0
     };
   }
+componentWillUnmount(){
+    window.removeEventListener("scroll", ()=>this.setState({}));
+}
+componentDidMount(){
+    window.addEventListener("scroll", ()=>this.setState({}));
+}
 
-  componentWillUnmount(){
-    window.removeEventListener('scroll', ()=>this.setState({pageYOffset:window.pageYOffset}));
-    window.removeEventListener("resize", ()=>this.setState({windowH:window.innerHeight}));
-  }
-  componentDidMount = () => {
-    window.addEventListener('scroll', ()=>this.setState({pageYOffset:window.pageYOffset}));
-    window.addEventListener("resize", ()=>this.setState({windowH:window.innerHeight}));
-
-  }
   render() {
     let nAv = {height: this.state.windowH}
     return (   
