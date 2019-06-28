@@ -16,28 +16,14 @@ class HomePage extends Component {
       windowH:window.innerHeight,
       pageYOffset : 0
     };
-    this.listenToScroll = this.listenToScroll.bind(this)
-    this.updateWindows = this.updateWindows.bind(this)
   }
+componentWillUnmount(){
+    window.removeEventListener("scroll", ()=>this.setState({}));
+}
+componentDidMount(){
+    window.addEventListener("scroll", ()=>this.setState({}));
+}
 
-  updateWindows(){
-    this.setState({windowH:window.innerHeight})
-  }
-
-  componentWillUnmount(){
-    window.removeEventListener("resize", this.updateWindows);
-    window.removeEventListener('scroll', this.listenToScroll);
-  }
-
-
-  listenToScroll(){
-    this.setState({pageYOffset:window.pageYOffset})
-  }
-
-  componentDidMount = () => {
-    window.addEventListener('scroll', this.listenToScroll);
-
-  }
   render() {
     let nAv = {height: this.state.windowH}
     return (   

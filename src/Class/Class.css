@@ -15,6 +15,7 @@
     text-align: right;
     height: 100vh;
     overflow: auto;
+    display: inline-grid;
 }
 
 .containerBox{
@@ -61,14 +62,15 @@
 .classRightTextBox{
     color: #fff;
     position: relative;
-    width: 40%;
+    width: 50%;
     float:right;
     text-align: right;
-    letter-spacing: 7px;
+    letter-spacing: 3px;
     }
     
     .classLeftTextBox{
         color: #fff;
+        margin-top: 10%;
         background-color: rgba(0, 0, 0, .2);
         padding: 1rem;
         width: 40%;
@@ -84,10 +86,10 @@
     .classTextPrimary{
         display: block;
         color: #E80A79;
-        font-size: calc(40px + 6vw);
+        font-size: calc(40px + 4vw);
         font-weight: 400;
         font-family: mynewestFont;
-        line-height: 1;
+        line-height: 0.8;
     }
     
     .classTextSub{
@@ -101,11 +103,12 @@
     }
     .classTextDesc{
         display: block;
-        font-size: calc(5px + 1.5vw);
+        font-size: calc(5px + 1vw);
         font-weight: 400;
         margin-bottom: 5px;
         text-shadow: 0 0 30px  #171717;
         font-family: mynewFont;
+        direction: initial;
     }
 
     .classDetails{
@@ -168,6 +171,7 @@
     }
 
     .jBtnCont{
+        display: block;
     }
 
     .iconCont{
@@ -277,8 +281,21 @@
     left: 0;
     z-index: 10;
     text-decoration: none;
+    font-size: 14px;
     color: #fff;
     font-family: mynewFont;
+    letter-spacing: 1.2px;
+    text-align: right;
+    direction: rtl;
     cursor: pointer;
-    text-align: left;
+    padding-left: 3.8rem;
+}
+
+.backbut{
+    top: 3rem;
+    margin-left: 5%;
+    float: left;
+    color: #fff;
+    font-size: calc(35px + 3vw); 
+    position: relative;
 }

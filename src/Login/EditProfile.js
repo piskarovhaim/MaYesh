@@ -121,29 +121,23 @@ class EditProfile extends Component {
   }
 
   render() {
-    const divWidth = {
-      maxWidth: "30%"
+    let divWidth = {
+      maxWidth: "35%"
     };
-    if (window.innerWidth < 500)
+    let inputWidth = {};
+    if (window.innerWidth < 500) {
       // if it is phone set the width to 100%
       divWidth.maxWidth = "100%";
+      divWidth.width = "95%";
+      divWidth.minWidth = "10%";
+      inputWidth.width = "50%";
+    }
     return (
-      <div>
-        <button
-          onClick={() => {
-            Alert.warning("<h1>Test message 1</h1>", {
-              position: "top-right",
-              beep: false
-            });
-          }}
-        >
-          jlhasdfhjkds
-        </button>
+      <div className="mainEditDiv">
         {this.end ? <Redirect to="/" /> : null}
         <NavBar edit="edit" location={this.props.location.pathname} />
-        <hr />
         <div className="completeReg" style={divWidth}>
-          <form>
+          <form className="edit">
             <h1>עריכת פרופיל</h1>
             <label>
               <div className="imguserc">
@@ -160,58 +154,63 @@ class EditProfile extends Component {
                 onProgress={this.handleProgress}
               />
             </label>
-            <br />
             <label>
-              שם מלא
+              <span className="labl">:שם מלא</span>
               <input
-                type="text"
+                style={inputWidth}
+                type="tel"
+                pattern="[0-9]{9}"
                 name="name"
                 value={this.state.name}
                 onChange={this.handleChange}
               />
             </label>
 
-            <span
-              className="whyPhone"
-              onClick={() => {
-                this.whyPhone = !this.whyPhone;
-                this.setState({});
-              }}
-            >
-              ?
-            </span>
-            {this.whyPhone ? (
-              <div className="whyPhone">
-                אנחנו לא רוצים את הפרטים שלך סתם, אל חשש אנחנו רוצים שלמארגני
-                המפגש יהיה דרך לוודא שכולם מגיעים ולעדכן בפרטים
-                <br />
+            <label>
+              <span className="labl">
                 <span
-                  className="whyPhoneGetIt"
+                  className="whyPhone"
                   onClick={() => {
-                    this.whyPhone = false;
+                    this.whyPhone = !this.whyPhone;
                     this.setState({});
                   }}
                 >
-                  הבנתי
+                  ?
                 </span>
-              </div>
-            ) : null}
-
-            <label>
-              :הפלאפון שלך
+                {this.whyPhone ? (
+                  <div className="whyPhone">
+                    אנחנו לא רוצים את הפרטים שלך סתם, אל חשש אנחנו רוצים
+                    שלמארגני המפגש יהיה דרך לוודא שכולם מגיעים ולעדכן בפרטים
+                    <br />
+                    <span
+                      className="whyPhoneGetIt"
+                      onClick={() => {
+                        this.whyPhone = false;
+                        this.setState({});
+                      }}
+                    >
+                      הבנתי
+                    </span>
+                  </div>
+                ) : null}
+                :הפלאפון שלך
+              </span>
               <input
+                style={inputWidth}
                 type="text"
                 name="phone"
                 value={this.state.phone}
                 onChange={this.handleChange}
               />
             </label>
-            <hr />
+            <br />
             <label>
-              קטגוריות מועדפות
-              <br />
-              <span className="spanfavoriteCat">
-                לפי זה נדע להראות את החוגים שהכי מתאימים לך
+              <span className="lablfav">
+                קטגוריות מועדפות
+                <br />
+                <span className="spanfavoriteCat">
+                  לפי זה נדע להראות את החוגים שהכי מתאימים לך
+                </span>{" "}
               </span>
               <FavoritesCategeory
                 func={this.handleChange}
@@ -220,9 +219,8 @@ class EditProfile extends Component {
               />
             </label>
             <br />
-            <h3 />
             <input
-              className="registerbtn"
+              className="greenBtnEditForm"
               type="button"
               value="שמור"
               onClick={this.SetUser}

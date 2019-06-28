@@ -69,13 +69,16 @@
 
   &__description {
     font-size:calc(7px + 1vw);
-    color: #999;
+    color: #fff;
+    direction: rtl;
+    text-shadow: 0 0 30px  #171717;
   }
 
   &__linktoclass {
     font-size: 15px;
     color: #fff;
     width: 100%;
+    text-decoration-line: none;
   }
 
   &__close {

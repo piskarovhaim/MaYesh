@@ -67,6 +67,8 @@ class Category extends Component {
   let a = this.state.category.classList.filter(item => item.isConfirmed);
   // map the classes to gallery object
   let gallery = a.map((element,i) =><Class key={i} name = {element.name} location={element.location} img = {element.imgUrl} categoryName = {this.state.category.name} date={element.date}/>)
+  if(gallery.length == 0)
+    gallery = "אין כרגע חוגים מתאימים בקטגוריה זו"
   let style ={}
   let styleBox = {}
   // resize if it run on phonescreen

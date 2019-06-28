@@ -6,9 +6,11 @@
 .rcorners {
   position: relative;
   cursor: pointer;
-  width: 15vw;
-  height: 12vw;
-  font-size: calc(7px + 1vw);
+  width: 14vw;
+  height: 11vw;
+  min-width: 85px;
+  min-height: 80px;
+  font-size: calc(5px + 1vw);
   padding: 5px;
   float: right;
   

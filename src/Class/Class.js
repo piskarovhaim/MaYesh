@@ -7,6 +7,7 @@ import { Redirect } from 'react-router';
 import ParticipantList from "./ParticipantList.js"
 import { Link } from 'react-router-dom'
 import Alert from 'react-s-alert';
+import { red } from "@material-ui/core/colors";
 
 class Classs extends React.Component
 {
@@ -243,6 +244,7 @@ class Classs extends React.Component
    
     render()
     {
+        let back ="<";
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
@@ -271,6 +273,9 @@ class Classs extends React.Component
                         </div>
                         <div className="classPageSec">
                         <NavBar/>
+                             <Link to = "/">
+                                  <div className="backbut">{back}</div>
+                            </Link>
                             <div className="topdivclass">
                                 <div className="classRightTextBox" style={stylePhone}>
                                     <span className="dateTag">{this.getDayOf(this.state.thisClass.date)} {this.dateFixer(this.state.thisClass.date)}</span>
@@ -286,15 +291,18 @@ class Classs extends React.Component
                                     <div className = "jBtnCont">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
                                     </div>
+                                    <div className = "jBtnCont">
+                                        <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
+                                            <div className="morefromthiscategory">חוגים נוספים בקטגוריית {this.state.thisClass.category}</div>
+                                        </Link>
+                                    </div>
+
                                 </div>
                                 <div className="classLeftTextBox" style={stylePhone}>
                                  <span className="classTextDesc">{this.state.thisClass.description}</span>
                                  </div>       
                           </div>
                           <div className="classDetails">
-                          <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
-                                        <div className="morefromthiscategory">חוגים נוספים בקטגוריית {this.state.thisClass.category}</div>
-                                </Link>
                                     <div className="locationDiv" style={stylePhone}> 
                                     <div className="iconclasstoright">
                                         <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.endTime}</span>
