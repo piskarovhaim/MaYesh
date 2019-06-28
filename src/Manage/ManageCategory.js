@@ -1,3 +1,12 @@
+/*
+--MANAGE CATEGORY COMPONENT-- 
+include:
+-nav bar of the category (not confirmed classes, old classes,all classes,main page redirect)
+-edit category form 
+-display all the courses of the category 
+
+*/
+
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./ManageCategory.css";
@@ -30,6 +39,7 @@ class ManageCategory extends Component {
     this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
   }
+  //update the new category in each course
   updateCategoryInClassList() {
     let arr = this.state.classList;
     Object.values(arr).map(obj => {
@@ -197,8 +207,7 @@ class ManageCategory extends Component {
             </label>
             <label>
               תיאור
-              <input
-                type="text"
+              <textarea
                 name="desc"
                 value={this.state.desc}
                 onChange={this.handleChange}

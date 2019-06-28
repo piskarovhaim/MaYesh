@@ -13,17 +13,24 @@ class Video extends Component {
             }
         }
     }
+    componentWillUnmount(){
+        window.removeEventListener("resize", ()=>this.setState({}));
+    }
+    componentDidMount(){
+        window.addEventListener("resize", ()=>this.setState({}));
+    }
 
     render() {
 
         let style ={}
-        if(window.innerWidth < 500){
-          style.width = '90%';
+        if(window.innerWidth < 500 || window.innerHeight < 500){
+          style.width = '80%';
+          style.top = '0';
         }
         return (
         <div className="header">
-                    <div className="textBox">
-                        <div className="headerText" style={style}>
+                    <div className="textBox" style={style}>
+                        <div className="headerText">
                             <span className="headerTextPrimary">אנשים פוגשים אנשים</span>
                             <span className="headerTextSub">הצטרפו למגוון חוגים בכל נושא שמעניין אתכם</span>
                             </div>

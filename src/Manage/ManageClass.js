@@ -62,6 +62,7 @@ class ManageClass extends Component {
       date: "",
       numOfCurrPartici: "",
       hour: "",
+      endTime:"",
       description: "",
       imgUrl: "",
 
@@ -191,9 +192,11 @@ class ManageClass extends Component {
     const setNavHeight = {
       height: window.innerHeight / 10
     };
-    if (window.innerWidth < 500)
+    if (window.innerWidth < 500){
       // if it is phone set the width to 100%
       divWidth.maxWidth = "100%";
+      divWidth.width ='90%';
+    }
 
     return (
       <div>
@@ -216,7 +219,7 @@ class ManageClass extends Component {
 
         {this.endOfProcess ? <Redirect to="/Manage" /> : null}
         <div className="completeReg" style={divWidth}>
-          <form>
+          <form className="formStyle">
             <h1>עריכת קורס {this.props.className}</h1>
             <label>
               שם קורס
@@ -297,7 +300,17 @@ class ManageClass extends Component {
                 onChange={this.handleChange}
               />
             </label>
-
+            <label>
+              שעת סיום משוערת
+              <input
+                required
+                type="time"
+                name="endTime"
+                value={this.state.endTime}
+                onChange={this.handleChange}
+                min={this.state.hour}
+              />
+            </label>
             <label>
               תיאור
               <textarea

@@ -1,14 +1,109 @@
-div.login h3 {
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
+@font-face {
+  font-family: myFont;
+  src: url(../font/SecularOne-Regular.ttf);
 }
-div.completeReg{
-    padding: 10px;
-    margin: auto;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: right;
-    max-width: 35%; 
-    position: relative;
+
+.mainEditDiv{
+  background-color: rgb(56, 56, 56);
+}
+
+div.login h3 {
+  font-family: myFont;
+  text-align: center;
+  width: 100%;
+}
+div.completeReg {
+  padding: 10px;
+  margin: auto;
+  font-family: myFont;
+  text-align: right;
+  width: 35%;
+  position: relative;
+  color: rgb(0, 0, 0);
+  min-width: 650px;
+}
+
+form.formStyle{
+  width: 100%;
+}
+
+form.edit{
+  padding: 4vh;
+  background-color: rgb(0, 0, 0, 0.4);
+  border-radius: 3px;
+}
+
+.greenBtnEditForm{
+  z-index: 10;
+  text-align: center;
+  background-color:#258916;
+  color: #fff;
+  text-decoration: none;
+  padding: 2% 3%;
+  font-size: 180%;
+  display: inline-block;
+  border-radius: 100px;
+  transition: all .2s;
+  font-family: mynewFont;
+  border: none;
+  cursor: pointer;
+  margin: 3%;
+  margin-bottom: 5%;
+  outline:none;
+}
+
+.labl{
+  color: #fff;
+  font-family: myFont;
+  font-size: 18px;
+  float: right;
+}
+.lablfav{
+  color: #fff;
+  font-family: myFont;
+  font-size: 18px;
+}
+
+form.edit input{
+  position: relative;
+  width: 65%;
+	background-color: rgb(102, 102, 102, 0.6);
+  text-align: right;
+  color: #fff;
+}
+
+form.edit input:focus{
+
+  color: rgb(0, 0, 0);
+}
+form.edit h1 {
+  font-family: myFont;
+  color: #E80A79;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+form.edit h4 {
+  font-family: myFont;
+  color: #258916;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+form.edit input[type=button]{
+  text-align: center;
+  background-color:#258916;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+
+}
+form.edit input[type=button]:focus{
+  width: 100%;
+  text-align: center;
+  background-color:#258916;
+  max-width: 500px;
+  margin: auto;
 }
 
 div.completeReg p {
@@ -18,9 +113,8 @@ div.completeReg p {
   display: block;
 }
 div.completeReg h1 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: myFont;
   text-align: center;
-  font-style: italic;
 }
 
 .completeReg input {
@@ -28,7 +122,6 @@ div.completeReg h1 {
 
   box-sizing: border-box;
   padding: 8px 10px;
-  box-sizing: border-box;
   margin: 8px 0;
   display: block;
   border: none;
@@ -106,7 +199,7 @@ div.useret {
   width: 100%;
 }
 .completeReg input.registerbtn {
-  background-color: #aaffad;
+  background-color: #258916;
   color: rgb(3, 3, 3);
   margin: 8px 0;
   border: none;
@@ -123,36 +216,37 @@ div.useret {
 }
 
 div.favoritesCat {
-  float: right;
+
 }
 
-div.whyPhone{
+div.whyPhone {
+  font-family: myFont;
   position: absolute;
-  background-color:  rgb(255, 255, 255);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding:8px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 8px;
   margin: 5px;
   z-index: 1;
   color: rgb(187, 187, 187);
   text-align: right;
   font-size: 14px;
   max-width: 200px;
-  border-radius:6px; 
+  border-radius: 6px;
   width: 70%;
   right: 5px;
 }
-span.whyPhone{
+span.whyPhone {
+  font-family: myFont;
   z-index: 2;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   font-weight: bold;
   cursor: pointer;
-  margin:5px ;
+  margin: 5px;
   padding: 2px;
   border-radius: 50%;
-  border:1px solid black;
-  
 }
-span.whyPhoneGetIt{
+span.whyPhoneGetIt {
+  font-family: myFont;
   z-index: 2;
   font-size: 1rem;
   font-weight: bold;
@@ -163,7 +257,7 @@ span.whyPhoneGetIt{
 }
 
 span.spanfavoriteCat{
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .favoritesCat input[type="checkbox"] {
@@ -171,12 +265,22 @@ span.spanfavoriteCat{
 }
 
 div.BigfavoritesCat {
-  display: block;
-  border: 0.1px solid rgba(0, 0, 0, 0);
-  margin: auto;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: right;
+  justify-content: flex-end;
 }
 
 .favoritesCat label {
+  width: 10vw;
+  height: 8vw;
+  min-width: 80px;
+  min-height: 80px;
+  color: #fff;
+  font-family: myFont;
+  font-size: 18px;
   border: 1px solid #fff;
   display: block;
   position: relative;
@@ -209,8 +313,8 @@ div.BigfavoritesCat {
 }
 
 .favoritesCat label img {
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 100%;
   transition-duration: 0.2s;
   transform-origin: 50% 50%;
 }
@@ -238,6 +342,21 @@ div.textdivEdit {
   padding: 3px;
   border-radius: 3px;
   background-color: rgb(148, 148, 148);
-  color: white;
+  color: rgb(15, 15, 15);
   opacity: 0.6;
 }
+
+.loginBg{
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-position: right;
+  background-size: cover;
+  background-color: rgb(56, 56, 56);
+  z-index: 0;
+  position: absolute;
+  text-align: center;
+  color: #fff;
+}
+
+

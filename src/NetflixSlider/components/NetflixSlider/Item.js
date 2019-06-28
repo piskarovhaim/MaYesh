@@ -4,8 +4,9 @@ import SliderContext from './context'
 import Mark from './Mark'
 import './Item.scss'
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
-const Item = ({ movie,type }) => (
+const Item = ({ movie,type,title }) => (
   <SliderContext.Consumer>
     {({ onSelectSlide, currentSlide, elementRef }) => {
       const isActive = currentSlide && currentSlide.name === movie.name;
@@ -33,14 +34,16 @@ const Item = ({ movie,type }) => (
         )
         :
         (
-        <div className="gallerynetflix" onClick={() => onSelectSlide(movie)}>
-        <img src={movie.imgUrl} className="classImg"/>
-        <div className="textdivnetflix">
-            {movie.name}
-            <br/>
-            {date.toLocaleDateString('en-GB')}
-        </div>
-        </div>)}
+        <AnchorLink href={'#'+movie.name+title}>
+            <div id={movie.name+title} className="gallerynetflix" onClick={() => onSelectSlide(movie)}>
+            <img src={movie.imgUrl} className="classImg"/>
+            <div className="textdivnetflix">
+                {movie.name}
+                <br/>
+                {date.toLocaleDateString('en-GB')}
+            </div>
+            </div>
+        </AnchorLink>)}
 
           {isActive && <Mark />}
         </div>

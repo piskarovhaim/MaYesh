@@ -1,11 +1,12 @@
 div.home{
     display: block;
-    scroll-behavior: smooth;
     background: rgb(56, 56, 56);
     background-size: cover;
     background-position: top;
     font-family: mynewFont;
     scroll-behavior: smooth;
+    z-index: 0;
+    overflow: hidden;
 }
 
 
@@ -15,6 +16,8 @@ div.navAndvideo{
     background-image: url(../imgs/design.jpg);
     background-position: top;
     font-family: mynewFont;
+    overflow: hidden;
+    width: 100%;
 }
 
 div.videogradient{
@@ -43,4 +46,5 @@ div.footer{
     right: 0;
     color: #fff;
     font-family: mynewFont;
+    direction: rtl;
 }

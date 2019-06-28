@@ -20,13 +20,14 @@ class JoinCancelButton extends React.Component
         this.props.class.partiList.forEach(participant => {
             if(this.props.isSignIn && firebase.auth().currentUser && firebase.auth().currentUser.uid === participant.id)
             {
-                button = <Button className = "button1" variant="contained" color="primary"  onClick = {this.props.cancel}>ביטול רישום</Button>
+
+                button = <Button className = "joinButton greenBtn" variant="contained" color="primary"  onClick = {this.props.cancel}>ביטול</Button>
             }
         })
         if(button === null && ifFull)//class full and cuurent user is not in
             button = (<p className = "classFull">הקורס מלא</p>)
         else if(button === null || !this.props.isSignIn)//classis not  full and cuurent user is not in
-            button = <Button className = "button1" variant="contained" color="primary"  onClick = {this.props.join}>רישום</Button>
+            button = <Button className = "joinButton greenBtn" variant="contained" color="primary"  onClick = {this.props.join}>רישום</Button>
         return(button)
     }
 

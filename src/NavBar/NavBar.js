@@ -4,6 +4,7 @@ import firebase from "../Firebase/FireBase.js";
 import "./NavBar.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './logoN.png'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 class NavBar extends Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class NavBar extends Component {
         height: window.innerHeight / 10,
       },
       pageYOffset : 0,
+      showNav:false,
+      windowH:window.innerHeight,
       categoryList:[],
       user: {
         id: "",
@@ -32,14 +35,27 @@ class NavBar extends Component {
       }
     };
     this.listenToScroll = this.listenToScroll.bind(this)
+    this.updateWindows = this.updateWindows.bind(this)
+  }
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.updateWindows);
+    window.removeEventListener('scroll', this.listenToScroll);
+  }
+  updateWindows(){
+    this.setState({windowH:window.innerHeight})
   }
 
   listenToScroll(){
-    this.setState({pageYOffset:window.pageYOffset})
+    if(window.pageYOffset < this.state.pageYOffset)
+      this.setState({pageYOffset:window.pageYOffset,showNav:true})
+    else
+      this.setState({pageYOffset:window.pageYOffset,showNav:false})
   }
 
+
   componentDidMount = () => {
-    window.addEventListener('scroll', this.listenToScroll)
+    window.addEventListener('scroll', this.listenToScroll);
+    window.addEventListener("resize", this.updateWindows);
     let ref = firebase.database().ref('/CategoryList');
     ref.on('value', snapshot => {
       let categories = [];
@@ -95,14 +111,23 @@ class NavBar extends Component {
     let edit = false;
     if (this.state.isSignedInProsses) login = false;
     if (this.state.edit) edit = true;
-    
+    let navH = {height: (this.state.windowH/10)}
     let classNav = 'nav'
-    if(this.state.pageYOffset > (window.innerHeight/10))
+    if(this.props.homePage){
       classNav = 'navScroll';  
+      navH.display='none';
+    }
+    if(this.props.homePage && this.state.pageYOffset > (this.state.windowH/10) && this.state.showNav){
+      classNav = 'navScroll';  
+      navH.display='flex';
+    }
+    let about = false;
+    if(this.props.about && window.innerWidth > 500)
+        about =true;
     
     return (
-      <div className="navtest">
-      <div className={classNav}>
+      <div className="navtest" >
+      <div className={classNav} style={navH}>
       <div className="navLeft">
       {login ? (
           <div className="inline">
@@ -139,6 +164,12 @@ class NavBar extends Component {
                 <div className="navTextMenu">התחבר</div>
           </Link>
         )}
+        {about?
+        <AnchorLink href='#About'>
+            <div className="navTextAbout">אודות</div>
+        </AnchorLink>
+        :
+        null}
       </div>
       <div className="navRight">
       <Search/>

@@ -1,9 +1,19 @@
+/*
+ --Mobile form page-- using react ionic
+ display mobile form when the user open the app by a mobile 
+ page objective: get the the new class details from the organizer
+ form fields:course name,category,organizer,phone number,location,min number of participants,max number of participants,description,date,hour,end time,img url,num of participants 
+ valid form before submit
+ support image upload 
+ store the new class in the firebase DB 
+ redirect to main page
+ */
+//*****IMPORTS*****
 import React from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./NewClass.css";
 import FileUploader from "react-firebase-file-uploader";
-import NavBar from "../NavBar/NavBar";
-
+import Alert from "react-s-alert";
 import {
   IonInput,
   IonItem,
@@ -22,10 +32,9 @@ import {
 import "@ionic/core/css/core.css";
 import "@ionic/core/css/text-alignment.css";
 import { Redirect } from "react-router";
-
+import NavBar from "../NavBar/NavBar.js";
+//display the categories in the selector
 function CategeorySelector(props) {
-  // get the real category json from the DB
-
   let categories = [];
   categories = props.categories;
 
@@ -55,6 +64,7 @@ function CategeorySelector(props) {
 class MobileForm extends React.Component {
   constructor(props) {
     super(props);
+
     let endOfProcess = false;
     let organizerId = "";
     if (props.user != undefined) organizerId = props.user.id;
@@ -69,15 +79,16 @@ class MobileForm extends React.Component {
       description: "",
       date: "",
       hour: "",
+      endTime: "",
       imgUrl: "",
-      numOfPartici: 0,
+      numOfCurrPartici: 0,
       isUploading: false,
       isConfirmed: false,
       organizerId: organizerId,
       categoryList: []
     };
     this.handleChange = this.handleChange.bind(this);
-
+    this.alertMessage = this.alertMessage.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     this.handleUploadError = this.handleUploadError.bind(this);
@@ -85,6 +96,15 @@ class MobileForm extends React.Component {
     this.handleProgress = this.handleProgress.bind(this);
     this.isValidForm = this.isValidForm.bind(this);
   }
+  //alert function display the message if occur an error
+  alertMessage(message) {
+    Alert.info(message, {
+      position: "top-right",
+      effect: "slide",
+      timeout: "none"
+    });
+  }
+  // set the input to the right state , case date than parse the iso format to regular format
   handleChange(e) {
     if ([e.target.name] == "date") {
       let date = new Date(e.target.value);
@@ -100,11 +120,12 @@ class MobileForm extends React.Component {
 
       let dateAfterConvert = year + "-" + month + "-" + dt;
       this.setState({ [e.target.name]: dateAfterConvert });
-    } else if ([e.target.name] == "hour") {
+    } else if ([e.target.name] == "hour" || [e.target.name] == "endTime") {
       let time = new Date(e.target.value);
       if (time == "Invalid Date") {
         return;
       }
+
       let h = time.getHours();
       let m = time.getMinutes();
       if (h < 10) {
@@ -114,7 +135,7 @@ class MobileForm extends React.Component {
         m = "0" + m;
       }
       let timeAfterConvert = h + ":" + m;
-      this.setState({ hour: timeAfterConvert });
+      this.setState({ [e.target.name]: timeAfterConvert });
     } else if (
       [e.target.name] == "maxPartici" ||
       [e.target.name] == "minPartici"
@@ -125,20 +146,25 @@ class MobileForm extends React.Component {
     }
   }
 
+  //validate the un required fields
   isValidForm() {
     if (this.state.category == "") {
-      alert("מה לא תבחר קטגוריה??");
+      this.alertMessage("אנא בחר קטגוריה");
+
       return false;
-    }
-    if (this.state.imgUrl == "") {
-      alert("אנו נשמח לתמונה בבקשה");
+    } else if (this.state.imgUrl == "") {
+      this.alertMessage("נשמח לתמונה בבקשה");
       return false;
     } else if (this.state.hour == "" || this.state.date == "") {
-      alert("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
+      this.alertMessage("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
       return false;
     }
+
     return true;
   }
+
+  // fetch all the categories from the db and display in the category selector label
+
   componentDidMount() {
     let categories = [];
     let self = this;
@@ -153,8 +179,8 @@ class MobileForm extends React.Component {
         self.setState({ categoryList: categories });
       });
   }
-
   async handleSubmit(e) {
+    console.log(this.state);
     e.preventDefault();
     if (!this.isValidForm()) {
       return;
@@ -188,20 +214,22 @@ class MobileForm extends React.Component {
           "/categoryList"
       );
     ref.remove();
+    Alert.success(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
     this.endOfProcess = true;
-    alert("תודה רבה! הטופס נשלח לאישור ההנהלה");
     this.setState({});
+    window.scrollTo(0, 0);
   }
+  //upload image func
   handleUploadStart() {
     this.setState({ isUploading: true });
   }
+  //upload image func
   handleUploadError(error) {
     console.error(error);
   }
+  //upload image func
   handleProgress = progress => this.setState({ progress: progress + "%" });
-  handleUploadError(error) {
-    alert("Upload Error: " + error);
-  }
+  //upload image func
   handleUploadSuccess(filename) {
     this.setState({ isUploading: false });
     firebase
@@ -211,8 +239,11 @@ class MobileForm extends React.Component {
       .getDownloadURL()
       .then(url => this.setState({ imgUrl: url, progress: [] }));
   }
-
+  //render ionic form
   render() {
+    let selectImg = false;
+    if(this.state.imgUrl != "")
+          selectImg= true;
     return (
       <div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
@@ -220,6 +251,7 @@ class MobileForm extends React.Component {
           <IonContent class="ionContent">
             <form onSubmit={this.handleSubmit}>
               <div className="style">
+                <NavBar/>
                 <h1>נשמח לכמה פרטים</h1>
               </div>
               <IonItem text-right>
@@ -228,7 +260,7 @@ class MobileForm extends React.Component {
                   color="Secondary"
                   required={true}
                   name="name"
-                  placeholder="שם הסדנא"
+                  placeholder="שם החוג"
                   type="text"
                   value={this.state.name}
                   onIonChange={this.handleChange}
@@ -267,7 +299,7 @@ class MobileForm extends React.Component {
                 <ion-icon name="pin" />
                 <IonInput
                   required={true}
-                  placeholder="מיקום"
+                  placeholder="מיקום המפגש"
                   name="location"
                   value={this.state.location}
                   onIonChange={this.handleChange}
@@ -316,11 +348,25 @@ class MobileForm extends React.Component {
                 <IonItem>
                   <IonDatetime
                     class="ionrightinner"
-                    placeholder="שעה"
+                    placeholder="שעת התחלה"
                     displayFormat="HH:mm "
                     pickerFormat="HH:mm"
                     name="hour"
                     value={this.state.hour}
+                    onIonChange={this.handleChange}
+                  />
+                </IonItem>
+              </div>
+              <div class="ionright">
+                <IonItem>
+                  <IonDatetime
+                    class="ionrightinner"
+                    placeholder="שעת סיום משוערת"
+                    displayFormat="HH:mm "
+                    pickerFormat="HH:mm"
+                    name="endTime"
+                    min={this.state.hour}
+                    value={this.state.endTime}
                     onIonChange={this.handleChange}
                   />
                 </IonItem>
@@ -341,11 +387,19 @@ class MobileForm extends React.Component {
               <IonItem>
                 <div class="ionright">
                   <label>
-                    <img
-                      alt="תמונה"
-                      style={{ width: 55, height: 55 }}
+                  {selectImg ?
+                <div className="imgusercWebForm">
+                    <img className="imgWebForm"
+                      alt="החלף תמונה"
                       src={this.state.imgUrl}
                     />
+                    <div className="useretWebForm">
+                    {this.state.progress}שנה תמונה
+                    </div>
+              </div> 
+                  :
+                  <div className="pinkBtnWebForm">הוספת תמונה {this.state.progress}</div>      
+                 }
                     {this.state.progress}
                     <FileUploader
                       hidden

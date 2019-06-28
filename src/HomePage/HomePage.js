@@ -13,37 +13,36 @@ class HomePage extends Component {
     if(location == "/Login")
         location = "/"
     this.state = {
+      windowH:window.innerHeight,
       pageYOffset : 0
     };
-    this.listenToScroll = this.listenToScroll.bind(this)
   }
+componentWillUnmount(){
+    window.removeEventListener("scroll", ()=>this.setState({}));
+}
+componentDidMount(){
+    window.addEventListener("scroll", ()=>this.setState({}));
+}
 
-  listenToScroll(){
-    this.setState({pageYOffset:window.pageYOffset})
-  }
-
-  componentDidMount = () => {
-    window.addEventListener('scroll', this.listenToScroll)
-  }
   render() {
-    let padding = 0;
-    if(this.state.pageYOffset > (window.innerHeight/10))
-      padding=10;
+    let nAv = {height: this.state.windowH}
     return (   
-          <div className="home" style={{paddingTop:padding+'vh'}}>
-              <div className="navAndvideo">
-                <NavBar />
+          <div className="home">
+              <div className="navAndvideo" style={nAv}>
+                <NavBar about={true}/>
+                <NavBar homePage={true}/>
+                <Contact/>
                 <Video/>
-                <div id="joinToClass" className="videogradient" style={{bottom:-padding+'vh'}}/>
+                <div id="joinToClass" className="videogradient"/>
               </div>
                 
                 <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
               <AllCategories/>
-              <div className="footer">
-              <h2 style={{marginTop:'0'}}>קצת על נפגשים</h2>
+              <div className="footer" id="About">
+              <h2 style={{marginTop:'0'}}>קצת על מה יש</h2>
               <p>
-              אנחנו בנפגשים שמנו לעצמינו למטרה ליצור מקום מפגש לצעירות וצעירים ירושלמים שמאפשר לימוד, חוויה, תרבות, קהילה ויצירה משותפת. הדגש שלנו הוא על חיבור בין אנשים בעלי תחומי עניין משותפים באמצעות הצטרפות או יצירה של חוג שיהווה מסגרת חברתית ואינטלקטואלית
+              אנחנו בMaYesh שמנו לעצמינו למטרה ליצור מקום מפגש לצעירות וצעירים ירושלמים שמאפשר לימוד, חוויה, תרבות, קהילה ויצירה משותפת. הדגש שלנו הוא על חיבור בין אנשים בעלי תחומי עניין משותפים באמצעות הצטרפות או יצירה של חוג שיהווה מסגרת חברתית ואינטלקטואלית
                 </p>
               </div>
               <div className="footer">

@@ -1,15 +1,13 @@
 import React from "react"
 import JoinCancelButton from "./JoinCancelButton.js"
-import ClassTabs from "./ClassTabs.js"
-import MobileClass from "./MobileClass.js"
 import firebase from "../Firebase/FireBase.js";
 import "./Class.css"
 import NavBar from "../NavBar/NavBar"
 import { Redirect } from 'react-router';
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, ListGroup, ListGroupItem} from 'reactstrap';
-
-
+import ParticipantList from "./ParticipantList.js"
+import { Link } from 'react-router-dom'
+import Alert from 'react-s-alert';
+import { red } from "@material-ui/core/colors";
 
 class Classs extends React.Component
 {
@@ -23,8 +21,13 @@ class Classs extends React.Component
             isJoinClicked: false, 
             isCancelClicked: false, 
             isSignIn: false, 
+            displayPartici:false, 
+            displayThanksForJoin: false,
+            displayOrgenizerDetails: false,
             category: props.match.params.nameC, 
-            course: props.match.params.nameClass, 
+            course: props.match.params.nameClass,
+            ListOfSignInClassesForThisUser: [], 
+            categoryObject: {},
             thisClass:{
                 organizerId: "",
                 organizer: "",
@@ -36,13 +39,19 @@ class Classs extends React.Component
                 phone:"",
                 img:"",
                 hour:"",
+                endTime:"",
                 description:"",
                 numOfCurrPartici: 0,
                 maxParti: 1,
+                minPartici:0,
                 partiList:[] }};
 
         this.whenJoinClicked = this.whenJoinClicked.bind(this)
         this.whenCancelClicked = this.whenCancelClicked.bind(this)
+        this.displayPartici = this.displayPartici.bind(this);
+        this.displayThanksForJoin = this.displayThanksForJoin.bind(this);
+        this.displayOrgenizerDetails = this.displayOrgenizerDetails.bind(this);
+        this.organizerDetails = this.organizerDetails.bind(this);
     }
 
     
@@ -70,6 +79,8 @@ class Classs extends React.Component
             tempClass.partiList = tempParticiList
             this.setState({thisClass:tempClass})      
         });
+        // ref = firebase.database().ref('/Users/' + this.state.course)
+        // if()
         //update the class details
         ref.on('value', snapshot => {
             this.setState({
@@ -78,19 +89,56 @@ class Classs extends React.Component
                                     organizer: snapshot.val().organizer,
                                     category:snapshot.val().category,
                                     name:snapshot.val().name,
+                                    hour:snapshot.val().hour,
+                                    minPartici:snapshot.val().minPartici,
                                     description:snapshot.val().description,
                                     img:snapshot.val().imgUrl,
                                     location: snapshot.val().location,
+                                    endTime: snapshot.val().endTime,
                                     date: snapshot.val().date, 
                                     numOfCurrPartici: snapshot.val().numOfCurrPartici,
                                     maxParti: snapshot.val().maxPartici,
                                     partiList:this.state.thisClass.partiList
                                 }
                                 ,loading: true})})
+        //getting the object of this category for "לעוד קורסים בקטגוריה זאת"
+        ref = firebase.database().ref('/CategoryList')
+        ref.once('value', snapshot => {snapshot.forEach(element =>{
+            if(this.state.category === element.val().name)
+                this.setState({categoryObject: element.val()})
+        })})
     }
 
+    displayPartici(){ // show/hide Partici List
+        this.setState({displayPartici:!this.state.displayPartici})
+    }
 
+    displayThanksForJoin(){ // show/hide Partici List
+        this.setState({displayThanksForJoin:!this.state.displayThanksForJoin})
+    }
+
+    displayOrgenizerDetails(){ // show/hide Partici List
+        this.setState({displayOrgenizerDetails:!this.state.displayOrgenizerDetails})
+    }
+
+    organizerDetails()
+    {
+        let email, phone,url
+        let ref = firebase.database().ref('/Users/' + this.state.thisClass.organizerId)
+        ref.once('value', snapshot => {
+                email = snapshot.val().email
+                phone = snapshot.val().phone
+                url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + email + "&tf=1"
+        })
+        return (<div>
+            <div className="divSendEmail" onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}>{email}</div>
+            <br/>
+            <div>{phone}</div>
+            <br/>
+        </div>)
+    }
     
+
     numOfPart() //returns the number of participants in this class.. if there is not, returns that there is not yet
     {
         let howManyPart = ""
@@ -110,8 +158,12 @@ class Classs extends React.Component
             let tempNumOfCurPart;
             const uid = firebase.auth().currentUser.uid
             let user;
+            let thisClass;
             let ref = firebase.database().ref('/Users/' + uid)
             ref.once('value', snapshot => {user = snapshot.val()})
+            let refToClass = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course); 
+            refToClass.once('value', snapshot => {thisClass = snapshot.val()})
+            ref.child('ListOfSignInClasses').push(thisClass)
             
             ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course);
             ref.child('particiList').push(user)
@@ -120,6 +172,12 @@ class Classs extends React.Component
                 tempNumOfCurPart = snapshot.val() + 1;
             })
             ref.child("numOfCurrPartici").set(tempNumOfCurPart);
+            Alert.success("<p align=\"right\"> מעולה, שמחים שנרשמת! יום לפני המפגש תפתח קבוצת וואטספ זמנית שבה יעודכנו פרטי המפגש. אם אין באפשרותכם לבוא, עשו טובה, שלחו וואטסאפ למארגן, שלא יהיה פה הקיץ של אביה </p>",{
+                html:true,
+                onShow: this.displayThanksForJoin,
+                onClose: this.displayThanksForJoin
+              });
+            
         }
         else
             this.setState({isJoinClicked: true})
@@ -127,16 +185,30 @@ class Classs extends React.Component
 
     whenCancelClicked()
     {
+        if(this.state.displayThanksForJoin)//if the "thanks for joining" massage is still displayed
+            return
         this.setState({isCancelClicked: true})
         let tempNumOfCurPart;
         const uid = firebase.auth().currentUser.uid
-        let ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course + '/particiList');
+        let ref = firebase.database().ref('/Users/' + uid + '/ListOfSignInClasses')
+        ref.once('value', snapshot => {snapshot.forEach(
+            participant => {
+                if(participant.val().name === this.state.course)
+                {
+                    let classToRemove = firebase.database().ref('/Users/' + uid + '/ListOfSignInClasses/' + participant.key);
+                    classToRemove.remove();
+                }
+        })})
+        ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course + '/particiList');
         ref.once('value', snapshot => {snapshot.forEach(
             participant => {
                 if(participant.val().id === uid)
                 {
                     let refChild = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course + '/particiList/' + participant.key);
                     refChild.remove();
+                    Alert.error("<p align=\"right\"> ביטלת את הרישום לחוג, אל תשכח להודיע זאת גם למארגן החוג.     נתראה בחוג אחר :)</p>",{
+                        html:true,
+                      });
                 }
                 
         })})
@@ -148,16 +220,40 @@ class Classs extends React.Component
         ref.child("numOfCurrPartici").set(tempNumOfCurPart);
     }
 
+    dateFixer(oldDate){
+        let dateFixed = oldDate.slice(8)+"."+oldDate.slice(-5,-3)+"."+oldDate.slice(-12,-6);
+        return dateFixed;
+    }
+    
+    notEnPar(curPar,minPar){
+        if(minPar>curPar){
+            return "אין כרגע מספיק נרשמים לקורס זה."
+        } 
+        else {
+          return "";
+        }      
+    }
+
+    getDayOf(date){
+        var d = new Date(date);
+        var days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+        return days[d.getDay()];
+    }
+
+
    
     render()
     {
+        let back ="<";
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
-        let smallSize = false;
-        if(window.innerWidth < 7)
+        let stylePhone ={}
+        if(window.innerWidth < 500)
         {
-            smallSize = true;
+            stylePhone.width = '85%';
+            stylePhone.letterSpacing='0';
+            stylePhone.float = 'right'
         }
         let sendToLogin = false;
         if(this.state.isJoinClicked && !this.state.isSignIn)
@@ -166,67 +262,88 @@ class Classs extends React.Component
         let location1 = '/Category/' + this.state.category + '/Class/' + this.state.course;
         return(
             <div>
-                {smallSize ? <MobileClass/> : 
-            <div  className = "all">
                 {this.state.loading ? <div>
                     {sendToLogin ? <Redirect to= {{pathname: "/Login" , state:{location:location1, title:"על מנת להרשם לקורס צריך להתחבר"}}}/> : null}
-                    <NavBar/>
-                    <div  className = "mainDiv">
-                        <div className = "leftSide">
-                            <CardImg className = "classImg" variant="top" src={this.state.thisClass.img} />
-                            <div className = "tabs">
-                                <ClassTabs  list = {this.state.thisClass.partiList} manager = {isManager} description = {this.state.thisClass.description} date = {this.state.thisClass.date}/>
+                    {
+                    <div className="containerBox">
+                        <div className="classcontentbackground">
+                            <div className="classcontentbackgroundimage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
+                            <div className="classcontentbackgroundshadow" />
                             </div>
                         </div>
-                        <div className = "rightSide">
-                            <Card style={{ width: '30rem' }}>
-                                <CardBody>
-                                    <CardTitle className = "title">{this.state.thisClass.name}</CardTitle>
-                                    <hr/>
-                                    <ListGroup className="list-group-flush">
-
-
-                                        <div className = "itemClass">
-                                            <div className = "itemunittext">  מועבר על ידי - {this.state.thisClass.organizer}</div>
-                                            <div className = "itemuniticon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"/></svg>
-                                            </div>																
+                        <div className="classPageSec">
+                        <NavBar/>
+                             <Link to = "/">
+                                  <div className="backbut">{back}</div>
+                            </Link>
+                            <div className="topdivclass">
+                                <div className="classRightTextBox" style={stylePhone}>
+                                    <span className="dateTag">{this.getDayOf(this.state.thisClass.date)} {this.dateFixer(this.state.thisClass.date)}</span>
+                                    <span className="classTextPrimary">{this.state.thisClass.name}</span>
+                                    <div className="iconclasstoright" style={{cursor: 'pointer'}} onClick={this.displayOrgenizerDetails}>
+                                        <span className="classTextSub"> מועבר על ידי {this.state.thisClass.organizer}</span>
+                                    </div>
+                                    {this.state.displayOrgenizerDetails ? 
+                                        <div>
+                                                {this.organizerDetails()}
                                         </div>
-
-                                        <div className = "itemClass">
-                                            <div className = "itemunittext">{this.state.thisClass.category}</div>
-                                            <div className = "itemuniticon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>
-                                            </div>						
-                                        </div>
-
-                                        <div className = "itemClass">
-                                            <div className = "itemunittext">{this.state.thisClass.location}</div>
-                                            <div className = "itemuniticon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                            </div>								
-                                        </div>
-
-                                        {this.state.loading ? 
-                                            <div className = "itemClass">
-                                                <div className = "itemunittext">{this.numOfPart()}</div>
-                                                <div className = "itemuniticon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M6 8c1.11 0 2-.9 2-2s-.89-2-2-2c-1.1 0-2 .9-2 2s.9 2 2 2zm6 0c1.11 0 2-.9 2-2s-.89-2-2-2c-1.11 0-2 .9-2 2s.9 2 2 2zM6 9.2c-1.67 0-5 .83-5 2.5V13h10v-1.3c0-1.67-3.33-2.5-5-2.5zm6 0c-.25 0-.54.02-.84.06.79.6 1.34 1.4 1.34 2.44V13H17v-1.3c0-1.67-3.33-2.5-5-2.5z"/></svg>
-                                                </div>								
-                                            </div>
-                                        : null}
-
-                                    </ListGroup>
-                                    <div className = "button">
+                                    : null}
+                                    <div className = "jBtnCont">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
                                     </div>
-                                </CardBody>
-                            </Card>
-                        </div> 
-                    </div> 
-                </div> : null}
+                                    <div className = "jBtnCont">
+                                        <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
+                                            <div className="morefromthiscategory">חוגים נוספים בקטגוריית {this.state.thisClass.category}</div>
+                                        </Link>
+                                    </div>
 
-            </div>}
+                                </div>
+                                <div className="classLeftTextBox" style={stylePhone}>
+                                 <span className="classTextDesc">{this.state.thisClass.description}</span>
+                                 </div>       
+                          </div>
+                          <div className="classDetails">
+                                    <div className="locationDiv" style={stylePhone}> 
+                                    <div className="iconclasstoright">
+                                        <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.endTime}</span>
+                                    </div>
+                                        <span className="iconCont">
+                                             <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                    <title>clock2</title>
+                                                    <path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM20.586 23.414l-6.586-6.586v-8.828h4v7.172l5.414 5.414-2.829 2.829z"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div className="locationDiv" style={stylePhone}>
+                                    <div className="iconclasstoright" style={{cursor: 'pointer'}} onClick={this.displayPartici}>
+                                        <span className="classLocation">{this.numOfPart()}</span>
+                                    </div>
+                                    {this.state.displayPartici ? <ParticipantList list = {this.state.thisClass.partiList} manager = {isManager} func={this.displayPartici}/>: null}
+                                         <span className="iconCont">
+                                             <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32">
+                                                    <title>users</title>
+                                                          <path d="M24 24.082v-1.649c2.203-1.241 4-4.337 4-7.432 0-4.971 0-9-6-9s-6 4.029-6 9c0 3.096 1.797 6.191 4 7.432v1.649c-6.784 0.555-12 3.888-12 7.918h28c0-4.030-5.216-7.364-12-7.918z"></path>
+                                                          <path d="M10.225 24.854c1.728-1.13 3.877-1.989 6.243-2.513-0.47-0.556-0.897-1.176-1.265-1.844-0.95-1.726-1.453-3.627-1.453-5.497 0-2.689 0-5.228 0.956-7.305 0.928-2.016 2.598-3.265 4.976-3.734-0.529-2.39-1.936-3.961-5.682-3.961-6 0-6 4.029-6 9 0 3.096 1.797 6.191 4 7.432v1.649c-6.784 0.555-12 3.888-12 7.918h8.719c0.454-0.403 0.956-0.787 1.506-1.146z"></path>
+                                                    </svg>
+                                        </span>
+                                    </div>
+                                    <div className="locationDiv" style={stylePhone}>
+                                    <div className="iconclasstoright">
+                                        <span className="classLocation">{this.state.thisClass.location}</span>
+                                    </div>
+                                        <span className="iconCont">
+                                             <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                <title>location</title>
+                                                <path d="M16 0c-5.523 0-10 4.477-10 10 0 10 10 22 10 22s10-12 10-22c0-5.523-4.477-10-10-10zM16 16c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <span className="eno" id="partici">{this.notEnPar(this.state.thisClass.numOfCurrPartici,this.state.thisClass.minPartici)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div> : null}
             </div>
         )
     }

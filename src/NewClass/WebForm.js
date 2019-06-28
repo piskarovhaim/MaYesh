@@ -1,10 +1,24 @@
+/*
+ --WEB FORM page-- using html form
+ display web form when the user open the app by a pc 
+ page objective: get the the new class details from the organizer
+ form fields:course name,category,organizer,phone number,location,min number of participants,max number of participants,description,date,hour,end time,img url,num of participants 
+ valid form before submit
+ support image upload 
+ store the new class in the firebase DB 
+ redirect to main page
+ */
+
+//*****IMPORTS*****
 import React, { Component } from "react";
 import "../Login/FormStyle.css";
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 import NavBar from "../NavBar/NavBar";
 import firebase from "../Firebase/FireBase.js";
 import { Redirect } from "react-router";
-
+import bgImg from "./formBG.jpg";
+import Alert from "react-s-alert";
+//display the categories in the selector
 function CategeorySelector(props) {
   // get the real category json from the DB
 
@@ -12,16 +26,17 @@ function CategeorySelector(props) {
   categories = props.categories;
 
   return (
-    <select value={props.value} onChange={props.func} name="category">
+   <select value={props.value} onChange={props.func} name="category" dir="rtl">
       {categories.map((object, i) => {
         return (
-          <option key={i} value={object.type}>
+          <option  key={i} value={object.type}>
             {object.type}
           </option>
         );
       })}
-    </select>
+    </select> 
   );
+
 }
 
 class WebForm extends Component {
@@ -29,6 +44,21 @@ class WebForm extends Component {
     super(props);
     let endOfProcess = false;
     let organizerId = "";
+
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    let yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    today = yyyy + "/" + mm + "/" + dd;
     if (props.user != undefined) organizerId = props.user.id;
     this.state = {
       name: "",
@@ -39,10 +69,11 @@ class WebForm extends Component {
       minPartici: "",
       maxPartici: "",
       description: "",
-      date: "",
+      date: today,
       hour: "",
+      endTime: "",
       imgUrl: "",
-      numOfPartici: 0,
+      numOfCurrPartici: 0,
       isUploading: false,
       isConfirmed: false,
       organizerId: organizerId,
@@ -58,18 +89,20 @@ class WebForm extends Component {
   }
   isValidForm() {
     if (this.state.category == "") {
-      alert("מה לא תבחר קטגוריה??");
+      Alert.info("אנא בחר קטגוריה");
+
       return false;
-    }
-    if (this.state.imgUrl == "") {
-      alert("אנו נשמח לתמונה בבקשה");
+    } else if (this.state.imgUrl == "") {
+      Alert.info("נשמח לתמונה בבקשה");
       return false;
     } else if (this.state.hour == "" || this.state.date == "") {
-      alert("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
+      Alert.info("איך נדע מתי זה קורה? נצטרך תאריך ושעה בבקשה");
       return false;
     }
+
     return true;
   }
+  //fetch the categories from the DB
   componentDidMount() {
     let categories = [];
     let self = this;
@@ -91,7 +124,7 @@ class WebForm extends Component {
         }
       });
   }
-
+  // set the input to the right state
   handleChange(e) {
     if ([e.target.name] == "maxPartici" || [e.target.name] == "minPartici") {
       this.setState({ [e.target.name]: parseInt(e.target.value) });
@@ -99,6 +132,7 @@ class WebForm extends Component {
       this.setState({ [e.target.name]: e.target.value });
     }
   }
+  //check for valid ,wait if still in upload ,redirect to main page
   async handleSubmit(e) {
     e.preventDefault();
     if (!this.isValidForm()) {
@@ -130,12 +164,12 @@ class WebForm extends Component {
           "/categoryList"
       );
     ref.remove();
-    alert("תודה רבה! הטופס נשלח לאישור ההנהלה");
     this.endOfProcess = true;
-
     this.setState({});
+    window.scrollTo(0, 0);
+    Alert.success("תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר שיאושר");
   }
-
+  //upload image funcs
   handleUploadStart() {
     this.setState({ isUploading: true });
   }
@@ -157,153 +191,212 @@ class WebForm extends Component {
   }
 
   render() {
+    let selectImg = false;
+    if(this.state.imgUrl != "")
+          selectImg= true;
     return (
       <div>
-        <NavBar />
-        <hr />
-        <div className="completeReg">
-          <form onSubmit={this.handleSubmit}>
-            <h1>נשמח לכמה פרטים</h1>
-            <label>
-              שם הסדנא
-              <input
-                required
-                type="text"
-                name="name"
-                value={this.state.name}
-                onChange={this.handleChange}
-              />
-            </label>
+        <div
+          className="formPage" style={{ "background-image": `url(${bgImg})` }}>
+                  <NavBar />
+          <div className="completeReg" style={{minWidth:'650px'}}>
+          <h1 className="headLineForm">טופס רישום חוג חדש</h1>
+              <div className="formEx">
+              <h1 className="fillDetLab">אנא מלא פרטים</h1>
+              <form onSubmit={this.handleSubmit}>
+                  <label>
+                   <span className="labl"> שם החוג </span>
+                    <input className="inpt"
+                      required
+                      type="text"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.handleChange}
+                    />
+                  </label>
 
-            <label>
-              קטגוריה
-              <CategeorySelector
-                value={this.state.category}
-                func={this.handleChange}
-                categories={this.state.categoryList}
-              />
-            </label>
+                <label>
+                <span className="labl">
+                  קטגוריה
+                  </span>
+                  <CategeorySelector 
+                    value={this.state.category}
+                    func={this.handleChange}
+                    categories={this.state.categoryList}
+                  />
+                </label>
 
-            <label>
-              שם המארגן
-              <input
-                required
-                type="text"
-                name="organizer"
-                value={this.state.organizer}
-                onChange={this.handleChange}
-              />
-            </label>
+                <label>
+                <span className="labl">
+                  שם המארגן
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="text"
+                    name="organizer"
+                    value={this.state.organizer}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <label>
+                <span className="labl">
+                  מס' טלפון
+                  </span>
+                  <input className="inpt"
+                    required
+                    minlength={9}
+                    maxLength={10}
+                    type="tel"
+                    name="phoneNumber"
+                    value={this.state.phoneNumber}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
-            <label>
-              מס' טלפון
-              <input
-                required
-                minlength={9}
-                maxLength={10}
-                type="tel"
-                name="phoneNumber"
-                value={this.state.phoneNumber}
-                onChange={this.handleChange}
-              />
-            </label>
+                <div className="formLine">
+                <label>
+                <span className="labl">
+                  מיקום המפגש{" "}
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="text"
+                    name="location"
+                    value={this.state.location}
+                    onChange={this.handleChange}
+                    placeholder={"לדוגמא: רחוב אבן ספיר 15,קומה ב"}
+                  />
+                </label>
 
-            <label>
-              מיקום
-              <input
-                required
-                type="text"
-                name="location"
-                value={this.state.location}
-                onChange={this.handleChange}
-              />
-            </label>
+                <label>
+                <span className="labl">
+                  מינימום משתתפים
+                  </span>
+                  <input className="inpt"
+                    required
+                    min={0}
+                    type="number"
+                    name="minPartici"
+                    value={this.state.minPartici}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
-            <label>
-              מינימום משתתפים
-              <input
-                required
-                min={0}
-                type="number"
-                name="minPartici"
-                value={this.state.minPartici}
-                onChange={this.handleChange}
-              />
-            </label>
+                <label>
+                <span className="labl">
+                  מקסימום משתתפים
+                  </span>
+                  <input className="inpt"
+                    required
+                    min={this.state.minPartici}
+                    type="number"
+                    name="maxPartici"
+                    value={this.state.maxPartici}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
-            <label>
-              מקסימום משתתפים
-              <input
-                required
-                min={this.state.minPartici}
-                type="number"
-                name="maxPartici"
-                value={this.state.maxPartici}
-                onChange={this.handleChange}
-              />
-            </label>
+                <label>
+                <span className="labl">
+                  תאריך
+                  </span>
+                  <input className="inpt"
+                    placeholder={this.state.date}
+                    required
+                    type="date"
+                    name="date"
+                    min="2019-01-01"
+                    value={this.state.date}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
-            <label>
-              תאריך
-              <input
-                required
-                type="date"
-                name="date"
-                min="2019-01-01"
-                value={this.state.date}
-                onChange={this.handleChange}
-              />
-            </label>
+                <label>
+                <span className="labl">
+                  שעת התחלה
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="time"
+                    name="hour"
+                    value={this.state.hour}
+                    onChange={this.handleChange}
+                  />
+                </label>
 
-            <label>
-              שעה
-              <input
-                required
-                type="time"
-                name="hour"
-                value={this.state.hour}
-                onChange={this.handleChange}
-              />
-            </label>
+                <label>
+                <span className="labl">
+                  שעת סיום משוערת
+                  </span>
+                  <input className="inpt"
+                    required
+                    type="time"
+                    name="endTime"
+                    value={this.state.endTime}
+                    onChange={this.handleChange}
+                    min={this.state.hour}
+                  />
+                </label>
 
-            <label>
-              תיאור
-              <textarea
-                rows="4"
-                cols="50"
-                required
-                name="description"
-                placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
-                value={this.state.description}
-                onChange={this.handleChange}
-              />
-            </label>
-            <label>
-              <br />
+                <label>
+                <span className="labl">
+                  תיאור החוג
+                  </span>
+                  <textarea className="inpt"
+                    rows="4"
+                    cols="50"
+                    required
+                    name="description"
+                    placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                    style={{ color: "black" }}
+                  />
+                </label>
+                </div>
 
-              <img
-                alt="תמונה"
-                style={{ width: 55, height: 55 }}
-                src={this.state.imgUrl}
-              />
-              {this.state.progress}
-              <FileUploader
-                hidden
-                accept="image/*"
-                randomizeFilename
-                storageRef={firebase.storage().ref("formImages")}
-                onUploadError={this.handleUploadError}
-                onUploadSuccess={this.handleUploadSuccess}
-                onUploadStart={this.handleUploadStart}
-                onProgress={this.handleProgress}
-              />
-            </label>
-
-            <input required className="registerbtn" type="submit" value="שלח" />
-          </form>
+                
+                <label>
+                  <br />
+                  
+                  {selectImg ?
+                <div className="imgusercWebForm">
+                    <img className="imgWebForm"
+                      alt="החלף תמונה"
+                      src={this.state.imgUrl}
+                    />
+                    <div className="useretWebForm">
+                    {this.state.progress}שנה תמונה
+                    </div>
+              </div> 
+                  :
+                  <div className="pinkBtnWebForm">הוספת תמונה תמונה {this.state.progress}</div>      
+                 }
+                  
+                  <FileUploader
+                    hidden
+                    accept="image/*"
+                    randomizeFilename
+                    storageRef={firebase.storage().ref("formImages")}
+                    onUploadError={this.handleUploadError}
+                    onUploadSuccess={this.handleUploadSuccess}
+                    onUploadStart={this.handleUploadStart}
+                    onProgress={this.handleProgress}
+                  />
+                </label>
+                
+                <input
+                  required
+                  className="greenBtnWebForm"
+                  type="submit"
+                  value="שלח"
+                />
+              </form>
+              </div>
+             </div>
+          </div>
+          {this.endOfProcess ? <Redirect to="/" /> : null}
         </div>
-        {this.endOfProcess ? <Redirect to="/" /> : null}
-      </div>
     );
   }
 }
