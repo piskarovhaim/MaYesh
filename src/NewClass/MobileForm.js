@@ -81,7 +81,7 @@ class MobileForm extends React.Component {
       hour: "",
       endTime: "",
       imgUrl: "",
-      numOfPartici: 0,
+      numOfCurrPartici: 0,
       isUploading: false,
       isConfirmed: false,
       organizerId: organizerId,
@@ -214,7 +214,7 @@ class MobileForm extends React.Component {
           "/categoryList"
       );
     ref.remove();
-    alert(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
+    Alert.success(" תודה רבה! החוג נשלח לאישור ההנהלה ויוצג באתר לאחר מכן");
     this.endOfProcess = true;
     this.setState({});
     window.scrollTo(0, 0);
@@ -241,6 +241,9 @@ class MobileForm extends React.Component {
   }
   //render ionic form
   render() {
+    let selectImg = false;
+    if(this.state.imgUrl != "")
+          selectImg= true;
     return (
       <div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
@@ -384,11 +387,19 @@ class MobileForm extends React.Component {
               <IonItem>
                 <div class="ionright">
                   <label>
-                    <img
-                      alt="הוספת תמונה"
-                      style={{ width: 55, height: 55 }}
+                  {selectImg ?
+                <div className="imgusercWebForm">
+                    <img className="imgWebForm"
+                      alt="החלף תמונה"
                       src={this.state.imgUrl}
                     />
+                    <div className="useretWebForm">
+                    {this.state.progress}שנה תמונה
+                    </div>
+              </div> 
+                  :
+                  <div className="pinkBtnWebForm">הוספת תמונה {this.state.progress}</div>      
+                 }
                     {this.state.progress}
                     <FileUploader
                       hidden
@@ -404,7 +415,7 @@ class MobileForm extends React.Component {
                 </div>
               </IonItem>
 
-              <IonButton class="fancyButton pinkBtn" expand="block" type={"submit"}>
+              <IonButton class="fancy-button" expand="block" type={"submit"}>
                 שלח
               </IonButton>
             </form>
