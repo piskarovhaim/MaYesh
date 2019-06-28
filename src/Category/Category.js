@@ -4,10 +4,6 @@ import './Category.css'
 import NavBar from "../NavBar/NavBar"
 import { Redirect } from "react-router";
 
-import toast from 'toasted-notes' 
-import 'toasted-notes/src/styles.css';
-
-
 /*
     Category page - show all data about specific category:
      name , description , image , all classes that confirmed
@@ -65,8 +61,6 @@ class Category extends Component {
   }
 
   render() {
-
-  let a = this.state.category.classList.filter(item => item.isConfirmed);
   //let a = this.state.category.classList;
 
   // filter the classes that confirmed
