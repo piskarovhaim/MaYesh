@@ -73,7 +73,7 @@ class WebForm extends Component {
       hour: "",
       endTime: "",
       imgUrl: "",
-      numOfPartici: 0,
+      numOfCurrPartici: 0,
       isUploading: false,
       isConfirmed: false,
       organizerId: organizerId,
@@ -199,7 +199,7 @@ class WebForm extends Component {
         <div
           className="formPage" style={{ "background-image": `url(${bgImg})` }}>
                   <NavBar />
-          <div className="completeReg">
+          <div className="completeReg" style={{minWidth:'650px'}}>
           <h1 className="headLineForm">טופס רישום חוג חדש</h1>
               <div className="formEx">
               <h1 className="fillDetLab">אנא מלא פרטים</h1>

@@ -113,20 +113,18 @@ class EditProfile extends Component {
         const divWidth = {
             maxWidth: '30%'
           };
-          if(window.innerWidth < 500) // if it is phone set the width to 100%
-              divWidth.maxWidth = '100%';
+        if(window.innerWidth < 500){ // if it is phone set the width to 100%
+            divWidth.maxWidth = '100%';
+            divWidth.width = '90%';
+        }
         return (
         <div>
 
-          <button onClick={()=> {Alert.warning('<h1>Test message 1</h1>', {
-          position: 'top-right',
-          beep: false,
-      })}}>jlhasdfhjkds</button>
         {this.end ? (<Redirect to="/" />):null}  
         <NavBar edit="edit" location={this.props.location.pathname}/>
         <hr/>
         <div className="completeReg" style ={divWidth}>
-        <form>
+        <form className="formStyle">
         <h1>עריכת פרופיל</h1>
         <label>
         

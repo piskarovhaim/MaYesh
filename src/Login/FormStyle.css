@@ -8,9 +8,12 @@ div.completeReg {
   font-family: Arial, Helvetica, sans-serif;
   text-align: right;
   width: 35%;
-  min-width: 650px;
   position: relative;
   color: rgb(0, 0, 0);
+}
+
+form.formStyle{
+  width: 100%;
 }
 
 div.completeReg p {
