@@ -86,11 +86,7 @@
     .classTextPrimary{
         display: block;
         color: #E80A79;
-<<<<<<< HEAD
         font-size: calc(25px + 6vw);
-=======
-        font-size: calc(40px + 4vw);
->>>>>>> 53c6e4f43b0fc91c30e73f397a01ee674fdf8679
         font-weight: 400;
         font-family: mynewestFont;
         line-height: 0.8;
