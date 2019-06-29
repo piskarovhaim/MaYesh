@@ -32,7 +32,8 @@
     "react-scroll-to": "^2.0.9",
     "react-video-cover": "^1.2.2",
     "reactstrap": "^8.0.0",
-    "sendemail": "^3.4.0"
+    "sendemail": "^3.4.0",
+    "toasted-notes": "^2.1.6"
   },
   "scripts": {
     "predeploy": "npm run build",

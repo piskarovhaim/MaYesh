@@ -148,6 +148,16 @@ class MobileForm extends React.Component {
 
   //validate the un required fields
   isValidForm() {
+    console.log(this.state.phoneNumber);
+
+    if (
+      !/^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/.test(
+        this.state.phoneNumber
+      )
+    ) {
+      this.alertMessage("אנא הזן מספר טלפון חוקי עם קידומת");
+      return false;
+    }
     if (this.state.category == "") {
       this.alertMessage("אנא בחר קטגוריה");
 
@@ -180,7 +190,6 @@ class MobileForm extends React.Component {
       });
   }
   async handleSubmit(e) {
-    console.log(this.state);
     e.preventDefault();
     if (!this.isValidForm()) {
       return;
@@ -242,8 +251,7 @@ class MobileForm extends React.Component {
   //render ionic form
   render() {
     let selectImg = false;
-    if(this.state.imgUrl != "")
-          selectImg= true;
+    if (this.state.imgUrl != "") selectImg = true;
     return (
       <div>
         {this.endOfProcess ? <Redirect to="/" /> : null}
@@ -251,7 +259,7 @@ class MobileForm extends React.Component {
           <IonContent class="ionContent">
             <form onSubmit={this.handleSubmit}>
               <div className="style">
-                <NavBar/>
+                <NavBar />
                 <h1>נשמח לכמה פרטים</h1>
               </div>
               <IonItem text-right>
@@ -286,10 +294,8 @@ class MobileForm extends React.Component {
               <IonItem text-right>
                 <IonInput
                   required={true}
-                  type="tel"
+                  type="number"
                   placeholder="מס טלפון"
-                  minlength={9}
-                  maxlength={10}
                   name="phoneNumber"
                   value={this.state.phoneNumber}
                   onIonChange={this.handleChange}
@@ -387,19 +393,22 @@ class MobileForm extends React.Component {
               <IonItem>
                 <div class="ionright">
                   <label>
-                  {selectImg ?
-                <div className="imgusercWebForm">
-                    <img className="imgWebForm"
-                      alt="החלף תמונה"
-                      src={this.state.imgUrl}
-                    />
-                    <div className="useretWebForm">
-                    {this.state.progress}שנה תמונה
-                    </div>
-              </div> 
-                  :
-                  <div className="pinkBtnWebForm">הוספת תמונה {this.state.progress}</div>      
-                 }
+                    {selectImg ? (
+                      <div className="imgusercWebForm">
+                        <img
+                          className="imgWebForm"
+                          alt="החלף תמונה"
+                          src={this.state.imgUrl}
+                        />
+                        <div className="useretWebForm">
+                          {this.state.progress}שנה תמונה
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="pinkBtnWebForm">
+                        הוספת תמונה {this.state.progress}
+                      </div>
+                    )}
                     {this.state.progress}
                     <FileUploader
                       hidden

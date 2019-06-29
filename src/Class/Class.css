@@ -69,6 +69,7 @@
     
     .classLeftTextBox{
         color: #fff;
+        margin-top: 10%;
         background-color: rgba(0, 0, 0, .2);
         padding: 1rem;
         width: 40%;
@@ -87,7 +88,7 @@
         font-size: calc(40px + 6vw);
         font-weight: 400;
         font-family: mynewestFont;
-        line-height: 1;
+        line-height: 0.8;
     }
     
     .classTextSub{
@@ -168,6 +169,7 @@
     }
 
     .jBtnCont{
+        display: block;
     }
 
     .iconCont{
@@ -277,8 +279,21 @@
     left: 0;
     z-index: 10;
     text-decoration: none;
+    font-size: 14px;
     color: #fff;
     font-family: mynewFont;
+    letter-spacing: 1.2px;
+    text-align: right;
+    direction: rtl;
     cursor: pointer;
-    text-align: left;
+    padding-left: 3.8rem;
+}
+
+.backbut{
+    top: 3rem;
+    margin-left: 5%;
+    float: left;
+    color: #fff;
+    font-size: calc(35px + 3vw); 
+    position: relative;
 }

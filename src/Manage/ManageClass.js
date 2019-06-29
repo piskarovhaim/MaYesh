@@ -1,3 +1,12 @@
+/*
+--MANAGE CLASS COMPONENT--
+manage the course pass by props from manage category 
+fetch all the values from db
+display in form format 
+after edit send the new values to db
+
+*/
+
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import NavBar from "../NavBar/NavBar";
@@ -62,7 +71,7 @@ class ManageClass extends Component {
       date: "",
       numOfCurrPartici: "",
       hour: "",
-      endTime:"",
+      endTime: "",
       description: "",
       imgUrl: "",
 
@@ -78,7 +87,7 @@ class ManageClass extends Component {
     this.removePartici = this.removePartici.bind(this);
     this.formatDate = this.formatDate.bind(this);
   }
-
+  //get all the data
   componentDidMount() {
     let ref = firebase
       .database()

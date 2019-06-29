@@ -7,6 +7,13 @@ import { Redirect } from 'react-router';
 import ParticipantList from "./ParticipantList.js"
 import { Link } from 'react-router-dom'
 import Alert from 'react-s-alert';
+import { red } from "@material-ui/core/colors";
+
+/*
+    Class - return the class page.
+    Class use 'JoinCancelButton' component to display 'join to class' or 'cancel' button, and 
+    'ParticipantList' component to display all class's participans.
+*/
 
 class Classs extends React.Component
 {
@@ -56,6 +63,7 @@ class Classs extends React.Component
     
     componentDidMount()
     { 
+        //check if the current user is signed in
         let currUser = false
         if(firebase.auth().currentUser)
             currUser = true;
@@ -66,6 +74,8 @@ class Classs extends React.Component
                 currUser = true
             this.setState({isSignIn: currUser})
           })
+
+        //updating the list of all participant in this class 
         let ref = firebase.database().ref('/CategoryList/' + this.state.category + '/classList/' + this.state.course);
         ref.child("particiList").on('value', snapshot => {
             let tempParticiList = [];//will keep the list of participants for this class
@@ -78,8 +88,7 @@ class Classs extends React.Component
             tempClass.partiList = tempParticiList
             this.setState({thisClass:tempClass})      
         });
-        // ref = firebase.database().ref('/Users/' + this.state.course)
-        // if()
+ 
         //update the class details
         ref.on('value', snapshot => {
             this.setState({
@@ -89,17 +98,18 @@ class Classs extends React.Component
                                     category:snapshot.val().category,
                                     name:snapshot.val().name,
                                     hour:snapshot.val().hour,
-                                    minPartici:snapshot.val().minPartici,
+                                    minPartici:parseInt(snapshot.val().minPartici,10),
                                     description:snapshot.val().description,
                                     img:snapshot.val().imgUrl,
                                     location: snapshot.val().location,
                                     endTime: snapshot.val().endTime,
                                     date: snapshot.val().date, 
                                     numOfCurrPartici: snapshot.val().numOfCurrPartici,
-                                    maxParti: snapshot.val().maxPartici,
+                                    maxParti:  parseInt(snapshot.val().maxPartici,10),
                                     partiList:this.state.thisClass.partiList
                                 }
                                 ,loading: true})})
+
         //getting the object of this category for "לעוד קורסים בקטגוריה זאת"
         ref = firebase.database().ref('/CategoryList')
         ref.once('value', snapshot => {snapshot.forEach(element =>{
@@ -120,9 +130,10 @@ class Classs extends React.Component
         this.setState({displayOrgenizerDetails:!this.state.displayOrgenizerDetails})
     }
 
+    //return the details (mail and phone number) of this class organizer
     organizerDetails()
     {
-        let email, phone,url
+        let email, phone, url
         let ref = firebase.database().ref('/Users/' + this.state.thisClass.organizerId)
         ref.once('value', snapshot => {
                 email = snapshot.val().email
@@ -137,8 +148,8 @@ class Classs extends React.Component
         </div>)
     }
     
-
-    numOfPart() //returns the number of participants in this class.. if there is not, returns that there is not yet
+    //returns the number of participants in this class.. if there is not, returns that there is not yet
+    numOfPart() 
     {
         let howManyPart = ""
         if(this.state.thisClass.numOfCurrPartici <= 0)
@@ -150,6 +161,7 @@ class Classs extends React.Component
         )
     }
 
+    //onclick join button
     whenJoinClicked()
     {
         if(this.state.isSignIn)
@@ -179,13 +191,12 @@ class Classs extends React.Component
             
         }
         else
-            this.setState({isJoinClicked: true})
+            this.setState({isJoinClicked: true})//direct to 'sign in'
     }
 
+    //onclick cancel button
     whenCancelClicked()
     {
-        if(this.state.displayThanksForJoin)//if the "thanks for joining" massage is still displayed
-            return
         this.setState({isCancelClicked: true})
         let tempNumOfCurPart;
         const uid = firebase.auth().currentUser.uid
@@ -219,11 +230,13 @@ class Classs extends React.Component
         ref.child("numOfCurrPartici").set(tempNumOfCurPart);
     }
 
+    //fix the display of the date (to 01.12.2019 form)
     dateFixer(oldDate){
         let dateFixed = oldDate.slice(8)+"."+oldDate.slice(-5,-3)+"."+oldDate.slice(-12,-6);
         return dateFixed;
     }
     
+    //checking if there is enough participant. this function is not used for now
     notEnPar(curPar,minPar){
         if(minPar>curPar){
             return "אין כרגע מספיק נרשמים לקורס זה."
@@ -233,6 +246,7 @@ class Classs extends React.Component
         }      
     }
 
+    //getting the day of some date
     getDayOf(date){
         var d = new Date(date);
         var days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
@@ -243,17 +257,18 @@ class Classs extends React.Component
    
     render()
     {
+        let back ="<";
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
         let stylePhone ={}
-        if(window.innerWidth < 500)
+        if(window.innerWidth < 500)//mobile display
         {
             stylePhone.width = '85%';
             stylePhone.letterSpacing='0';
             stylePhone.float = 'right'
         }
-        let sendToLogin = false;
+        let sendToLogin = false;//if send the user to login
         if(this.state.isJoinClicked && !this.state.isSignIn)
             sendToLogin = true;
 
@@ -271,6 +286,9 @@ class Classs extends React.Component
                         </div>
                         <div className="classPageSec">
                         <NavBar/>
+                             <Link to = "/">
+                                  <div className="backbut">{back}</div>
+                            </Link>
                             <div className="topdivclass">
                                 <div className="classRightTextBox" style={stylePhone}>
                                     <span className="dateTag">{this.getDayOf(this.state.thisClass.date)} {this.dateFixer(this.state.thisClass.date)}</span>
@@ -286,18 +304,21 @@ class Classs extends React.Component
                                     <div className = "jBtnCont">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
                                     </div>
+                                    <div className = "jBtnCont">
+                                        <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
+                                            <div className="morefromthiscategory">חוגים נוספים בקטגוריית {this.state.thisClass.category}</div>
+                                        </Link>
+                                    </div>
+
                                 </div>
                                 <div className="classLeftTextBox" style={stylePhone}>
                                  <span className="classTextDesc">{this.state.thisClass.description}</span>
                                  </div>       
                           </div>
                           <div className="classDetails">
-                          <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
-                                        <div className="morefromthiscategory">חוגים נוספים בקטגוריית {this.state.thisClass.category}</div>
-                                </Link>
                                     <div className="locationDiv" style={stylePhone}> 
                                     <div className="iconclasstoright">
-                                        <span className="classLocation">{this.state.thisClass.hour}-{this.state.thisClass.endTime}</span>
+                                        <span className="classLocation">{this.state.thisClass.hour} - {this.state.thisClass.endTime}</span>
                                     </div>
                                         <span className="iconCont">
                                              <svg className="iconSvg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
