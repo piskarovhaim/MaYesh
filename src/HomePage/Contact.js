@@ -46,7 +46,7 @@ class Contact extends Component {
                   <div className="contBoxdiv" style={phoneW}>
                   <form className="contBox" onSubmit={this.sendMassage}>
                         <input name="name" value={this.state.name} type="text" placeholder ="הכנס שם מלא" required onChange={this.handleChange}/><br/>
-                        <input name="email" value={this.state.email} type="email"  placeholder = "הכנס כתובת דואר אלקטרוני" required onChange={this.handleChange}/><br/>
+                        <input name="email" value={this.state.email} type="email"  placeholder = {"הכנס כתובת אימייל"}required onChange={this.handleChange}/><br/>
                         <textarea name="message" value={this.state.message}  placeholder="הכנס הודעתך" row="4" required onChange={this.handleChange}/><br/>
                         <input type="submit" value="שלח הודעה"/>
                     </form>
