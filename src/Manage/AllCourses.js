@@ -18,8 +18,11 @@ class AllCourses extends Component {
   }
 
   render() {
+    let style = {}
+    if(window.innerWidth < 500)
+        style.width = '85%'
     return (
-      <div className="manageAllCategory">
+      <div className="manageAllCategory" style={style}>
         <h1> עריכת החוגים בקטגוריה</h1>
         {Object.values(this.props.list).map((object, i) => {
           let str =

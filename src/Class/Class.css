@@ -15,6 +15,7 @@
     text-align: right;
     height: 100vh;
     overflow: auto;
+    display: inline-grid;
 }
 
 .containerBox{
@@ -52,7 +53,7 @@
 
 .topdivclass{
     margin: auto;
-    width: 93%;
+    width: 95%;
     max-width: 1000px;
     margin-top: 2vw;
     position: relative;
@@ -61,15 +62,14 @@
 .classRightTextBox{
     color: #fff;
     position: relative;
-    width: 40%;
+    width: 50%;
     float:right;
     text-align: right;
-    letter-spacing: 7px;
+    letter-spacing: 3px;
     }
     
     .classLeftTextBox{
         color: #fff;
-        margin-top: 10%;
         background-color: rgba(0, 0, 0, .2);
         padding: 1rem;
         width: 40%;
@@ -85,7 +85,7 @@
     .classTextPrimary{
         display: block;
         color: #E80A79;
-        font-size: calc(40px + 6vw);
+        font-size: calc(40px + 4vw);
         font-weight: 400;
         font-family: mynewestFont;
         line-height: 0.8;
@@ -100,17 +100,21 @@
         font-family: mynewFont;
 
     }
+    .classTextSub:hover{
+        color:black;
+    }
     .classTextDesc{
         display: block;
-        font-size: calc(5px + 1.5vw);
+        font-size: calc(5px + 1.2vw);
         font-weight: 400;
         margin-bottom: 5px;
         text-shadow: 0 0 30px  #171717;
         font-family: mynewFont;
+        direction: inherit;
     }
 
     .classDetails{
-        width: 95%;
+        width: 100%;
         position: relative;
         display: flex;
         flex-wrap: wrap;
@@ -118,6 +122,7 @@
         float: right;
         justify-content: center;
         font-size: calc(10px + 1vw);
+        margin-bottom: 10px;
     
     }
     .classLocation{
@@ -132,9 +137,6 @@
         font-size: 36px;
         font-weight: 400;
         font-family: mynewestFont;
-    }
-
-    .joinButton{
     }
     
     .iconclasstoright{
@@ -168,9 +170,6 @@
         margin-bottom: 5px;
     }
 
-    .jBtnCont{
-        display: block;
-    }
 
     .iconCont{
         display: inline-block;
@@ -274,26 +273,22 @@
 }
 
 .morefromthiscategory{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
     text-decoration: none;
     font-size: 14px;
     color: #fff;
     font-family: mynewFont;
     letter-spacing: 1.2px;
     text-align: right;
-    direction: rtl;
     cursor: pointer;
-    padding-left: 3.8rem;
 }
+.linkto{
+    text-decoration: none;
+  }
 
 .backbut{
-    top: 3rem;
-    margin-left: 5%;
-    float: left;
+    position: absolute;
+    top: 10vh;
+    margin-left: 5vw;
     color: #fff;
     font-size: calc(35px + 3vw); 
-    position: relative;
 }

@@ -71,13 +71,14 @@
 
 .catTextSub{
     display: block;
-    font-size: calc(5px + 1vw);
+    font-size: calc(7px + 1vw);
     font-weight: 400;
-    letter-spacing: 1.6px;
+    letter-spacing: 1.2px;
     max-height: 20vh;
     margin-bottom: 5px;
     text-align: right;
     overflow: auto;
+    direction: rtl;
 
 }
 
