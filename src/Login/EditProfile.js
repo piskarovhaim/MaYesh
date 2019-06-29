@@ -34,7 +34,6 @@ function ClassesList(props) {
                 </Link>
               );
           }
-        })
         })}
     </div>
   );
