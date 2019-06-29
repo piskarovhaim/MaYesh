@@ -13,15 +13,8 @@ class Video extends Component {
             }
         }
     }
-    componentWillUnmount(){
-        window.removeEventListener("resize", ()=>this.setState({}));
-    }
-    componentDidMount(){
-        window.addEventListener("resize", ()=>this.setState({}));
-    }
 
     render() {
-
         let style ={}
         if(window.innerWidth < 500 || window.innerHeight < 500){
           style.width = '80%';

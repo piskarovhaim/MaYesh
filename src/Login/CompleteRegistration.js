@@ -146,6 +146,8 @@ firebase
           
         <label>
         <span className="labl">
+        :הפלאפון שלך
+        </span>
         <span className="whyPhone" onClick={()=>{this.whyPhone = !this.whyPhone;this.setState({})}}>?</span>
         {this.whyPhone? (<div className="whyPhone">
           אנחנו לא רוצים את הפרטים שלך סתם, אל חשש
@@ -155,8 +157,6 @@ firebase
           <span className="whyPhoneGetIt"  onClick={()=>{this.whyPhone = false;this.setState({})}}>הבנתי</span>
         </div>)
         :null}
-        :הפלאפון שלך
-        </span>
         <input style={inputWidth} type="tel" pattern="[0-9]{9}" name="phone" value={this.state.phone} onChange={this.handleChange}></input>
         </label>
         <br/>

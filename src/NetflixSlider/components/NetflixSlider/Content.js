@@ -19,7 +19,7 @@ const Content = ({ movie, onClose }) => (
           {movie.description}
         </div>
         <div className="content__linktoclass">
-        <Link to={"/Category/"+ movie.category +"/Class/"+movie.name}>
+        <Link to={"/Category/"+ movie.category +"/Class/"+movie.name} className="linkConToClass">
             המשך לדף החוג
           </Link>
           </div>

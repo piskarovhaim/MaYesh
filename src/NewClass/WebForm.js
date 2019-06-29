@@ -253,7 +253,7 @@ class WebForm extends Component {
                     minlength={9}
                     maxLength={10}
                     type="tel"
-                    pattern="[0-9]{9-10}"
+                    pattern="!/^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/"
                     name="phoneNumber"
                     value={this.state.phoneNumber}
                     onChange={this.handleChange}

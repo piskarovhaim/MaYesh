@@ -27,10 +27,9 @@ componentDidMount(){
 }
 
   render() {
-    let nAv = {height: this.state.windowH}
     return (   
           <div className="home">
-              <div className="navAndvideo" style={nAv}>
+              <div className="navAndvideo">
                 <NavBar about={true}/>
                 <NavBar homePage={true}/>
                 <Contact/>
@@ -38,7 +37,7 @@ componentDidMount(){
                 <div id="joinToClass" className="videogradient"/>
               </div>
                 
-                <ClassBy sortBy="thebestforme"/>
+              <ClassBy sortBy="thebestforme"/>
               <ClassBy sortBy="date"/>
               <AllCategories/>
               <div className="footer" id="About">

@@ -76,7 +76,7 @@
 
   &__linktoclass {
     font-size: 15px;
-    color: #fff;
+    color: #E80A79;
     width: 100%;
     text-decoration-line: none;
   }
@@ -94,4 +94,9 @@
     cursor: pointer;
     
   }
+}
+
+.linkConToClass{
+  text-decoration-line: none;
+  color: #E80A79;
 }
