@@ -21,7 +21,7 @@ div.navAndvideo{
 }
 
 div.videogradient{
-    position: absolute;
+    position: sticky;
     height: calc(25px + 8vw);
     bottom: 0;
     background-image: linear-gradient(to top, rgb(56, 56, 56),rgb(56, 56, 56,0));

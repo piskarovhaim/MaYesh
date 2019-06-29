@@ -226,7 +226,10 @@ class EditProfile extends Component {
         <input style={inputWidth} type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input> 
         </label>
           <br/>
-          <span className="lablfav">:החוגים אליהם אני רשום</span>
+          {this.state.ListOfSignInClasses.length < 1 ?
+          <span className="lablfav">אתה לא רשום לשום חוג כרגע</span>
+          :
+          <span className="lablfav">:החוגים אליהם אני רשום</span>}
           <br/>
           <ClassesList classes={this.state.ListOfSignInClasses} />
          

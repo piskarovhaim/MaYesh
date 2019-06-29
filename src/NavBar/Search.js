@@ -73,7 +73,7 @@ class Search extends Component {
           let path = "/Category/"+ this.state.currentcategory +"/Class/"+ this.state.currentclass;
           if(this.props.manage){
               path = "/ManageClass/"+ this.state.currentcategory +"/"+this.state.currentclass;
-              dropDownnPhoneStyle.right = '5px';
+              dropDownnPhoneStyle.right = '-50px';
           }
         return(
             <div className="search" style={style} >

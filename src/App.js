@@ -15,6 +15,22 @@ import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      windowH:window.innerHeight,
+    };
+    this.resizeHand = this.resizeHand.bind(this)
+  }
+resizeHand(){
+  this.setState({})
+}
+componentWillUnmount(){
+    window.removeEventListener("resize", this.resizeHand);
+}
+componentDidMount(){
+    window.addEventListener("resize", this.resizeHand);
+}
   render() {
     return (
       <div>

@@ -99,7 +99,7 @@ class LogIn extends Component {
     if(!this.state.isSignedIn)
       signin =true;
     return (
-      <div className="loginBg" style={{ "background-image": `url(${bgImg})` }}>
+      <div className="loginBg">
           <NavBar login={!endProcess}/>
           {signin ? (
           <div>
