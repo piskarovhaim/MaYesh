@@ -15,7 +15,6 @@
     text-align: right;
     height: 100vh;
     overflow: auto;
-    display: inline-grid;
 }
 
 .containerBox{
@@ -62,10 +61,10 @@
 .classRightTextBox{
     color: #fff;
     position: relative;
-    width: 50%;
+    width: 40%;
     float:right;
     text-align: right;
-    letter-spacing: 3px;
+    letter-spacing: 7px;
     }
     
     .classLeftTextBox{
@@ -85,7 +84,7 @@
     .classTextPrimary{
         display: block;
         color: #E80A79;
-        font-size: calc(40px + 4vw);
+        font-size: calc(40px + 6vw);
         font-weight: 400;
         font-family: mynewestFont;
         line-height: 1;
@@ -102,12 +101,11 @@
     }
     .classTextDesc{
         display: block;
-        font-size: calc(5px + 1vw);
+        font-size: calc(5px + 1.5vw);
         font-weight: 400;
         margin-bottom: 5px;
         text-shadow: 0 0 30px  #171717;
         font-family: mynewFont;
-        direction: initial;
     }
 
     .classDetails{
