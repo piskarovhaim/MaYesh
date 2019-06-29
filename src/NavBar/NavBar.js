@@ -141,7 +141,7 @@ class NavBar extends Component {
                   }}
                 >
                   <div className="edit">
-                      <div className="navTextMenu">עריכת פרופיל</div>
+                      <div className="navTextMenu">איזור אישי</div>
                   </div>
                 </Link>
                 <Link to={{pathname: this.state.location, state:{isLogin:false}}} className="linkto"><div className="edit">

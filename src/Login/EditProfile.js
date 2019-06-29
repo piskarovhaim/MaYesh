@@ -183,7 +183,7 @@ class EditProfile extends Component {
         <NavBar edit="edit" location={this.props.location.pathname}/>
         <div className="completeReg" style ={divWidth}>
         <form className="edit">
-        <h1>עריכת פרופיל</h1>
+        <h1>איזור אישי</h1>
         <label>
         <div className="imguserc">
           <img className="user_e" src={this.state.img}/>
