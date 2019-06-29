@@ -98,6 +98,7 @@
         margin-bottom: 10px;
         text-shadow: 0 0 30px  #171717;
         font-family: mynewFont;
+        direction: rtl;
 
     }
     .classTextSub:hover{
@@ -110,7 +111,8 @@
         margin-bottom: 5px;
         text-shadow: 0 0 30px  #171717;
         font-family: mynewFont;
-        direction: inherit;
+        direction: initial;
+        text-align: right;
     }
 
     .classDetails{
@@ -155,6 +157,23 @@
     
     .joinButton.greenBtn{
         background-color:#258916;
+        color: #fff;
+        text-decoration: none;
+        padding: 3% 17%;
+        font-size: calc(7px + 2vw);
+        display: inline-block;
+        border-radius: 100px;
+        transition: all .2s;
+        font-family: mynewFont;
+        border: none;
+        cursor: pointer;
+        outline:none;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+
+    .joinButton.pinkBtn{
+        background-color: #E80A79;
         color: #fff;
         text-decoration: none;
         padding: 3% 17%;
