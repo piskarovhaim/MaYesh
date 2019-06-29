@@ -5,6 +5,39 @@ import './FormStyle.css'
 import NavBar from "../NavBar/NavBar";
 import FileUploader from "react-firebase-file-uploader"; // https://www.npmjs.com/package/react-firebase-file-uploader
 import Alert from 'react-s-alert';
+import { Link } from 'react-router-dom'
+
+
+function ClassesList(props) {
+  let classes = props.classes;
+  let phoneWidth = {};
+  if(window.innerWidth < 500)
+      phoneWidth.width = '100%';
+  return (
+    <div className="editclassesList" style={phoneWidth}>
+      {classes.map((object, i) => {
+          let d = new Date(object.date);
+          let days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+          let dateFixed = object.date.slice(8)+"."+object.date.slice(-5,-3)+"."+object.date.slice(-12,-6);
+          if(object.isConfirmed){
+              return (
+                <Link to={"/Category/"+ object.category +"/Class/"+object.name} className="linkto">
+                <div className="editProClass" key={i}>
+                <div className="editclassdit">
+                  <div className="classesnameDiv">{object.name}</div>
+                  <div className="classesnameDiv">{days[d.getDay()]} {dateFixed} </div>
+                </div>
+                <div className="editclassditImg">
+                <img src={object.imgUrl} className="editPro"/>
+                </div>
+                </div>
+                </Link>
+              );
+          }
+        })}
+    </div>
+  );
+}
 
 function FavoritesCategeory(props) {
   // get the real category json from the DB
@@ -41,7 +74,6 @@ function FavoritesCategeory(props) {
 class EditProfile extends Component {
     constructor(props) {
         super(props);
-        
         let end = false;
         let whyPhone = false;
         let favorite = props.location.state.user.favoriteCat
@@ -54,7 +86,7 @@ class EditProfile extends Component {
           phone:props.location.state.user.phone,
           img:props.location.state.user.img,
           favoriteCat:favorite,
-          listOfSignInClass:props.location.state.user.listOfSignInClass,
+          ListOfSignInClasses:[],
           progress:[]
 
         };
@@ -65,6 +97,22 @@ class EditProfile extends Component {
         this.handleUploadSuccess = this.handleUploadSuccess.bind(this)
         this.handleProgress = this.handleProgress.bind(this)
     }
+
+    componentDidMount(){
+    let classes = [];
+    let arrTemp =[]
+    
+    if(this.props.location.state.user.ListOfSignInClasses != undefined)
+      classes = Object.values(this.props.location.state.user.ListOfSignInClasses);
+      classes.forEach(element => {   
+      firebase.database().ref('/CategoryList/' + element.category + "/classList/" + element.name).once('value', snapshot => {
+        arrTemp = this.state.ListOfSignInClasses;
+        arrTemp.push(snapshot.val());
+        this.setState({ListOfSignInClasses:arrTemp});
+      });
+    });
+  }
+      
 
     SetUser(){
       if(this.state.name == "" || this.state.phone == ""){
@@ -117,6 +165,7 @@ class EditProfile extends Component {
     };
 
     render() {
+      console.log(this.state);
         let divWidth = {
             maxWidth: '35%'
           };
@@ -177,8 +226,13 @@ class EditProfile extends Component {
         <input style={inputWidth} type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input> 
         </label>
           <br/>
+          <span className="lablfav">:החוגים אליהם אני רשום</span>
+          <br/>
+          <ClassesList classes={this.state.ListOfSignInClasses} />
+         
         <label>
         <span className="lablfav">
+        <br/>
         קטגוריות מועדפות
         <br/>
         <span className="spanfavoriteCat">

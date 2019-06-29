@@ -358,5 +358,37 @@ div.textdivEdit {
   text-align: center;
   color: #fff;
 }
+.editclassesList{
+  max-height: calc(160px + 6vh);
+  overflow: auto;
+}
 
+.editProClass{
+  color: #fff;
+  margin: auto;
+  display: flex;
+  justify-content: flex-end;
+}
 
+img.editPro{
+  width: 7vw;
+    height: 6vw;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid white;
+}
+.editclassdit {
+  margin: auto;
+    margin-right: 5px;
+    color: #fff;
+    font-family: myFont;
+    font-size: 18px;
+}
+.editclassdit:hover{
+  font-size: 19px;
+}
+.linkto{
+  text-decoration: none;
+}

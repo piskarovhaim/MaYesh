@@ -219,7 +219,7 @@ class WebForm extends Component {
                     required
                     type="text"
                     name="name"
-                    placeholder="מומלץ ששם החוג יהיה מזמין,קצת וקל להבנה"
+                    placeholder="מומלץ ששם החוג יהיה מזמין,קצר וקל להבנה"
                     value={this.state.name}
                     onChange={this.handleChange}
                   />
@@ -346,7 +346,7 @@ class WebForm extends Component {
                       cols="50"
                       required
                       name="description"
-                      placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
+                      placeholder="כמה מילים על החוג כדי שהחבר'ה ידעו מה הדיבור"
                       value={this.state.description}
                       onChange={this.handleChange}
                       style={{ color: "black" }}
@@ -370,7 +370,7 @@ class WebForm extends Component {
                     </div>
                   ) : (
                     <div className="pinkBtnWebForm">
-                      תוסיף תמונה {this.state.progress}
+                      הוספת תמונה {this.state.progress}
                     </div>
                   )}
 

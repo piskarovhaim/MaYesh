@@ -140,8 +140,11 @@ class Classs extends React.Component
                 phone = snapshot.val().phone
                 url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + email + "&tf=1"
         })
+        let mailDiv = <div>{email}</div>
+        if(window.innerWidth >= 500)//not a mobile
+            mailDiv = <div className="divSendEmail" onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}>{email}</div>
         return (<div>
-            <div className="divSendEmail" onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}>{email}</div>
+            {mailDiv}
             <br/>
             <div>{phone}</div>
             <br/>
@@ -194,6 +197,7 @@ class Classs extends React.Component
             this.setState({isJoinClicked: true})//direct to 'sign in'
     }
 
+    
     //onclick cancel button
     whenCancelClicked()
     {
@@ -248,8 +252,8 @@ class Classs extends React.Component
 
     //getting the day of some date
     getDayOf(date){
-        var d = new Date(date);
-        var days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+        let d = new Date(date);
+        let days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
         return days[d.getDay()];
     }
 
@@ -281,8 +285,8 @@ class Classs extends React.Component
                     {
                     <div className="containerBox">
                         <div className="classcontentbackground">
-                            <div className="classcontentbackgroundimage" style={{ 'background-image': `url(${this.state.thisClass.img})` }}>
-                            <div className="classcontentbackgroundshadow" />
+                            <div className="classcontentbackgroundimage" style={{ 'backgroundImage': `url(${this.state.thisClass.img})` }}>
+                                <div className="classcontentbackgroundshadow" />
                             </div>
                         </div>
                         <div className="classPageSec">

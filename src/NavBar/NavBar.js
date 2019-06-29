@@ -95,7 +95,7 @@ class NavBar extends Component {
                 phone: currentUser.phone,
                 img: currentUser.img,
                 favoriteCat: currentUser.favoriteCat,
-                listOfSignInClass: currentUser.listOfSignInClass
+                ListOfSignInClasses: currentUser.ListOfSignInClasses
               }
             });
             return;
