@@ -261,8 +261,6 @@ class Classs extends React.Component
    
     render()
     {
-        console.log(this.state.thisClass)
-        let back ="<";
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
             isManager = true
