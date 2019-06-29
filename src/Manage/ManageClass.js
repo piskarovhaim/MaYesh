@@ -7,9 +7,9 @@ after edit send the new values to db
 
 */
 
+import logo from '../NavBar/logoN.png'
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
-import NavBar from "../NavBar/NavBar";
 import "../Login/FormStyle.css";
 import { Redirect } from "react-router";
 import Permissions from "./Permissions";
@@ -194,28 +194,25 @@ class ManageClass extends Component {
   }
 
   render() {
-    const divWidth = {
+    let divWidth = {
       maxWidth: "30%"
     };
 
-    const setNavHeight = {
-      height: window.innerHeight / 10
-    };
     if (window.innerWidth < 500){
       // if it is phone set the width to 100%
-      divWidth.maxWidth = "100%";
-      divWidth.width ='90%';
+      divWidth.maxWidth = '100%';
+      divWidth.width = '95%';
+      divWidth.minWidth = '10%';
     }
 
     return (
       <div>
         <Permissions />
-        <div className="managenav" style={setNavHeight}>
+        <div className="managenav">
           <Link to="/">
-            <img
+          <img
               className="logo"
-              src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"
-            />
+              alt="logo" src={logo}/>
           </Link>
           <div className="managenavbarinline">
             <Link to="/manage">

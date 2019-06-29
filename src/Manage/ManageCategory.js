@@ -6,7 +6,7 @@ include:
 -display all the courses of the category 
 
 */
-
+import logo from '../NavBar/logoN.png'
 import React, { Component } from "react";
 import firebase from "../Firebase/FireBase.js";
 import "./ManageCategory.css";
@@ -125,15 +125,11 @@ class ManageCategory extends Component {
       .then(url => this.setState({ img: url, progress: [] }));
   }
   render() {
-    let style = { margin: 15, float: "right", borderLeft: "1px solid black" };
+    let style = {};
     if (window.innerWidth < 500) {
       style.width = "80%";
       style.border = "none";
     }
-    const setNavHeight = {
-      height: window.innerHeight / 10
-    };
-    console.log(this.state);
     let classList = this.state.classList;
     switch (this.state.showType) {
       case "wait":
@@ -152,12 +148,11 @@ class ManageCategory extends Component {
       <div>
         <Permissions />
         {this.endOfProcess ? <Redirect to="/manage" /> : null}
-        <div className="managenav" style={setNavHeight}>
+        <div className="managenav">
           <Link to="/">
-            <img
+          <img
               className="logo"
-              src="https://firebasestorage.googleapis.com/v0/b/mayesh-bd07f.appspot.com/o/imgs%2Flogo.jpg?alt=media&token=cae07f5d-0006-42c8-8c16-c557c1ea176c"
-            />
+              alt="logo" src={logo}/>
           </Link>
           <div className="managenavbarinline">
             <Link to="/manage">
@@ -191,6 +186,7 @@ class ManageCategory extends Component {
           </div>
         </div>
         <hr />
+        <div className="mainManageDiv">
         <div className="addCategory" style={style}>
           <b>עריכת קטגורית </b>
           <b>{this.state.categoryName}</b>
@@ -239,6 +235,7 @@ class ManageCategory extends Component {
           </form>
         </div>
         <AllCourses list={classList} categoryName={this.state.categoryName} />
+        </div>
       </div>
     );
   }

@@ -43,7 +43,7 @@ class CompleteRegistration extends Component {
       listOfSignInClass:props.user.listOfSignInClass,
       progress:[]
 
-    };;
+    };
   let endProses =false;
   let whyPhone = false;
   this.handleChange = this.handleChange.bind(this);
@@ -77,6 +77,12 @@ class CompleteRegistration extends Component {
       return;
     }
     
+    let phoneno = /^\d{10}$/;
+    if(!this.state.phone.match(phoneno)){
+      Alert.warning("מספר הפלאפון שהכנסת לא תקין");
+      return;
+    }
+
     firebase.database().ref('/Users/' + this.state.id).set(this.state);
     this.endProses =true;
     this.setState({});

@@ -8,10 +8,20 @@
 }
 
 .contBG{
-    display: none;
-
+    display: block;
+    position: fixed;
+    background-color: #FF0060;
+    z-index: 200;
+    width: 100%;
+    height: 0vh;
+    top:0;
+    overflow: auto;
+    transition: height 0.6s;
 }
-
+.contCB:checked ~ .contBG{
+    height: 100vh;
+    transition: height 0.6s;
+}
 .headLine{
     color: #fff;
     text-align: center;
@@ -48,7 +58,18 @@
     max-width: 900px;
 }
 
-.contBox input,textarea{
+.contBox input{
+    font-family: mynewFont;
+    font-size: 1.5rem;
+    padding: 1rem 1.5rem;
+    background-color: transparent;
+    border: 4px solid #fff;
+    width: -webkit-fill-available;
+    margin: 10px;
+    text-align: right;
+
+}
+.contBox textarea{
     font-family: mynewFont;
     font-size: 1.5rem;
     padding: 1rem 1.5rem;
@@ -77,17 +98,7 @@
     text-align: right;
 }
 
-.contCB:checked ~ .contBG{
-    display: block;
-    transform: scale(1);
-    position: fixed;
-    background-color: #FF0060;
-    z-index: 200;
-    transition: transform .8s;
-    width: 100%;
-    height: 100vh;
-    top:0;
-}
+
 
 
 .navIconUP{

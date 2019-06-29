@@ -16,7 +16,9 @@ class HomePage extends Component {
       windowH:window.innerHeight,
       pageYOffset : 0
     };
+
   }
+
 componentWillUnmount(){
     window.removeEventListener("scroll", ()=>this.setState({}));
 }

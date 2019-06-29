@@ -133,7 +133,7 @@ class Classs extends React.Component
     //return the details (mail and phone number) of this class organizer
     organizerDetails()
     {
-        let email, phone, url
+        let email, phone, url;
         let ref = firebase.database().ref('/Users/' + this.state.thisClass.organizerId)
         ref.once('value', snapshot => {
                 email = snapshot.val().email
@@ -197,6 +197,7 @@ class Classs extends React.Component
             this.setState({isJoinClicked: true})//direct to 'sign in'
     }
 
+    
     //onclick cancel button
     whenCancelClicked()
     {
@@ -260,6 +261,7 @@ class Classs extends React.Component
    
     render()
     {
+        console.log(this.state.thisClass)
         let back ="<";
         let isManager = false
         if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid === this.state.thisClass.organizerId)
@@ -267,7 +269,7 @@ class Classs extends React.Component
         let stylePhone ={}
         if(window.innerWidth < 500)//mobile display
         {
-            stylePhone.width = '85%';
+            stylePhone.width = '90%';
             stylePhone.letterSpacing='0';
             stylePhone.float = 'right'
         }
@@ -289,9 +291,9 @@ class Classs extends React.Component
                         </div>
                         <div className="classPageSec">
                         <NavBar/>
-                                <Link to = "/">
-                                    <div className="backbut">{back}</div>
-                                </Link>
+                        <Link to = "/" className="linkto">
+                                  <div className="backbut">{back}</div>
+                            </Link>
                             <div className="topdivclass">
                                 <div className="classRightTextBox" style={stylePhone}>
                                     <span className="dateTag">{this.getDayOf(this.state.thisClass.date)} {this.dateFixer(this.state.thisClass.date)}</span>
@@ -304,14 +306,10 @@ class Classs extends React.Component
                                                 {this.organizerDetails()}
                                         </div>
                                     : null}
-                                    <div className = "jBtnCont">
                                         <JoinCancelButton join = {this.whenJoinClicked} cancel = {this.whenCancelClicked} class = {this.state.thisClass} isSignIn = {this.state.isSignIn}/>
-                                    </div>
-                                    <div className = "jBtnCont">
-                                        <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}}>
+                                        <Link to = {{pathname: "/Category/" + this.state.thisClass.category, state:{category: this.state.categoryObject}}} className="linkto">
                                             <div className="morefromthiscategory">חוגים נוספים בקטגוריית {this.state.thisClass.category}</div>
                                         </Link>
-                                    </div>
 
                                 </div>
                                 <div className="classLeftTextBox" style={stylePhone}>
@@ -330,7 +328,7 @@ class Classs extends React.Component
                                             </svg>
                                         </span>
                                     </div>
-                                    <div className="locationDiv" style={stylePhone}>
+                                    <div className="locationDiv" style={stylePhone} > 
                                     <div className="iconclasstoright" style={{cursor: 'pointer'}} onClick={this.displayPartici}>
                                         <span className="classLocation">{this.numOfPart()}</span>
                                     </div>

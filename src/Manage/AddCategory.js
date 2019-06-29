@@ -54,7 +54,7 @@ class AddCategory extends Component {
   }
 
   render() {
-    let style = { margin: 15, float: "right", borderLeft: "1px solid black" };
+    let style =  {};
     if (window.innerWidth < 500) {
       //case phone display
       style.width = "80%";

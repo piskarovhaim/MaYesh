@@ -25,7 +25,7 @@ class Video extends Component {
         let style ={}
         if(window.innerWidth < 500 || window.innerHeight < 500){
           style.width = '80%';
-          style.top = '0';
+          style.top = '10px';
         }
         return (
         <div className="header">

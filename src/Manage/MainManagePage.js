@@ -11,9 +11,11 @@ import logo from '../NavBar/logoN.png'
 function AllCategory(props) {
   let categories = [];
   categories = props.categories;
-
+  let phoneWidth = {};
+  if(window.innerWidth < 500)
+      phoneWidth.width = '85%';
   return (
-    <div className="manageAllCategory">
+    <div className="manageAllCategory" style={phoneWidth}>
       <h1> ניהול הקטגוריות</h1>
       {categories.map((object, i) => {
         let str = "/manage/" + object.name;
@@ -192,7 +194,8 @@ class MainManagePage extends Component {
             style={{
               display: "-webkit-inline-box",
               paddingLeft: "15px",
-              color: "black"
+              color: "black",
+              paddingTop:'15px'
             }}
           >
             <Search manage={true} />
@@ -254,9 +257,9 @@ class MainManagePage extends Component {
         </div>
         <hr />
         {this.state.showCategorysList ? (
-          <div>
+          <div className="mainManageDiv">
             <AddCategory />
-            <AllCategory categories={this.state.CategorysList} />
+            <AllCategory categories={this.state.CategorysList} />           
           </div>
         ) : null}
 
