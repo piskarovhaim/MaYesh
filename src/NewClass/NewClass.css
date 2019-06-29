@@ -53,9 +53,9 @@ ion-item {
 /* WEB */
 
 .formPage {
+  background-color: #383838;
   left: 0;
   width: 100%;
-  height: 100vh;
   background-position: right 80%;
   background-size: cover;
   z-index: 0;
@@ -65,6 +65,7 @@ ion-item {
 .formEx {
   padding: 4vh;
   background-color: rgb(0, 0, 0, 0.4);
+  
 }
 
 .labl {
@@ -77,14 +78,13 @@ ion-item {
 input.inpt {
   position: relative;
   width: 65%;
-  cursor: pointer;
   background-color: rgb(102, 102, 102, 0.6);
   border-radius: 2px;
+  color: #fff;
 }
 
 .inptSel {
   width: 65%;
-  cursor: pointer;
   background-color: white;
   box-shadow: 0 2px 0 white;
   border-radius: 2px;
@@ -93,11 +93,12 @@ input.inpt {
 .webFormSelector {
   position: relative;
   width: 65%;
-  cursor: pointer;
   background-color: rgb(102, 102, 102, 0.6);
   border-radius: 2px;
 }
-
+.formEx:focus{
+  color: black;
+}
 .formEx input[type="submit"] {
   text-align: center;
   background-color: #258916;
@@ -109,7 +110,6 @@ input.inpt {
 
 .formEx select {
   width: 65%;
-  cursor: pointer;
   background-color: rgb(102, 102, 102, 0.6);
   border-radius: 2px;
   color: #fff;
@@ -118,7 +118,6 @@ input.inpt {
 
 .formEx textarea {
   width: 100%;
-  cursor: pointer;
   background-color: rgb(102, 102, 102, 0.6);
   border-radius: 2px;
 }

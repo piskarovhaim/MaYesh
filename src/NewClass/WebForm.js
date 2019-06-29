@@ -45,6 +45,17 @@ class WebForm extends Component {
     let organizerId = "";
 
     let today = new Date();
+    let hour = today.getHours()
+    let endTime = (hour + 1)%24 + ""
+    hour+= ""
+    if(hour.length > 1)
+      hour = hour + ":00"
+    else
+      hour = "0" + hour + ":00"
+    if(endTime.length > 1)
+      endTime = endTime + ":00"
+    else
+      endTime = "0" + endTime + ":00"
     let dd = today.getDate();
     let mm = today.getMonth() + 1; //January is 0!
     let yyyy = today.getFullYear();
@@ -57,7 +68,7 @@ class WebForm extends Component {
       mm = "0" + mm;
     }
 
-    today = yyyy + "/" + mm + "/" + dd;
+    today = yyyy + "-" + mm + "-" + dd;
     if (props.user != undefined) organizerId = props.user.id;
     this.state = {
       name: "",
@@ -69,8 +80,8 @@ class WebForm extends Component {
       maxPartici: "",
       description: "",
       date: today,
-      hour: "",
-      endTime: "",
+      hour: hour,
+      endTime: endTime,
       imgUrl: "",
       numOfCurrPartici: 0,
       isUploading: false,
@@ -194,10 +205,7 @@ class WebForm extends Component {
     if (this.state.imgUrl != "") selectImg = true;
     return (
       <div>
-        <div
-          className="formPage"
-          style={{ "background-image": `url(${bgImg})` }}
-        >
+        <div className="formPage">
           <NavBar />
           <div className="completeReg">
             <h1 className="headLineForm">טופס רישום חוג חדש</h1>
@@ -211,6 +219,7 @@ class WebForm extends Component {
                     required
                     type="text"
                     name="name"
+                    placeholder="מומלץ ששם החוג יהיה מזמין,קצת וקל להבנה"
                     value={this.state.name}
                     onChange={this.handleChange}
                   />
@@ -295,7 +304,6 @@ class WebForm extends Component {
                     <span className="labl">תאריך</span>
                     <input
                       className="inpt"
-                      placeholder={this.state.date}
                       required
                       type="date"
                       name="date"

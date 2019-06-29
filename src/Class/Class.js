@@ -134,7 +134,6 @@ class Classs extends React.Component
     organizerDetails()
     {
         let email, phone, url;
-        console.log(this.state.thisClass.organizerId);
         let ref = firebase.database().ref('/Users/' + this.state.thisClass.organizerId)
         ref.once('value', snapshot => {
                 email = snapshot.val().email
