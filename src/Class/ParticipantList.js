@@ -26,7 +26,7 @@ class ParticipantList extends React.Component
                  </p>
         const list = this.props.list.map((participant, key) => {
             return(
-                <div>
+                <div key = {participant.id}>
                     <div className = "participant">
                         <div className = "participantDetails" key = {participant.id}>
                             <div className = "prtiItem">{participant.name}</div>
@@ -62,14 +62,17 @@ class ParticipantList extends React.Component
          </p>
         const list = this.props.list.map((participant, key) => {
             let url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + participant.email + "&tf=1"
+            let mailDiv = <div>{participant.email}</div>
+            if(window.innerWidth >= 500)//not a mobile
+                mailDiv = <div className="divSendEmail" onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}>{participant.email}</div>
             return(
-                <div>
+                <div key = {participant.id}>
                     <div className = "participant">
                         <div className = "participantDetails" key = {participant.id}>
                             <div className = "prtiItem">
                                 <div>{participant.name}</div> 
                                 <div>{participant.phone}</div>
-                                <div className="divSendEmail" onClick={()=>window.open(url,"_blank","toolbar=yes,menubar=no,titlebar=no,scrollbars=no,resizable=no,status=no,bottom=0,right=50,width=400,height=400")}>{participant.email}</div>
+                                {mailDiv}
                             </div>
                             <img  className = "partimg" src = {participant.img}/>
                         </div>
