@@ -7,6 +7,7 @@ div.home{
     scroll-behavior: smooth;
     z-index: 0;
     overflow: hidden;
+    position: relative;
 }
 
 
@@ -18,15 +19,15 @@ div.navAndvideo{
     font-family: mynewFont;
     overflow: hidden;
     width: 100%;
+    position: relative;
 }
 
 div.videogradient{
-    position: sticky;
+    position: absolute;
     height: calc(25px + 8vw);
     bottom: 0;
     background-image: linear-gradient(to top, rgb(56, 56, 56),rgb(56, 56, 56,0));
     width: 100%;
-    z-index: 30;
     
 }
 

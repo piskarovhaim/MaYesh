@@ -14,12 +14,17 @@ function ClassesList(props) {
   if(window.innerWidth < 500)
       phoneWidth.width = '100%';
   return (
+    <div>
+    {classes.length < 1 ?
+      <span className="lablfav">אינך רשום לאף חוג כרגע</span>
+      :
+      <span className="lablfav">:החוגים אליהם אני רשום</span>}
+      <br/>
     <div className="editclassesList" style={phoneWidth}>
       {classes.map((object, i) => {
           let d = new Date(object.date);
           let days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
           let dateFixed = object.date.slice(8)+"."+object.date.slice(-5,-3)+"."+object.date.slice(-12,-6);
-          if(object.isConfirmed){
               return (
                 <Link to={"/Category/"+ object.category +"/Class/"+object.name} className="linkto">
                 <div className="editProClass" key={i}>
@@ -34,7 +39,8 @@ function ClassesList(props) {
                 </Link>
               );
           }
-        })}
+        )}
+    </div>
     </div>
   );
 }
@@ -79,6 +85,10 @@ class EditProfile extends Component {
         let favorite = props.location.state.user.favoriteCat
         if(favorite == undefined)
           favorite = [];
+        
+        let ListClass = props.location.state.user.ListOfSignInClasses
+        if(ListClass == undefined)
+          ListClass = [];
         this.state =  {
           id:props.location.state.user.id,
           email:props.location.state.user.email,
@@ -86,7 +96,8 @@ class EditProfile extends Component {
           phone:props.location.state.user.phone,
           img:props.location.state.user.img,
           favoriteCat:favorite,
-          ListOfSignInClasses:[],
+          listOfSignInClass:[],
+          ListOfSignInClasses:ListClass,
           progress:[]
 
         };
@@ -106,9 +117,11 @@ class EditProfile extends Component {
       classes = Object.values(this.props.location.state.user.ListOfSignInClasses);
       classes.forEach(element => {   
       firebase.database().ref('/CategoryList/' + element.category + "/classList/" + element.name).once('value', snapshot => {
-        arrTemp = this.state.ListOfSignInClasses;
-        arrTemp.push(snapshot.val());
-        this.setState({ListOfSignInClasses:arrTemp});
+        if(snapshot.val().isConfirmed){
+          arrTemp = this.state.listOfSignInClass;
+          arrTemp.push(snapshot.val());
+          this.setState({listOfSignInClass:arrTemp});
+        }
       });
     });
   }
@@ -165,7 +178,6 @@ class EditProfile extends Component {
     };
 
     render() {
-      console.log(this.state);
         let divWidth = {
             maxWidth: '35%'
           };
@@ -183,7 +195,7 @@ class EditProfile extends Component {
         <NavBar edit="edit" location={this.props.location.pathname}/>
         <div className="completeReg" style ={divWidth}>
         <form className="edit">
-        <h1>עריכת פרופיל</h1>
+        <h1>איזור אישי</h1>
         <label>
         <div className="imguserc">
           <img className="user_e" src={this.state.img}/>
@@ -209,29 +221,26 @@ class EditProfile extends Component {
         </label>
 
         
-
         <label>
         <span className="labl">
-        <span className="whyPhone" onClick={()=>{this.whyPhone = !this.whyPhone;this.setState({})}}>?</span>
+        :הפלאפון שלך
+        </span>
         {this.whyPhone? (<div className="whyPhone">
           אנחנו לא רוצים את הפרטים שלך סתם, אל חשש
           אנחנו רוצים שלמארגני המפגש יהיה דרך לוודא שכולם מגיעים
           ולעדכן בפרטים
           <br/>
           <span className="whyPhoneGetIt"  onClick={()=>{this.whyPhone = false;this.setState({})}}>הבנתי</span>
-        </div>)
-        :null}
-        :הפלאפון שלך
-        </span>
+          </div>)
+          :null}
+          <span className="whyPhone" onClick={()=>{this.whyPhone = !this.whyPhone;this.setState({})}}>?</span>
+            
         <input style={inputWidth} type="text" name="phone" value={this.state.phone} onChange={this.handleChange}></input> 
+        
         </label>
-          <br/>
-          {this.state.ListOfSignInClasses.length < 1 ?
-          <span className="lablfav">אתה לא רשום לשום חוג כרגע</span>
-          :
-          <span className="lablfav">:החוגים אליהם אני רשום</span>}
-          <br/>
-          <ClassesList classes={this.state.ListOfSignInClasses} />
+
+        <br/>
+        <ClassesList classes={this.state.listOfSignInClass} />
          
         <label>
         <span className="lablfav">
