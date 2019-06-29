@@ -383,7 +383,7 @@ class MobileForm extends React.Component {
                   required={true}
                   rows={4}
                   cols={20}
-                  placeholder="כמה מילים על הסדנא כדי שהחבר'ה ידעו מה הדיבור"
+                  placeholder="כמה מילים על החוג כדי שהחבר'ה ידעו מה הדיבור"
                   name="description"
                   value={this.state.description}
                   onIonChange={this.handleChange}

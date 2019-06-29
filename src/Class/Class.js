@@ -248,8 +248,8 @@ class Classs extends React.Component
 
     //getting the day of some date
     getDayOf(date){
-        var d = new Date(date);
-        var days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+        let d = new Date(date);
+        let days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
         return days[d.getDay()];
     }
 

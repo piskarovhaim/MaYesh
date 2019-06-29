@@ -83,6 +83,10 @@ input.inpt {
   color: #fff;
 }
 
+input.inpt:focus{
+  color: black;
+}
+
 .inptSel {
   width: 65%;
   background-color: white;
@@ -116,10 +120,17 @@ input.inpt {
   text-align: right;
 }
 
+
 .formEx textarea {
+  color: #fff;
   width: 100%;
   background-color: rgb(102, 102, 102, 0.6);
   border-radius: 2px;
+  
+}
+
+.formEx textarea:focus{
+  color: black;
 }
 
 .headLineForm {
